@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Noto Serif SC:300,300italic,400,400italic,700,700italic|Noto Sans SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://blog.beanbang.cn').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="打开玩了半年的MC的.minecraft文件夹，你可能会看到这样的场景：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Minecraft的文件结构">
+<meta property="og:url" content="https://blog.beanbang.cn/2018/09/23/file-structure-of-minecraft/index.html">
+<meta property="og:site_name" content="冰棒实验室">
+<meta property="og:description" content="打开玩了半年的MC的.minecraft文件夹，你可能会看到这样的场景：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.z4a.net/images/2018/09/23/003.MC.png">
+<meta property="og:image" content="https://www.z4a.net/images/2018/09/23/003.mc1.12.png">
+<meta property="article:published_time" content="2018-09-23T12:53:09.000Z">
+<meta property="article:modified_time" content="2019-12-31T02:05:15.056Z">
+<meta property="article:author" content="Beanbang">
+<meta property="article:tag" content="Minecraft">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.z4a.net/images/2018/09/23/003.MC.png">
+
+<link rel="canonical" href="https://blog.beanbang.cn/2018/09/23/file-structure-of-minecraft/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Minecraft的文件结构 | 冰棒实验室</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="冰棒实验室" type="application/atom+xml">
+<link rel="alternate" href="/feed.xml" title="冰棒实验室" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">冰棒实验室</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">仰望星空，脚踏实地</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.beanbang.cn/2018/09/23/file-structure-of-minecraft/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Beanbang">
+      <meta itemprop="description" content="干杯🍻！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冰棒实验室">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Minecraft的文件结构
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-09-23 20:53:09" itemprop="dateCreated datePublished" datetime="2018-09-23T20:53:09+08:00">2018-09-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-31 10:05:15" itemprop="dateModified" datetime="2019-12-31T10:05:15+08:00">2019-12-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mc/" itemprop="url" rel="index">
+                    <span itemprop="name">MC</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>打开玩了半年的MC的<code>.minecraft</code>文件夹，你可能会看到这样的场景：</p>
+<a id="more"></a>
+
+<p><img src="https://www.z4a.net/images/2018/09/23/003.MC.png" alt="MC文件夹内的一大堆文件"></p>
+<p>这些文件和文件夹到底是从启动器来的，从模组来的，还是游戏本身自己就有的呢？有些文件可以从命名上就判断来源，比如“litemod”，有些却不能。于是我从纯净版的Minecraft 1.12.2文件开始，重新再安装一次<code>Optifine</code>、<code>Forge</code>、<code>LiteLoader</code>以及各种MOD，看看这些文件是从哪里产生的。</p>
+<h2 id="游戏基础文件"><a href="#游戏基础文件" class="headerlink" title="游戏基础文件"></a>游戏基础文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2018&#x2F;09&#x2F;23  14:06    &lt;DIR&gt;          .</span><br><span class="line">2018&#x2F;09&#x2F;23  14:06    &lt;DIR&gt;          ..</span><br><span class="line">2018&#x2F;09&#x2F;23  13:51    &lt;DIR&gt;          assets</span><br><span class="line">2018&#x2F;09&#x2F;23  14:06    &lt;DIR&gt;          libraries</span><br><span class="line">2018&#x2F;09&#x2F;23  14:05    &lt;DIR&gt;          versions</span><br></pre></td></tr></table></figure>
+
+<p>这是一个原版完整的Minecraft游戏的所有文件。只要有<code>assets</code>、<code>libraries</code>、<code>versions</code>三个文件夹内的文件，游戏就可以运行。</p>
+<ul>
+<li><h3 id="assets"><a href="#assets" class="headerlink" title="assets"></a>assets</h3><p>存放MC的图标、皮肤、音效、音乐以及语言文件等。没有这个文件夹游戏也可以启动，但是没有声音，只有英语。除去assets外其他文件只有大约50mb。这也是MC核心文件的大小。</p>
+</li>
+<li><h3 id="libraries"><a href="#libraries" class="headerlink" title="libraries"></a>libraries</h3><p>包含游戏启动所需要的库文件。缺少部分文件文件会无法启动，不过一般启动器会从官网下载回来补齐并启动游戏。</p>
+</li>
+<li><h3 id="versions"><a href="#versions" class="headerlink" title="versions"></a>versions</h3><p>版本文件。当安装了新版本游戏，或者安装了Optifine，Forge等其他补丁后，会在这里生成新的版本文件，并可以被启动器检测到以供玩家选择版本。</p>
+</li>
+</ul>
+<h2 id="游戏数据文件"><a href="#游戏数据文件" class="headerlink" title="游戏数据文件"></a>游戏数据文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">2018&#x2F;09&#x2F;23  15:47    &lt;DIR&gt;          .</span><br><span class="line">2018&#x2F;09&#x2F;23  15:47    &lt;DIR&gt;          ..</span><br><span class="line">2018&#x2F;09&#x2F;23  13:51    &lt;DIR&gt;          assets</span><br><span class="line">2018&#x2F;09&#x2F;23  15:41    &lt;DIR&gt;          saves</span><br><span class="line">2018&#x2F;09&#x2F;23  14:06    &lt;DIR&gt;          libraries</span><br><span class="line">2018&#x2F;09&#x2F;23  15:40    &lt;DIR&gt;          logs</span><br><span class="line">2018&#x2F;09&#x2F;23  14:05    &lt;DIR&gt;          versions</span><br><span class="line">2018&#x2F;09&#x2F;23  15:40    &lt;DIR&gt;          resourcepacks</span><br><span class="line">2018&#x2F;09&#x2F;23  16:04    &lt;DIR&gt;          screenshots</span><br><span class="line">2018&#x2F;09&#x2F;23  15:47            10,241 servers.dat</span><br><span class="line">2018&#x2F;09&#x2F;23  16:00             3,470 hotbar.nbt</span><br><span class="line">2018&#x2F;09&#x2F;23  15:45               106 usercache.json</span><br><span class="line">2018&#x2F;09&#x2F;23  15:46             2,141 options.txt</span><br><span class="line">2018&#x2F;09&#x2F;23  15:39               135 launcher_profiles.json</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="saves"><a href="#saves" class="headerlink" title="saves"></a>saves</h3><p>保存游戏世界的存档。删掉会后悔一辈子。记得常备份哦。</p>
+</li>
+<li><h3 id="logs"><a href="#logs" class="headerlink" title="logs"></a>logs</h3><p>日志文件，保存启动器和游戏的日志输出，玩家聊天记录也在里面。</p>
+</li>
+<li><h3 id="resourcepacks"><a href="#resourcepacks" class="headerlink" title="resourcepacks"></a>resourcepacks</h3><p>资源包文件夹。材质包放里面。</p>
+</li>
+<li><h3 id="screenshots"><a href="#screenshots" class="headerlink" title="screenshots"></a>screenshots</h3><p>截图文件夹。游戏内按下<code>F2</code>会保存游戏截图保存到这里来。</p>
+</li>
+<li><h3 id="servers-dat"><a href="#servers-dat" class="headerlink" title="servers.dat"></a>servers.dat</h3><p>服务器数据。保存加入的服务器的名字、地址等信息。</p>
+</li>
+<li><h3 id="hotbar-nbt"><a href="#hotbar-nbt" class="headerlink" title="hotbar.nbt"></a>hotbar.nbt</h3><p>创造模式的快捷工具栏保存的数据。1.12版本新有的功能。按<code>C</code>+<code>1</code>保存底下那条工具栏到第一条去（注意是<code>C</code>不要按成<code>Ctrl</code>），<code>X</code>+<code>1</code>切换。</p>
+<p><img src="https://www.z4a.net/images/2018/09/23/003.mc1.12.png" alt="MC创造模式工具栏"></p>
+</li>
+<li><h3 id="usercache-json"><a href="#usercache-json" class="headerlink" title="usercache.json"></a>usercache.json</h3><p>储存玩家的<code>ID</code>和<code>UUID</code>。</p>
+</li>
+<li><h3 id="options-txt"><a href="#options-txt" class="headerlink" title="options.txt"></a>options.txt</h3><p>游戏里的<code>选项</code>里的改动保存在这里。</p>
+</li>
+<li><h3 id="launcher-profiles-json"><a href="#launcher-profiles-json" class="headerlink" title="launcher_profiles.json"></a>launcher_profiles.json</h3><p>游戏启动配置文件。可以新建游戏配置，从而选择不同的游戏存档，版本。比如启动一个整合包里的游戏文件。</p>
+</li>
+<li><h3 id="backups"><a href="#backups" class="headerlink" title="backups"></a>backups</h3><p>旧版存档游戏备份文件。打开旧版本存档时，会压缩一份存档到这里备份（然而旧游戏打开新存档却不会备份）。</p>
+</li>
+<li><h3 id="crash-reports"><a href="#crash-reports" class="headerlink" title="crash-reports"></a>crash-reports</h3><p>崩溃日志报告。如果你的游戏崩了，这里就会多出来一个文件。</p>
+</li>
+<li><h3 id="server-resource-packs"><a href="#server-resource-packs" class="headerlink" title="server-resource-packs"></a>server-resource-packs</h3><p>服务器资源包文件夹。从服务器加载的材质包缓存在这里。</p>
+</li>
+</ul>
+<h2 id="Optifine文件"><a href="#Optifine文件" class="headerlink" title="Optifine文件"></a>Optifine文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">2018&#x2F;09&#x2F;23  16:06    &lt;DIR&gt;          .</span><br><span class="line">2018&#x2F;09&#x2F;23  16:06    &lt;DIR&gt;          ..</span><br><span class="line">2018&#x2F;09&#x2F;23  13:51    &lt;DIR&gt;          assets</span><br><span class="line">2018&#x2F;09&#x2F;23  15:59    &lt;DIR&gt;          libraries</span><br><span class="line">2018&#x2F;09&#x2F;23  16:00    &lt;DIR&gt;          logs</span><br><span class="line">2018&#x2F;09&#x2F;23  15:40    &lt;DIR&gt;          resourcepacks</span><br><span class="line">2018&#x2F;09&#x2F;23  15:41    &lt;DIR&gt;          saves</span><br><span class="line">2018&#x2F;09&#x2F;23  16:04    &lt;DIR&gt;          screenshots</span><br><span class="line">2018&#x2F;09&#x2F;23  15:59    &lt;DIR&gt;          shaderpacks</span><br><span class="line">2018&#x2F;09&#x2F;23  15:57    &lt;DIR&gt;          versions</span><br><span class="line">2018&#x2F;09&#x2F;23  16:04             3,470 hotbar.nbt</span><br><span class="line">2018&#x2F;09&#x2F;23  15:59               264 launcher_profiles.json</span><br><span class="line">2018&#x2F;09&#x2F;23  16:10             2,161 options.txt</span><br><span class="line">2018&#x2F;09&#x2F;23  16:10             1,434 optionsof.txt</span><br><span class="line">2018&#x2F;09&#x2F;23  16:06               364 optionsshaders.txt</span><br><span class="line">2018&#x2F;09&#x2F;23  15:47            10,241 servers.dat</span><br><span class="line">2018&#x2F;09&#x2F;23  16:00               106 usercache.json</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="shaderpacks"><a href="#shaderpacks" class="headerlink" title="shaderpacks"></a>shaderpacks</h3><p>光影包文件夹。光影包放这里。</p>
+</li>
+<li><h3 id="optionsof-txt"><a href="#optionsof-txt" class="headerlink" title="optionsof.txt"></a>optionsof.txt</h3><p>Optifine的设置保存在这里。</p>
+</li>
+<li><h3 id="optionsshaders-txt"><a href="#optionsshaders-txt" class="headerlink" title="optionsshaders.txt"></a>optionsshaders.txt</h3><p>Optifine的光影设置保存在这里。</p>
+</li>
+</ul>
+<h2 id="LiteLoader文件"><a href="#LiteLoader文件" class="headerlink" title="LiteLoader文件"></a>LiteLoader文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">2018&#x2F;09&#x2F;23  16:21    &lt;DIR&gt;          .</span><br><span class="line">2018&#x2F;09&#x2F;23  16:21    &lt;DIR&gt;          ..</span><br><span class="line">2018&#x2F;09&#x2F;23  16:21    &lt;DIR&gt;          .mixin.out</span><br><span class="line">2018&#x2F;09&#x2F;23  13:51    &lt;DIR&gt;          assets</span><br><span class="line">2018&#x2F;09&#x2F;23  15:59    &lt;DIR&gt;          libraries</span><br><span class="line">2018&#x2F;09&#x2F;23  16:21    &lt;DIR&gt;          liteconfig</span><br><span class="line">2018&#x2F;09&#x2F;23  16:21    &lt;DIR&gt;          logs</span><br><span class="line">2018&#x2F;09&#x2F;23  16:21    &lt;DIR&gt;          mods</span><br><span class="line">2018&#x2F;09&#x2F;23  15:40    &lt;DIR&gt;          resourcepacks</span><br><span class="line">2018&#x2F;09&#x2F;23  15:41    &lt;DIR&gt;          saves</span><br><span class="line">2018&#x2F;09&#x2F;23  16:04    &lt;DIR&gt;          screenshots</span><br><span class="line">2018&#x2F;09&#x2F;23  15:59    &lt;DIR&gt;          shaderpacks</span><br><span class="line">2018&#x2F;09&#x2F;23  16:20    &lt;DIR&gt;          versions</span><br><span class="line">2018&#x2F;09&#x2F;23  16:04             3,470 hotbar.nbt</span><br><span class="line">2018&#x2F;09&#x2F;23  16:20               405 launcher_profiles.json</span><br><span class="line">2018&#x2F;09&#x2F;23  16:10             2,161 options.txt</span><br><span class="line">2018&#x2F;09&#x2F;23  16:10             1,434 optionsof.txt</span><br><span class="line">2018&#x2F;09&#x2F;23  16:06               364 optionsshaders.txt</span><br><span class="line">2018&#x2F;09&#x2F;23  15:47            10,241 servers.dat</span><br><span class="line">2018&#x2F;09&#x2F;23  16:22               106 usercache.json</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="mixin-out"><a href="#mixin-out" class="headerlink" title=".mixin.out"></a>.mixin.out</h3><p>不知道。可能日志文件吧。装完LiteLoader就有。</p>
+</li>
+<li><h3 id="liteconfig"><a href="#liteconfig" class="headerlink" title="liteconfig"></a>liteconfig</h3><p>LiteLoader的配置文件。</p>
+</li>
+</ul>
+<h2 id="Forge文件"><a href="#Forge文件" class="headerlink" title="Forge文件"></a>Forge文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">2018&#x2F;09&#x2F;23  16:35    &lt;DIR&gt;          .</span><br><span class="line">2018&#x2F;09&#x2F;23  16:35    &lt;DIR&gt;          ..</span><br><span class="line">2018&#x2F;09&#x2F;23  16:21    &lt;DIR&gt;          .mixin.out</span><br><span class="line">2018&#x2F;09&#x2F;23  13:51    &lt;DIR&gt;          assets</span><br><span class="line">2018&#x2F;09&#x2F;23  16:34    &lt;DIR&gt;          config</span><br><span class="line">2018&#x2F;09&#x2F;23  16:34    &lt;DIR&gt;          libraries</span><br><span class="line">2018&#x2F;09&#x2F;23  16:21    &lt;DIR&gt;          liteconfig</span><br><span class="line">2018&#x2F;09&#x2F;23  16:34    &lt;DIR&gt;          logs</span><br><span class="line">2018&#x2F;09&#x2F;23  16:21    &lt;DIR&gt;          mods</span><br><span class="line">2018&#x2F;09&#x2F;23  15:40    &lt;DIR&gt;          resourcepacks</span><br><span class="line">2018&#x2F;09&#x2F;23  15:41    &lt;DIR&gt;          saves</span><br><span class="line">2018&#x2F;09&#x2F;23  16:04    &lt;DIR&gt;          screenshots</span><br><span class="line">2018&#x2F;09&#x2F;23  15:59    &lt;DIR&gt;          shaderpacks</span><br><span class="line">2018&#x2F;09&#x2F;23  16:20    &lt;DIR&gt;          versions</span><br><span class="line">2018&#x2F;09&#x2F;23  16:04             3,470 hotbar.nbt</span><br><span class="line">2018&#x2F;09&#x2F;23  16:20               405 launcher_profiles.json</span><br><span class="line">2018&#x2F;09&#x2F;23  16:10             2,161 options.txt</span><br><span class="line">2018&#x2F;09&#x2F;23  16:10             1,434 optionsof.txt</span><br><span class="line">2018&#x2F;09&#x2F;23  16:06               364 optionsshaders.txt</span><br><span class="line">2018&#x2F;09&#x2F;23  15:47            10,241 servers.dat</span><br><span class="line">2018&#x2F;09&#x2F;23  16:35               106 usercache.json</span><br><span class="line">2018&#x2F;09&#x2F;23  16:35                55 usernamecache.json</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="config"><a href="#config" class="headerlink" title="config"></a>config</h3><p>Forge 和 Forge 的大部分mod的配置文件都这个文件夹。</p>
+</li>
+<li><h3 id="mods"><a href="#mods" class="headerlink" title="mods"></a>mods</h3><p>Forge API 的 mod 放在这里。mod 党应该最熟悉不过了。</p>
+</li>
+<li><h3 id="usernamecache-json"><a href="#usernamecache-json" class="headerlink" title="usernamecache.json"></a>usernamecache.json</h3><p>Forge 也存了一份玩家的 ID 和 UUID。</p>
+</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>把这些主要的排除了，剩下的基本上就是mod产生的文件了。基本上能够从名字上判断出来。比如CustomSkinLoader就是CustomSkinLoader的，那些waypoints之类的图片是VoxelMap的。</p>
+<hr>
+<p>写完之后百度了一下，这个也不错：<br><a href="https://tieba.baidu.com/p/2736921553?red_tag=0959340927" target="_blank" rel="noopener">[教程]Minecraft 文件夹目录索引及各部分作用【minecraft吧】_百度贴吧</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/minecraft/" rel="tag"># Minecraft</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/08/17/n-things-to-do-after-installing-ubuntu-18-04/" rel="prev" title="安装完 Ubuntu 18.04 要做的 n 件事">
+      <i class="fa fa-chevron-left"></i> 安装完 Ubuntu 18.04 要做的 n 件事
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/10/09/enable-ssl-https-for-website/" rel="next" title="给站点开启SSL/HTTPS">
+      给站点开启SSL/HTTPS <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#游戏基础文件"><span class="nav-text">游戏基础文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#assets"><span class="nav-text">assets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#libraries"><span class="nav-text">libraries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#versions"><span class="nav-text">versions</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#游戏数据文件"><span class="nav-text">游戏数据文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#saves"><span class="nav-text">saves</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#logs"><span class="nav-text">logs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resourcepacks"><span class="nav-text">resourcepacks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#screenshots"><span class="nav-text">screenshots</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#servers-dat"><span class="nav-text">servers.dat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hotbar-nbt"><span class="nav-text">hotbar.nbt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usercache-json"><span class="nav-text">usercache.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#options-txt"><span class="nav-text">options.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#launcher-profiles-json"><span class="nav-text">launcher_profiles.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#backups"><span class="nav-text">backups</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crash-reports"><span class="nav-text">crash-reports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#server-resource-packs"><span class="nav-text">server-resource-packs</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optifine文件"><span class="nav-text">Optifine文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shaderpacks"><span class="nav-text">shaderpacks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#optionsof-txt"><span class="nav-text">optionsof.txt</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#optionsshaders-txt"><span class="nav-text">optionsshaders.txt</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LiteLoader文件"><span class="nav-text">LiteLoader文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mixin-out"><span class="nav-text">.mixin.out</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#liteconfig"><span class="nav-text">liteconfig</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Forge文件"><span class="nav-text">Forge文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#config"><span class="nav-text">config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mods"><span class="nav-text">mods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usernamecache-json"><span class="nav-text">usernamecache.json</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Beanbang"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Beanbang</p>
+  <div class="site-description" itemprop="description">干杯🍻！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/feed.xml" title="RSS → &#x2F;feed.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/Lazyb0x" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Lazyb0x" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Beanbang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>

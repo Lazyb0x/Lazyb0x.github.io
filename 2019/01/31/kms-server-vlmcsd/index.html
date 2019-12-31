@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Noto Serif SC:300,300italic,400,400italic,700,700italic|Noto Sans SC:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://blog.beanbang.cn').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="微软防盗，批量授权。假传圣旨，在线激活~">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KMS服务器vlmcsd的安装和激活">
+<meta property="og:url" content="https://blog.beanbang.cn/2019/01/31/kms-server-vlmcsd/index.html">
+<meta property="og:site_name" content="冰棒实验室">
+<meta property="og:description" content="微软防盗，批量授权。假传圣旨，在线激活~">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.z4a.net/images/2019/01/31/win10.png">
+<meta property="og:image" content="https://www.z4a.net/images/2019/01/31/office2016.png">
+<meta property="og:image" content="https://www.z4a.net/images/2019/02/25/OTPoffice.png">
+<meta property="og:image" content="https://www.z4a.net/images/2019/01/31/virtualbox.png">
+<meta property="og:image" content="https://www.z4a.net/images/2019/01/31/3e53b15cc671043d70c08d2778acd5db.png">
+<meta property="article:published_time" content="2019-01-31T09:27:52.000Z">
+<meta property="article:modified_time" content="2019-12-31T10:26:55.679Z">
+<meta property="article:author" content="Beanbang">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="系统">
+<meta property="article:tag" content="KMS">
+<meta property="article:tag" content="树莓派">
+<meta property="article:tag" content="网络">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.z4a.net/images/2019/01/31/win10.png">
+
+<link rel="canonical" href="https://blog.beanbang.cn/2019/01/31/kms-server-vlmcsd/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>KMS服务器vlmcsd的安装和激活 | 冰棒实验室</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="冰棒实验室" type="application/atom+xml">
+<link rel="alternate" href="/feed.xml" title="冰棒实验室" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">冰棒实验室</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">仰望星空，脚踏实地</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.beanbang.cn/2019/01/31/kms-server-vlmcsd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Beanbang">
+      <meta itemprop="description" content="干杯🍻！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冰棒实验室">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          KMS服务器vlmcsd的安装和激活
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-31 17:27:52" itemprop="dateCreated datePublished" datetime="2019-01-31T17:27:52+08:00">2019-01-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-31 18:26:55" itemprop="dateModified" datetime="2019-12-31T18:26:55+08:00">2019-12-31</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/software/" itemprop="url" rel="index">
+                    <span itemprop="name">软件</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>微软防盗，批量授权。假传圣旨，在线激活~</p>
+<a id="more"></a>
+
+<p>KMS(Key Management Service)是微软针对Windows系统和软件的一种激活机制。通过在网络中设置KMS服务器给局域网中的系统批量激活。用这种方式激活的机子有激活周期，一般是6个月。这样既使系统激活的步骤简化，也使激活范围限制在一定的范围之内。</p>
+<p>后来微软的官方KMS服务器被反向破解了，于是有大神Hotbird64制作了开源的仿真KMS服务器 vlmcsd （原帖<a href="https://forums.mydigitallife.net/threads/emulated-kms-servers-on-non-windows-platforms.50234/" target="_blank" rel="noopener">MyDigitalLife</a>），成为了一种盗版 Windows 的一种激活方式。模拟官方服务器，假传圣旨，激活一次，管用180天。</p>
+<p>所以，即日起，小站开始提供 Windows 和 Office 的<del>正版</del>激活服务啦！只要你的系统满足以下条件就可以使用该方法激活：</p>
+<ol>
+<li>使用的是批量授权的系统，即VL版本（Volume License）；</li>
+<li>使用对应版本的KMS 客户端安装密钥，即GVLK（Generic Volume Licensing Key）。</li>
+</ol>
+<p>一般来说，我们从 <a href="https://msdn.itellyou.cn/" target="_blank" rel="noopener">MSDN,我告诉你</a> 网站下载选择带 VL 、 VOL 或 business edition 字样的系统镜像，都会是可以使用KMS激活的版本，安装完后会自带GVLK密钥。</p>
+<h2 id="激活"><a href="#激活" class="headerlink" title="激活"></a>激活</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>使用管理员执行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">slmgr.vbs &#x2F;skms kms.beanbang.cn		#设置kms服务器</span><br><span class="line">slmgr.vbs &#x2F;ato						#激活</span><br><span class="line">slmgr.vbs &#x2F;xpr						#查看激活时效</span><br></pre></td></tr></table></figure>
+
+<p>如果之前有过修改密钥的操作，可以将密钥修改回对应版本GVLK。Win10专业版的密钥是<code>W269N-WFGWX-YVC9B-4J6C9-T83GX</code>，其他密钥可以去微软的 <a href="https://docs.microsoft.com/zh-cn/windows-server/get-started/kmsclientkeys" target="_blank" rel="noopener">激活指南</a> 里查找。如果不知道系统版本，可以运行<code>wmic os get caption</code>查看。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slmgr.vbs &#x2F;upk										#清除密钥</span><br><span class="line">slmgr.vbs &#x2F;ipk W269N-WFGWX-YVC9B-4J6C9-T83GX		#Win10专业版</span><br></pre></td></tr></table></figure>
+
+<p>然后再添加上面的KMS服务器激活。</p>
+<p><img src="https://www.z4a.net/images/2019/01/31/win10.png" alt="win10激活成功"></p>
+<h3 id="Office"><a href="#Office" class="headerlink" title="Office"></a>Office</h3><p>管理员运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd &#x2F;d D:\Program Files\Microsoft Office\Office16	#office安装位置</span><br><span class="line">cscript ospp.vbs &#x2F;sethst:kms.beanbang.cn			#设置kms服务器</span><br><span class="line">cscript ospp.vbs &#x2F;act								#立即激活</span><br></pre></td></tr></table></figure>
+
+<p>如果需要GVLK同样可以在微软的 <a href="https://docs.microsoft.com/zh-cn/DeployOffice/vlactivation/gvlks" target="_blank" rel="noopener">文档</a> 中找到。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cscript ospp.vbs &#x2F;inpkey:XQNVK-8JYDB-WJ9W3-YJ8YR-WFG99  #2016专业增强版</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://www.z4a.net/images/2019/01/31/office2016.png" alt="office2016激活成功"></p>
+<p>如果在激活过程中出现问题，可以移步下载这个方便的图形化软件 <a href="https://otp.landian.vip/zh-cn/" target="_blank" rel="noopener">Office Tool Plus</a> 来操作：</p>
+<p><img src="https://www.z4a.net/images/2019/02/25/OTPoffice.png" alt="OTP图形化激活office"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h3><p>下载地址：<a href="http://rgho.st/69FdSgBdB" target="_blank" rel="noopener">源码+可执行文件</a> 密码2018 | <a href="https://github.com/Wind4/vlmcsd/releases" target="_blank" rel="noopener">Github Releases</a></p>
+<p>在<code>binaries</code>目录中可以看到已经为各个操作系统和处理器编译好的可执行文件，进入到你的系统的对应CPU架构目录中，一般都是<code>intel</code>，Linux 系统不确定可以用<code>cat /proc/cpuinfo</code>命令查询。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;github.com&#x2F;Wind4&#x2F;vlmcsd&#x2F;releases&#x2F;download&#x2F;svn1112&#x2F;binaries.tar.gz</span><br><span class="line">tar -zxvf binaries.tar.gz</span><br><span class="line">cd binaries&#x2F;Linux&#x2F;intel&#x2F;static&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>进入<code>static</code>目录下文件如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~&#x2F;vlmcsd&#x2F;binaries&#x2F;Linux&#x2F;intel&#x2F;static$ ls</span><br><span class="line">vlmcsdmulti-x64-musl-static          vlmcsd-x86-musl-static</span><br><span class="line">vlmcsdmulti-x86-musl-static          vlmcsd-x86-musl-static-threads</span><br><span class="line">vlmcsdmulti-x86-musl-static-threads  vlmcs-x64-musl-static</span><br><span class="line">vlmcsd-x64-musl-static               vlmcs-x86-musl-static</span><br></pre></td></tr></table></figure>
+
+<p>vlmcsd开头的就是服务端文件，vlmcs用来检测运行的KMS服务，vlmcsdmulti有前面两个的功能。</p>
+<p>运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;vlmcsd-x64-musl-static -l log.txt</span><br></pre></td></tr></table></figure>
+
+<p>运行后会在1688端口上开启服务，所以记得需要在防火墙，vps等设置上允许1688端口的TCP数据包通过。</p>
+<p>结束：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ps -A|grep vlmcsd		#得到进程号，比如11611</span><br><span class="line">kill 11611</span><br></pre></td></tr></table></figure>
+
+<h3 id="虚拟机"><a href="#虚拟机" class="headerlink" title="虚拟机"></a>虚拟机</h3><p>在Hotbitd64提供的压缩包内还有一个<code>floppy</code>文件夹内有一个不到2Mb大小的 vfd 软盘映像文件，里面是一个微型激活系统，可以在各种虚拟机上，比如 Vitrualbox ，Windows自带的Hyper-v上运行来激活系统，非常方便（这人也太厉害了8）。只有一个需要注意的问题，就是虚拟机的联网方式。</p>
+<p><img src="https://www.z4a.net/images/2019/01/31/virtualbox.png" alt="桥接网络和host-only模式都可以"></p>
+<p>系统在激活的时候会检测服务器的IP地址，如果发现ip地址是本机ip，就会报错，激活失败。所以应该选择诸如<code>桥接网卡</code>等能够分配独立ip且可以访问得到的联网方式。</p>
+<p><img src="https://www.z4a.net/images/2019/01/31/3e53b15cc671043d70c08d2778acd5db.png" alt="虚拟机界面"></p>
+<p>启动虚拟机后服务器就开始工作了，只要按照前面的操作，填写虚拟机上显示的的ipv4地址就可以激活了。</p>
+<blockquote>
+<p>参考资料</p>
+<ul>
+<li><a href="https://forums.mydigitallife.net/threads/emulated-kms-servers-on-non-windows-platforms.50234/" target="_blank" rel="noopener">Emulated KMS Servers on non-Windows platforms | My Digital Life Forums</a></li>
+<li><a href="https://03k.org/kms.html" target="_blank" rel="noopener">本站上线KMS服务~一句命令激活windows/office | 零散坑</a>（详细的激活教程）</li>
+<li><a href="http://www.hejinjun.cn/faqs/92.html" target="_blank" rel="noopener">自建KMS激活服务器的两种方法 电脑问题 | 花火时光</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_a0c06a350102wxyy.html#commonComment" target="_blank" rel="noopener">Windows 版本和授权激活方式介绍(KMS MAK)_godspeed_新浪博客</a></li>
+<li>[OfficeToolPlus 说明文档 · GitHub](<a href="https://github.com/YerongAI/OfficeToolPlus/blob/master/Manual/Chinese" target="_blank" rel="noopener">https://github.com/YerongAI/OfficeToolPlus/blob/master/Manual/Chinese</a> Simplified.md#激活-office) </li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/windows/" rel="tag"># Windows</a>
+              <a href="/tags/os/" rel="tag"># 系统</a>
+              <a href="/tags/kms/" rel="tag"># KMS</a>
+              <a href="/tags/raspberry-pi/" rel="tag"># 树莓派</a>
+              <a href="/tags/network/" rel="tag"># 网络</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/11/launch-mc-offline-with-multimc/" rel="prev" title="MultiMC的离线模式启动">
+      <i class="fa fa-chevron-left"></i> MultiMC的离线模式启动
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/02/25/1809-hyper-v-bug/" rel="next" title="1809坑：多余显示器，桌面变卡">
+      1809坑：多余显示器，桌面变卡 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#激活"><span class="nav-text">激活</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows"><span class="nav-text">Windows</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Office"><span class="nav-text">Office</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器"><span class="nav-text">服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚拟机"><span class="nav-text">虚拟机</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Beanbang"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Beanbang</p>
+  <div class="site-description" itemprop="description">干杯🍻！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/feed.xml" title="RSS → &#x2F;feed.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/Lazyb0x" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Lazyb0x" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Beanbang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>
