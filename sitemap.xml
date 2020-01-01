@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.beanbang.cn/2018/03/10/good-bye-netkeeper/</loc>
+    
+    <lastmod>2020-01-01T00:30:07.477Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.beanbang.cn/2019/02/25/1809-hyper-v-bug/</loc>
     
     <lastmod>2019-12-31T14:40:11.985Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>https://blog.beanbang.cn/2018/06/23/raspberry-diary-01/</loc>
     
     <lastmod>2019-12-30T13:54:57.468Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.beanbang.cn/2018/03/10/good-bye-netkeeper/</loc>
-    
-    <lastmod>2019-12-30T13:05:29.139Z</lastmod>
     
   </url>
   
