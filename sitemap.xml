@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.beanbang.cn/2019/01/31/kms-server-vlmcsd/</loc>
+    
+    <lastmod>2020-01-04T02:31:54.907Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.beanbang.cn/2018/03/10/good-bye-netkeeper/</loc>
     
     <lastmod>2020-01-01T00:30:07.477Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>https://blog.beanbang.cn/2019/05/05/leetcode-11-two-pointer-approach/</loc>
     
     <lastmod>2019-12-31T14:19:24.847Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.beanbang.cn/2019/01/31/kms-server-vlmcsd/</loc>
-    
-    <lastmod>2019-12-31T10:26:55.679Z</lastmod>
     
   </url>
   
