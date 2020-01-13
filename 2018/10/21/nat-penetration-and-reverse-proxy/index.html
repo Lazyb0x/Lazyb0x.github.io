@@ -166,7 +166,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">26</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">25</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -267,10 +267,8 @@
       
         <p>内网穿透，又叫NAT穿透、端口映射、端口转发、反向代理、内网转外网/公网……</p>
 <a id="more"></a>
-
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>由于IPv4地址的缺乏，运营商们越来越少给我们提供公网IP，即使能够分配到公网IP，也是动态ip，在网络断开重新链接后IP地址就会改变。而我们使用交换机、路由器，使得我们处于“专用网”中，用<code>ipconfig</code>(Linux用<code>ifconfig</code>)查询本机IP会得到下面的几类局域网地址：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A类：10.0.0.0    到 10.255.255.255    (10.0.0.0&#x2F;8)</span><br><span class="line">B类：172.16.0.0  到 172.31.255.255    (172.16.0.0&#x2F;12)</span><br><span class="line">C类：192.168.0.0 到 192.168.255.255   (192.168.0.0&#x2F;16)</span><br></pre></td></tr></table></figure>
-
 <p>校园网经常分配到上面的A类地址，运营商的宽带可能分配到172开头的地址；而家用路由器分配的是192.168开头的地址。然后我们通过网络地址转换协议 NAT 转换IP地址进行上网。</p>
 <p><img src="https://www.z4a.net/images/2018/10/21/reverse-proxy-02-1.jpg" alt="反向代理图解|Imperva"></p>
 <p>所以，拥有一个公网IP就相当于处在各种网络的最外层，可以直接和其他主机进行通信。而处在NAT路由器内的主机的通信必须由专用网内的主机发起。因为如果是外部主机发起的通信的话，路由器不知道要将数据包转发给专用网中的哪一个主机。于是就有了反向代理的工作方式，把一台处于内网中的主机和一台拥有公网IP的主机的端口绑定，然后由公网主机将来自外部的请求转交给内网主机。这样，就实现了内网主机作为服务器的功能。</p>
@@ -296,15 +294,12 @@
 <p><img src="https://www.z4a.net/images/2018/10/21/openssh-in-win10.png" alt="win10开启OpenSSH"></p>
 <p>只需要一句命令即可开启端口转发：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -o ServerAliveInterval=60 -R 8888:127.0.0.1:3389 beanbang@121.29.54.117</span><br></pre></td></tr></table></figure>
-
 <p>执行命令，输入密码，进入终端就已经建立了从本机的3389端口到服务器的8888端口的链接。现在，你就可以在远程桌面中通过地址<code>121.29.54.117:8888</code>来连接你的主机了。其中<code>-o ServerAliveInterval=60</code>项是为了防止长时间无操作被关闭连接，每隔60秒向服务器发送信号。</p>
 <p>如果开启失败可能是服务器端没有启用：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/ssh/sshd_config    <span class="comment">#添加一行  GatewayPorts  yes</span></span><br><span class="line">sudo service sshd restart</span><br></pre></td></tr></table></figure>
-
 <p>以及记得在防火墙中允许特定端口的通信。</p>
 <p>PS：既然ssh有反向代理，那么也有正向代理，它就是 ssh -D ：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -D 127.0.0.1:1080 beanbang@121.29.54.117 <span class="comment">#将127.0.0.1改成 0.0.0.0 = 允许来自局域网的访问</span></span><br></pre></td></tr></table></figure>
-
 <p>执行后会创建一个在1080端口上的<code>SOCKS5</code>代理服务。如果你的VPS在国外的话，这可能是最简单的科学上网方法了（嘘）。</p>
 <h3 id="frp"><a href="#frp" class="headerlink" title="frp"></a>frp</h3><ul>
 <li>安装方便</li>
@@ -316,19 +311,14 @@
 <p>可以很轻松地配置简单的端口转发。只要<a href="https://github.com/fatedier/frp/releases" target="_blank" rel="noopener">下载</a>对应架构的程序放到相应的操作系统上。公网IP的主机使用 frps 和 frps.ini，内网主机则使用 frpc 和 frpc.ini。</p>
 <p>解压：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf frp_0.21.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
-
 <p>编辑<code>frps.ini</code>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># frps.ini</span><br><span class="line">[common]</span><br><span class="line">bind_port &#x3D; 7000</span><br><span class="line">dashboard_port &#x3D; 7500</span><br><span class="line">dashboard_user &#x3D; username</span><br><span class="line">dashboard_pwd &#x3D; password</span><br><span class="line">log_file &#x3D; .&#x2F;frps.log</span><br><span class="line">log_level &#x3D; info</span><br><span class="line">log_max_days &#x3D; 3</span><br></pre></td></tr></table></figure>
-
 <p>启动 frps：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frps -c ./frps.ini</span><br></pre></td></tr></table></figure>
-
 <p>编辑<code>frpc.ini</code>：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># frpc.ini</span><br><span class="line">[common]</span><br><span class="line">server_addr &#x3D; 121.29.54.117</span><br><span class="line">server_port &#x3D; 7000</span><br><span class="line"></span><br><span class="line">[rdp]</span><br><span class="line">type &#x3D; tcp</span><br><span class="line">local_ip &#x3D; 127.0.0.1</span><br><span class="line">local_port &#x3D; 3389</span><br><span class="line">remote_port &#x3D; 8888</span><br></pre></td></tr></table></figure>
-
 <p>启动 frpc：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.&#x2F;frpc -c .&#x2F;frpc.ini</span><br></pre></td></tr></table></figure>
-
 <p>服务端和客户端都启动后，就可以通过<code>121.29.54.117:8888</code>来连接远程主机了，还可以访问 <a href="http://121.29.54.117:7500" target="_blank" rel="noopener">http://121.29.54.117:7500</a> 来打开frp的 Dashboard 界面，用网页的形式查看各种相关信息。</p>
 <p><img src="https://www.z4a.net/images/2018/10/21/frps-dashboard-2018-10-21.png" alt="frps的dashboard界面"></p>
 <p>开发者细心地编译了多种操作系统架构的程序使得我们可以方便地下载和使用，比如树莓派就可以使用其 arm-64 版本来架设小型服务器。</p>
@@ -474,7 +464,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

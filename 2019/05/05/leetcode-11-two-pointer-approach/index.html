@@ -156,7 +156,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">26</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">25</span></a>
 
   </li>
         <li class="menu-item menu-item-about">
@@ -258,7 +258,6 @@
         <p>翻译一篇双指针法的证明，来自 Leetcode 主站 kongweihan 的<a href="https://leetcode.com/problems/container-with-most-water/discuss/6099/yet-another-way-to-see-what-happens-in-the-on-algorithm" target="_blank" rel="noopener">评论</a>。</p>
 <p>原问题按此：<a href="https://leetcode-cn.com/problems/container-with-most-water/" target="_blank" rel="noopener">盛最多水的容器 - 力扣（LeetCode）</a>。</p>
 <a id="more"></a>
-
 <p><img src="https://www.z4a.net/images/2019/05/05/question_11.jpg" alt="leetcode_question_11"></p>
 <hr>
 <p>这是用矩阵来表示的另一种方法：</p>
@@ -266,13 +265,10 @@
 <p>在下图中，<code>x</code> 表示我们不需要计算的面积，因为：（1）对角线上的值，代表两条线重叠了；（2）矩阵左下角三角形区域和右上角是对称的。</p>
 <p>我们从 <code>(1,6)</code> 开始来计算面积，用 <code>o</code> 来表示。现在，如果左边的线段比右边的短，那么在第一行的除 <code>(1,6)</code> 外的所有元素的面积都小于（等于）它。所以对于这些情况我们就不需要计算它们的值了（用 <code>---</code> 划掉 ）。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  1 2 3 4 5 6</span><br><span class="line">1 x ------- o</span><br><span class="line">2 x x</span><br><span class="line">3 x x x </span><br><span class="line">4 x x x x</span><br><span class="line">5 x x x x x</span><br><span class="line">6 x x x x x x</span><br></pre></td></tr></table></figure>
-
 <p>然后我们移动左边的线段，计算 <code>(2,6)</code>。现在，如果右边的线段短一些，所有低于 <code>(2,6)</code> 的情况都可以排除了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  1 2 3 4 5 6</span><br><span class="line">1 x ------- o</span><br><span class="line">2 x x       o</span><br><span class="line">3 x x x     |</span><br><span class="line">4 x x x x   |</span><br><span class="line">5 x x x x x |</span><br><span class="line">6 x x x x x x</span><br></pre></td></tr></table></figure>
-
 <p>无论这条 <code>o</code> 的路径是怎样的，我们最终只要找到这条路径上最大的数值就可以了，而这需要 <code>n-1</code> 步计算。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  1 2 3 4 5 6</span><br><span class="line">1 x ------- o</span><br><span class="line">2 x x - o o o</span><br><span class="line">3 x x x o | |</span><br><span class="line">4 x x x x | |</span><br><span class="line">5 x x x x x |</span><br><span class="line">6 x x x x x x</span><br></pre></td></tr></table></figure>
-
 <p>希望对你有所帮助。用这种方式来看我觉得舒服多了。</p>
 <hr>
 <p>下面是我参考题解写的。真的很难想到，这题能用复杂度为 O(n) 的方法解决。</p>
@@ -391,7 +387,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
