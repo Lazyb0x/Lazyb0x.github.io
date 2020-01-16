@@ -61,9 +61,9 @@
     
       <category term="Windows" scheme="https://blog.beanbang.cn/tags/windows/"/>
     
-      <category term="树莓派" scheme="https://blog.beanbang.cn/tags/raspberry-pi/"/>
-    
       <category term="系统" scheme="https://blog.beanbang.cn/tags/os/"/>
+    
+      <category term="树莓派" scheme="https://blog.beanbang.cn/tags/raspberry-pi/"/>
     
       <category term="网络" scheme="https://blog.beanbang.cn/tags/network/"/>
     
@@ -172,13 +172,13 @@
       <category term="软件" scheme="https://blog.beanbang.cn/categories/software/"/>
     
     
-      <category term="KMS" scheme="https://blog.beanbang.cn/tags/kms/"/>
-    
       <category term="Windows" scheme="https://blog.beanbang.cn/tags/windows/"/>
     
-      <category term="树莓派" scheme="https://blog.beanbang.cn/tags/raspberry-pi/"/>
-    
       <category term="系统" scheme="https://blog.beanbang.cn/tags/os/"/>
+    
+      <category term="KMS" scheme="https://blog.beanbang.cn/tags/kms/"/>
+    
+      <category term="树莓派" scheme="https://blog.beanbang.cn/tags/raspberry-pi/"/>
     
       <category term="网络" scheme="https://blog.beanbang.cn/tags/network/"/>
     
@@ -344,13 +344,13 @@
       <category term="日志" scheme="https://blog.beanbang.cn/categories/log/"/>
     
     
-      <category term="树莓派" scheme="https://blog.beanbang.cn/tags/raspberry-pi/"/>
-    
       <category term="系统" scheme="https://blog.beanbang.cn/tags/os/"/>
     
-      <category term="Linux" scheme="https://blog.beanbang.cn/tags/linux/"/>
+      <category term="树莓派" scheme="https://blog.beanbang.cn/tags/raspberry-pi/"/>
     
       <category term="远程桌面" scheme="https://blog.beanbang.cn/tags/remote-desktop/"/>
+    
+      <category term="Linux" scheme="https://blog.beanbang.cn/tags/linux/"/>
     
       <category term="无线" scheme="https://blog.beanbang.cn/tags/wireless/"/>
     
