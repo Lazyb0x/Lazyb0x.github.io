@@ -1189,7 +1189,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #784409;
+  background: #ffd1ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2593,4 +2593,13 @@ ul.breadcrumb li + li:last-child {
   .pagination {
     margin: 8px 0 0;
   }
+}
+/* pandoc */
+figure figcaption {
+  font-size: 0.8em;
+  text-align: center;
+}
+/* fancybox */
+.image-caption {
+  display: none;
 }
