@@ -46,23 +46,25 @@
   };
 </script>
 
-  <meta name="description" content="谨慎启用 Hyper-v ！，小心自动更新！">
+  <meta name="description" content="IDEA 可以自动生成 Javadoc 格式的注释。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="1809坑：多余显示器，桌面变卡">
-<meta property="og:url" content="https://blog.beanbang.cn/2019/02/25/1809-hyper-v-bug/index.html">
+<meta property="og:title" content="IDEA 生成类和方法注释">
+<meta property="og:url" content="https://blog.beanbang.cn/2020/02/03/idea-documenting-code/index.html">
 <meta property="og:site_name" content="冰棒实验室">
-<meta property="og:description" content="谨慎启用 Hyper-v ！，小心自动更新！">
+<meta property="og:description" content="IDEA 可以自动生成 Javadoc 格式的注释。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.z4a.net/images/2019/02/25/005.hyper-v..png">
-<meta property="article:published_time" content="2019-02-25T05:05:12.000Z">
-<meta property="article:modified_time" content="2019-12-31T14:40:11.985Z">
+<meta property="og:image" content="https://www.z4a.net/images/2020/02/06/IDEA-comment-completion.gif">
+<meta property="og:image" content="https://www.z4a.net/images/2020/02/06/fix-doc-comment.gif">
+<meta property="og:image" content="https://www.z4a.net/images/2020/02/06/tags.gif">
+<meta property="article:published_time" content="2020-02-03T05:28:07.000Z">
+<meta property="article:modified_time" content="2020-02-06T15:16:01.290Z">
 <meta property="article:author" content="Beanbang">
-<meta property="article:tag" content="Windows">
-<meta property="article:tag" content="系统">
+<meta property="article:tag" content="IDEA">
+<meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.z4a.net/images/2019/02/25/005.hyper-v..png">
+<meta name="twitter:image" content="https://www.z4a.net/images/2020/02/06/IDEA-comment-completion.gif">
 
-<link rel="canonical" href="https://blog.beanbang.cn/2019/02/25/1809-hyper-v-bug/">
+<link rel="canonical" href="https://blog.beanbang.cn/2020/02/03/idea-documenting-code/">
 
 
 <script id="page-configurations">
@@ -74,7 +76,7 @@
   };
 </script>
 
-  <title>1809坑：多余显示器，桌面变卡 | 冰棒实验室</title>
+  <title>IDEA 生成类和方法注释 | 冰棒实验室</title>
   
 
 
@@ -187,7 +189,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.beanbang.cn/2019/02/25/1809-hyper-v-bug/">
+    <link itemprop="mainEntityOfPage" href="https://blog.beanbang.cn/2020/02/03/idea-documenting-code/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -200,7 +202,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          1809坑：多余显示器，桌面变卡
+          IDEA 生成类和方法注释
         </h1>
 
         <div class="post-meta">
@@ -210,14 +212,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-02-25 13:05:12" itemprop="dateCreated datePublished" datetime="2019-02-25T13:05:12+08:00">2019-02-25</time>
+              <time title="创建时间：2020-02-03 13:28:07" itemprop="dateCreated datePublished" datetime="2020-02-03T13:28:07+08:00">2020-02-03</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-31 22:40:11" itemprop="dateModified" datetime="2019-12-31T22:40:11+08:00">2019-12-31</time>
+                <time title="修改时间：2020-02-06 23:16:01" itemprop="dateModified" datetime="2020-02-06T23:16:01+08:00">2020-02-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -225,8 +227,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/software/" itemprop="url" rel="index">
-                    <span itemprop="name">软件</span>
+                  <a href="/categories/log/" itemprop="url" rel="index">
+                    <span itemprop="name">日志</span>
                   </a>
                 </span>
             </span>
@@ -240,8 +242,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2019/02/25/1809-hyper-v-bug/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/02/25/1809-hyper-v-bug/" itemprop="commentCount"></span>
+    <a title="valine" href="/2020/02/03/idea-documenting-code/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/02/03/idea-documenting-code/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -256,26 +258,37 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>谨慎启用 Hyper-v ！，小心自动更新！</p>
+        <p>IDEA 可以自动生成 Javadoc 格式的注释。</p>
 <a id="more"></a>
-<p>在安装完 Windows 10 的 1809 版本之后，我的电脑两次出现了这样的情况：桌面变得非常卡，大概只有20帧的样子，在显示设置中出现了多个没有用的显示器，而我的笔记本并没有接上任何外接屏幕。</p>
+<h2 id="快速补全注释">快速补全注释</h2>
+<p>IntelliJ IDEA 提供了自动补全文档格式注释的方法。只要在声明语句的前面打上 <code>/**</code> 然后按下回车，IDE 就会自动给你补全注释。对于方法的注释，产生的注释片段会包含所需要的标签（每个参数的 <code>@param</code> 标签、<code>@return</code>、<code>@throws</code>等等）。</p>
 <figure>
-<img src="https://www.z4a.net/images/2019/02/25/005.hyper-v..png" alt><figcaption>开启Hyper-v后出现多个多余显示器 | 微软社区</figcaption>
+<img src="https://www.z4a.net/images/2020/02/06/IDEA-comment-completion.gif" alt><figcaption>IDEA 的文档注释补全</figcaption>
 </figure>
-<p>在百度之后确认了，多个显示器是因为我启用了 Hyper-v 功能而多出来的，这可能是 win 10 的一个 Bug 。而整个桌面的窗口变卡的原因有些不确定，因为在启用 Hyper-v 之后还经历了一次 windows 更新。</p>
-<p>我尝试过在设备管理器中禁用多余的显示器，使用系统保护回到上一个还原点都没有效果，百度谷歌到的情况相同的问题也都没有解决。真是万不得已，最终只好备份所有文件重置了。也不知道是什么原因导致的这个问题，可能和特定型号的硬件有关吧。难受！</p>
-<p>所以，试用新版本的系统的时候一定要谨慎了，特别是在生产力机器上，一些奇怪的问题可能导致难以挽回的后果。</p>
-<h2 id="一些马后炮措施">一些马后炮措施</h2>
-<p>启用系统还原。在 控制面板-&gt; 高级系统设置(系统属性) -&gt; 系统保护 中启用系统还原，每当进行重大操作的时候先建立一个还原点，在系统更新的时候也会自动创建还原点。出现问题的时候可以回退回去，需要的时间大约是20分钟。</p>
-<p>关闭自动更新驱动。在 系统属性 -&gt; 硬件 -&gt; 设备安装设置 中，“是否要自动下载适合你设备的制造商应用和自定义图标”选项，选择“否”来避免系统自动搜索、安装、更新驱动。最新版本的驱动程序不一定是最好的，特别是显卡驱动。</p>
-<p>重置。最后的最后，如果一切都无法挽回了，Windows 10 有重置的功能，在 设置 -&gt; 更新和安全 -&gt; 恢复 中可以重置系统。这个选项会重置整台电脑，恢复出厂设置，相当于自己重装系统，但是保留了驱动程序，省得再安装一次，相比手动重装节省时间。恢复一次可能需要半个小时。</p>
-<hr>
-<p>5月5日后记：现在升级到了 1903，打开沙盒模式或启用 Hyper-v 的时候仍然会有多个屏幕，不过关闭功能之后重启两次就可以恢复了。</p>
 <blockquote>
-<p>参见：</p>
+<p>文档格式的注释也支持 JavaScript、Python、Ruby、和 PHP。</p>
+</blockquote>
+<h2 id="使用-fix-doc-comment-动作">使用 Fix doc comment 动作</h2>
+<ol type="1">
+<li><p>把光标放在一段类，方法，函数或者成员变量中，然后按下 <kbd>Ctrl+Shift+A</kbd>。</p></li>
+<li><p>打上 <code>fix doc comment</code> 然后按下回车。</p></li>
+</ol>
+<p>IDEA 就会自动给注释增加上缺失部分的标签。</p>
+<figure>
+<img src="https://www.z4a.net/images/2020/02/06/fix-doc-comment.gif" alt><figcaption>fix doc comment 动作 | IDEA 帮助文档</figcaption>
+</figure>
+<p>如果一个方法的特征改变了，IDEA会高亮出不匹配部分的标签，然后提出快速修改的建议。</p>
+<h2 id="标签的自动补全">标签的自动补全</h2>
+<p>对于文档注释的标签，IDEA 也提供了代码自动补全。在 <code>@</code> 标记的后面按下 <kbd>Ctrl+Space</kbd> ，然后就能够从弹出建议的列表里面选择需要的标签了。如果标签包含多个值（比如 <code>@param</code>），可以在建议的列表里面继续选择。</p>
+<figure>
+<img src="https://www.z4a.net/images/2020/02/06/tags.gif" alt><figcaption>标签的补全 | IDEA 帮助文档</figcaption>
+</figure>
+<p>但是 <kbd>Ctrl+Space</kbd> 在微软拼音输入法里面是切换中英文的快捷方式，造成冲突而且不能改变……你可以添加一个英语语言，然后按 <kbd>Win+Space</kbd>切换到英语键盘来编码。</p>
+<blockquote>
+<p>参考资料：</p>
 <ul>
-<li><a href="https://answers.microsoft.com/zh-hans/windows/forum/all/win10%E5%BC%80%E5%90%AFhyper/da75ba12-9a5a-43b3-b0dd-14ee98da23c6" target="_blank" rel="noopener">win10开启Hyper-v后，多出四个非即插即用型监视器 - Microsoft Community</a></li>
-<li><a href="http://www.w10zj.com/Win10xy/Win10New_7359.html" target="_blank" rel="noopener">win10 1709故障：开启 Hyper-v 后会出现多余的监视器 -W10之家</a></li>
+<li><a href="https://www.jetbrains.com/help/idea/working-with-code-documentation.html" target="_blank" rel="noopener">Documenting code - Help | IntelliJ IDEA</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/Javadoc" target="_blank" rel="noopener">Javadoc - 维基百科，自由的百科全书</a></li>
 </ul>
 </blockquote>
 
@@ -288,8 +301,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/windows/" rel="tag"># Windows</a>
-              <a href="/tags/os/" rel="tag"># 系统</a>
+              <a href="/tags/idea/" rel="tag"># IDEA</a>
+              <a href="/tags/java/" rel="tag"># Java</a>
           </div>
 
         
@@ -298,13 +311,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/01/31/kms-server-vlmcsd/" rel="prev" title="KMS 服务器 vlmcsd 的安装和激活">
-      <i class="fa fa-chevron-left"></i> KMS 服务器 vlmcsd 的安装和激活
+    <a href="/2020/01/08/leetcode-72-edit-distance/" rel="prev" title="Leetcode 72：编辑距离 - 动态规划的解题思路">
+      <i class="fa fa-chevron-left"></i> Leetcode 72：编辑距离 - 动态规划的解题思路
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2019/05/05/leetcode-11-two-pointer-approach/" rel="next" title="Leetcode 11：盛最多水的容器 双指针法的证明">
-      Leetcode 11：盛最多水的容器 双指针法的证明 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -365,7 +375,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些马后炮措施"><span class="nav-text">一些马后炮措施</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#快速补全注释"><span class="nav-text">快速补全注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-fix-doc-comment-动作"><span class="nav-text">使用 Fix doc comment 动作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签的自动补全"><span class="nav-text">标签的自动补全</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

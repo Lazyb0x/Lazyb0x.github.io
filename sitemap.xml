@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://blog.beanbang.cn/2019/01/31/kms-server-vlmcsd/</loc>
+    <loc>https://blog.beanbang.cn/2020/02/03/idea-documenting-code/</loc>
     
-    <lastmod>2020-01-17T08:28:41.621Z</lastmod>
+    <lastmod>2020-02-06T15:16:01.290Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://blog.beanbang.cn/2020/01/08/leetcode-72-edit-distance/</loc>
     
-    <lastmod>2020-01-16T13:15:33.484Z</lastmod>
+    <lastmod>2020-02-04T07:33:21.345Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://blog.beanbang.cn/2019/01/31/kms-server-vlmcsd/</loc>
+    
+    <lastmod>2020-01-17T08:28:41.621Z</lastmod>
     
   </url>
   
