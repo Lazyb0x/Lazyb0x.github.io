@@ -386,8 +386,8 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
       </categories>
       <tags>
         <tag>Windows</tag>
-        <tag>系统</tag>
         <tag>树莓派</tag>
+        <tag>系统</tag>
         <tag>网络</tag>
         <tag>Linux</tag>
       </tags>
@@ -600,10 +600,10 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
         <category>软件</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
-        <tag>系统</tag>
         <tag>KMS</tag>
+        <tag>Windows</tag>
         <tag>树莓派</tag>
+        <tag>系统</tag>
         <tag>网络</tag>
       </tags>
   </entry>
@@ -1063,8 +1063,8 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
         <category>日志</category>
       </categories>
       <tags>
-        <tag>系统</tag>
         <tag>树莓派</tag>
+        <tag>系统</tag>
         <tag>远程桌面</tag>
         <tag>Linux</tag>
         <tag>无线</tag>
