@@ -1,0 +1,113 @@
+/* XML 格式化 by Lazyb0x */
+
+* {
+    padding: 0px;
+    margin: 0px;
+    display: block;
+}
+
+feed {
+    display: block;
+    background-color: #E6E6E6;
+    margin-top: 30px;
+}
+
+icon {
+    display: none;
+}
+
+feed>title {
+    text-align: center;
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+feed>subtitle {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+feed>updated {
+    font-family: serif;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+feed>id {
+    font-family: serif;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+feed author name {
+    text-align: center;
+}
+
+feed generator {
+    display: none;
+}
+
+feed>entry {
+    background-color: white;
+    margin: 20px;
+    padding: 40px;
+    display: block;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+feed entry title {
+    font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+feed entry id {
+    font-family: serif;
+    margin-bottom: 15px;
+}
+
+feed entry id:before {
+    width: 6em;
+    display: inline-block;
+    content: "URL："
+}
+
+feed entry published {
+    font-family: serif;
+    margin-bottom: 15px;
+}
+
+feed entry published:before {
+    width: 6em;
+    display: inline-block;
+    content: "发布日期：";
+}
+
+feed entry updated {
+    font-family: serif;
+    margin-bottom: 15px;
+}
+
+feed entry updated:before {
+    width: 6em;
+    display: inline-block;
+    content: "更新日期：";
+}
+
+feed entry content {
+    margin: 15px 15px 0px 15px;
+    display: block;
+    height: 150px;
+    overflow: scroll;
+    color: gray;
+}
+
+feed entry summary {
+    font-family: serif;
+}
+
+feed entry summary:before {
+    width: 6em;
+    display: inline-block;
+    content: "摘要：";
+}
