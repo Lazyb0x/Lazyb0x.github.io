@@ -494,8 +494,8 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
     <url>/2019/05/17/raspberry-diary-02-network-configure/</url>
     <content><![CDATA[<p>主要是解决两个问题：</p>
 <ol type="1">
-<li>同时连接两张网卡时由于默认网卡不对导致不能上网；</li>
-<li>开机的时候等n久都连不上 WiFi，但是一插上网卡，WiFi 就通了。</li>
+<li>同时连接两个网络时由于默认网卡不对导致不能上网；</li>
+<li>开机的时候等n久都连不上 WiFi，但是一插上网线，WiFi 就通了。</li>
 </ol>
 <a id="more"></a>
 <h2 id="开关-wifi">开关 WiFi</h2>
@@ -1162,8 +1162,8 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
       <tags>
         <tag>系统</tag>
         <tag>树莓派</tag>
-        <tag>远程桌面</tag>
         <tag>Linux</tag>
+        <tag>远程桌面</tag>
         <tag>无线</tag>
       </tags>
   </entry>
