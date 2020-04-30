@@ -31,7 +31,8 @@
 <h2 id="四个证书文件">四个证书文件</h2>
 <p>查了一下文档<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>，这四个证书文件分别的不同用途，大概是这样：</p>
 <ul>
-<li><p><code>privkey.pem</code> 证书的私钥，必须时刻保护好。不能公开给任何人。</p>
+<li><p><code>privkey.pem</code></p>
+<p>证书的私钥，必须时刻保护好。不能公开给任何人。</p>
 <p>配置项：Apache 的 <a href="https://httpd.apache.org/docs/2.4/mod/mod_ssl.html#sslcertificatekeyfile" target="_blank" rel="noopener"><code>SSLCertificateKeyFile</code></a>，Nginx 的 <a href="http://nginx.org/en/docs/http/ngx_http_ssl_module.html#ssl_certificate_key" target="_blank" rel="noopener"><code>ssl_certificate_key</code></a>。</p></li>
 <li><p><code>fullchain.pem</code></p>
 <p>完整的证书密钥链（certificate chain）包括服务端证书（server/leaf certificate）和中间证书（intermediate certificate）。在文件最开头第一个服务端证书，接下来的是中间证书。</p>
@@ -609,8 +610,8 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
       </categories>
       <tags>
         <tag>Windows</tag>
-        <tag>树莓派</tag>
         <tag>系统</tag>
+        <tag>树莓派</tag>
         <tag>网络</tag>
         <tag>Linux</tag>
       </tags>
@@ -823,10 +824,10 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
         <category>软件</category>
       </categories>
       <tags>
-        <tag>KMS</tag>
         <tag>Windows</tag>
-        <tag>树莓派</tag>
         <tag>系统</tag>
+        <tag>KMS</tag>
+        <tag>树莓派</tag>
         <tag>网络</tag>
       </tags>
   </entry>
@@ -968,12 +969,12 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
       </categories>
       <tags>
         <tag>网络</tag>
-        <tag>远程桌面</tag>
         <tag>DDNS</tag>
         <tag>frp</tag>
         <tag>SSH</tag>
         <tag>内网穿透</tag>
         <tag>反向代理</tag>
+        <tag>远程桌面</tag>
       </tags>
   </entry>
   <entry>
@@ -1286,11 +1287,11 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
         <category>日志</category>
       </categories>
       <tags>
-        <tag>树莓派</tag>
         <tag>系统</tag>
+        <tag>树莓派</tag>
+        <tag>远程桌面</tag>
         <tag>Linux</tag>
         <tag>无线</tag>
-        <tag>远程桌面</tag>
       </tags>
   </entry>
   <entry>
