@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://blog.beanbang.cn/2018/10/21/nat-penetration-and-reverse-proxy/</loc>
+    
+    <lastmod>2020-06-03T02:32:01.674Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://blog.beanbang.cn/2020/04/06/install-wildcard-certificate-using-lets-encrypt/</loc>
     
     <lastmod>2020-04-30T01:52:32.811Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>https://blog.beanbang.cn/2018/10/09/enable-ssl-https-for-website/</loc>
     
     <lastmod>2020-01-16T01:48:46.531Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://blog.beanbang.cn/2018/10/21/nat-penetration-and-reverse-proxy/</loc>
-    
-    <lastmod>2020-01-16T01:47:49.195Z</lastmod>
     
   </url>
   
