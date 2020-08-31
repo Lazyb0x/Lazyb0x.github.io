@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://blog.beanbang.cn').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"always","padding":18,"offset":12,"onmobile":true},
+    copycode: {"enable":true,"show_result":true,"style":null},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":false,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="让远程部署和本地一样简单！">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dokcer 的远程连接和部署">
+<meta property="og:url" content="https://blog.beanbang.cn/2020/08/31/remote-access-and-deployment-of-docker/index.html">
+<meta property="og:site_name" content="冰棒实验室">
+<meta property="og:description" content="让远程部署和本地一样简单！">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.beanbang.cn/2020/08/31/remote-access-and-deployment-of-docker/docker-architecture.svg">
+<meta property="og:image" content="https://www.z4a.net/images/2020/08/31/IDEA-Docker.png">
+<meta property="og:image" content="https://www.z4a.net/images/2020/08/31/vscode-docker.png">
+<meta property="og:image" content="https://www.z4a.net/images/2020/08/31/spring-initializr.png">
+<meta property="og:image" content="https://www.z4a.net/images/2020/08/31/docker-remote-success.png">
+<meta property="article:published_time" content="2020-08-31T08:08:21.000Z">
+<meta property="article:modified_time" content="2020-08-31T08:40:14.308Z">
+<meta property="article:author" content="Lazyb0x">
+<meta property="article:tag" content="虚拟化">
+<meta property="article:tag" content="系统">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="IDEA">
+<meta property="article:tag" content="安全">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.beanbang.cn/2020/08/31/remote-access-and-deployment-of-docker/docker-architecture.svg">
+
+<link rel="canonical" href="https://blog.beanbang.cn/2020/08/31/remote-access-and-deployment-of-docker/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Dokcer 的远程连接和部署 | 冰棒实验室</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="冰棒实验室" type="application/atom+xml">
+<link rel="alternate" href="/feed.xml" title="冰棒实验室" type="application/rss+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">冰棒实验室</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">仰望星空，脚踏实地</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">19</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类<span class="badge">3</span></a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签<span class="badge">30</span></a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.beanbang.cn/2020/08/31/remote-access-and-deployment-of-docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Lazyb0x">
+      <meta itemprop="description" content="干杯🍻！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="冰棒实验室">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Dokcer 的远程连接和部署
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-31 16:08:21 / 修改时间：16:40:14" itemprop="dateCreated datePublished" datetime="2020-08-31T16:08:21+08:00">2020-08-31</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/software/" itemprop="url" rel="index">
+                    <span itemprop="name">软件</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/08/31/remote-access-and-deployment-of-docker/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/31/remote-access-and-deployment-of-docker/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <center>
+让远程部署和本地一样简单！
+</center>
+<a id="more"></a>
+<h2 id="tldr">TL;DR</h2>
+<ul>
+<li>Docker 是 C/S 架构的，服务端和客户端可以在不同主机运行</li>
+<li>无加密的 TCP 连接配置简单，但不安全</li>
+<li>TLS 加密的连接需要创建和配置证书，最常用</li>
+<li>SSH 连接使用方便，但是 IDE 不大兼容，比较局限</li>
+<li>命令行、IDEA、VS Code 怎么连接 Docker daemon</li>
+<li>一个小 demo，用 Dokcer client 部署 Spring Boot 项目</li>
+</ul>
+<h2 id="docker-的架构">Docker 的架构</h2>
+<p>最近在学习用 Docker 来部署项目。我按照这个<a href="https://www.thisfaner.com/p/configure-docker-in-intellij-idea/" target="_blank" rel="noopener">教程</a>来把 Java 项目部署到了服务器的 Docker 上面。IDEA 的 Dokcer 插件真的是特别方便，配置好之后一键就能部署上去，而且 Windows 本机上也不需要安装几百兆的 Docker Desktop，不用开启 Hyper-V。这是怎么实现的呢？</p>
+<p>从 Docker 的<a href="https://docs.docker.com/get-started/overview/#docker-architecture" target="_blank" rel="noopener">官方文档</a>里面可以看到，Docker 使用的是 C/S 架构的系统，分为客户端和服务端。客户端（Docker client）使用命令和服务端（Dokcer daemon，守护进程）进行交互。守护进程负责干重活，比如构建、运行和分发你的容器。客户端和守护进程可以运行在同一台主机，也就是我们常规的安装；也可以让客户端连接到一台远程的守护进程。客户端和守护进程使用 REST API 进行交互，通过 UNIX sockets 或者网络接口进行传输。</p>
+<figure>
+<img src="/2020/08/31/remote-access-and-deployment-of-docker/docker-architecture.svg" alt><figcaption>Docker的架构 | Docker Documentation</figcaption>
+</figure>
+<p>所以我们如果只需要连接远程服务器的 Docker 的话，就没有必要在本地安装完整的 Docker，不需要安装 Docker daemon，只需要有能与 Docker daemon 进行交互的客户端，比如 Docker client，就可以了。</p>
+<h2 id="连接-docker-daemon">连接 Docker daemon</h2>
+<p>在默认的设置下，Docker daemon 只监听来自本地的 UNIX socket 连接。</p>
+<p>在 <code>/lib/systemd/system/docker.service</code> 下面可以看到 <code>dockerd</code>，即 Docker daemon 的启动参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd -H fd:&#x2F;&#x2F; --containerd&#x3D;&#x2F;run&#x2F;containerd&#x2F;containerd.sock</span><br></pre></td></tr></table></figure>
+<p>我们需要修改这个 <code>systemd</code> 的启动参数来开启外部访问。</p>
+<h3 id="使用无加密-tcp-连接">使用无加密 TCP 连接</h3>
+<ol type="1">
+<li><p>使用 <code>sudo systemctl edit docker.service</code> 来编辑 <code>docker.service</code>，这会在它的基础上重写配置。</p></li>
+<li><p>写上下面的内容，保存文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">ExecStart&#x3D;</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd -H fd:&#x2F;&#x2F; -H tcp:&#x2F;&#x2F;0.0.0.0:2375</span><br></pre></td></tr></table></figure>
+<p>上面这个 <code>ExecStart=</code> 的作用是清空原来项目的值，然后用新的值替代。官方文档这么写的，我之前还以为是笔误……</p></li>
+<li><p>更新 systemctl 配置和重启 Docker。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker.service</span><br></pre></td></tr></table></figure></li>
+<li><p>检查 dockerd 是否运行起来 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netstat -lntp | grep dockerd</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<p>现在我们已经开放了 TCP 的 2375 端口，只要在执行命令的时候加上参数就可以了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -H tcp:&#x2F;&#x2F;docker.beanbang.cn:2375 version</span><br></pre></td></tr></table></figure>
+<p>也可以设置环境变量 <code>DOCKER_HOST</code>，这样就不用每次都带参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export DOCKER_HOST&#x3D;tcp:&#x2F;&#x2F;docker.beanbang.cn:2375</span><br><span class="line">docker version</span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>使用这种连接方式是<strong>不安全</strong>的，端口并没有加密，这意味者任何人都可以连接你的 Docker daemon，往里面运行容器。虚拟机用还好，云服务器上要是被别有用心的人发现了不是纯白给了。所以加密你的 Docker 端口还是很有必要的。</p>
+<h3 id="使用-tls-加密的-tcp-连接">使用 TLS 加密的 TCP 连接</h3>
+<p>需要使用 OpenSSL 生成密钥，证书。客户端和守护进程使用这些证书和密钥来进行认证。只要照着官方文档的这篇文章，一步一步做下来就可以了:</p>
+<blockquote>
+<p><a href="https://docs.docker.com/engine/security/https/" target="_blank" rel="noopener">Protect the Docker daemon socket | Docker Documentation</a></p>
+</blockquote>
+<p>生成证书的大致过程是，生成 CA 的密钥和 CA 证书，生成客户端和服务端的密钥；生成客户端和服务端的签名请求，然后 CA 分别对客户端和服务端的签名请求生成证书。</p>
+<p>跟着教程一顿操作之后，可以得到下面的几个文件。</p>
+<table>
+<thead>
+<tr class="header">
+<th>文件</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ca-key.pem</td>
+<td>CA 密钥</td>
+</tr>
+<tr class="even">
+<td>ca.pem</td>
+<td>CA 证书</td>
+</tr>
+<tr class="odd">
+<td>server-key.pem</td>
+<td>服务端密钥</td>
+</tr>
+<tr class="even">
+<td>server-cert.pem</td>
+<td>服务端证书</td>
+</tr>
+<tr class="odd">
+<td>key.pem</td>
+<td>客户端密钥</td>
+</tr>
+<tr class="even">
+<td>cert.pem</td>
+<td>客户端证书</td>
+</tr>
+</tbody>
+</table>
+<p>然后我们接着修改 docker.service。虽然可以这么写：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl edit docker.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">ExecStart&#x3D;</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd --tlsverify --tlscacert&#x3D;&#x2F;home&#x2F;ubuntu&#x2F;certificate&#x2F;ca.pem --tlscert&#x3D;&#x2F;home&#x2F;ubuntu&#x2F;certificate&#x2F;server-cert.pem --tlskey&#x3D;&#x2F;home&#x2F;ubuntu&#x2F;certificate&#x2F;server-key.pem \</span><br><span class="line">  -H tcp:&#x2F;&#x2F;0.0.0.0:2376 -H fd:&#x2F;&#x2F;</span><br></pre></td></tr></table></figure>
+<p>不过，这样大长串的参数很不直观。下面我们换成使用 Docker 提供的另一种配置 dockerd 的方式，就是 <code>daemon.json</code> 文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/docker/daemon.json</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"hosts"</span>: [</span><br><span class="line">        <span class="string">"fd://"</span>,</span><br><span class="line">        <span class="string">"tcp://0.0.0.0:2376"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"tlsverify"</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">"tlscacert"</span>: <span class="string">"/home/ubuntu/certificate/ca.pem"</span>,</span><br><span class="line">    <span class="attr">"tlscert"</span>: <span class="string">"/home/ubuntu/certificate/server-cert.pem"</span>,</span><br><span class="line">    <span class="attr">"tlskey"</span>: <span class="string">"/home/ubuntu/certificate/server-key.pem"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原本的 docker.service 只保留一点东西：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/docker/daemon.json</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">ExecStart&#x3D;</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd</span><br></pre></td></tr></table></figure>
+<p>然后重启 Docker 就可以了。</p>
+<p><strong>注意：</strong>Docker 在启动的时候会同时使用 <code>systemd</code> 和 <code>daemon.json</code> 文件。如果两个文件的配置项冲突了，会造成无法启动。所以配置要么写 docker.service 里面，要么写 daemon.json 里面，不要两个都写，防止出现问题。</p>
+<p><strong>注意2：</strong>按照惯例，不加密的 TCP 连接使用 2375 端口，TLS 加密的 TCP 连接使用 2376 端口。</p>
+<p>运行起来后，客户端连接需要 ca.pem，cert.pem，key.pem 三个文件。我们可以把它们从主机上拷贝下来，放在自己用户目录的 <code>.docker</code> 目录下，这是证书文件的默认查找目录。</p>
+<p>纯命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker --tlsverify --tlscacert=ca.pem --tlscert=cert.pem --tlskey=key.pem \</span><br><span class="line">  -H=docker.beanbang.cn:2376 version</span><br></pre></td></tr></table></figure>
+<p>使用环境变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export DOCKER_HOST=tcp://docker.beanbang.cn:2376 DOCKER_TLS_VERIFY=1</span><br><span class="line">export DOCKER_CERT_PATH=$HOME/.docker # 证书在默认查找目录可以不用指定</span><br><span class="line">docker version</span><br></pre></td></tr></table></figure>
+<h3 id="使用-ssh-连接">使用 SSH 连接</h3>
+<p>从 Docker 的 18.09 版本开始，Docker client 支持通过 SSH 来连接远程 daemon 了。但是到了今天（2020年8月），我能直接下载到的最新 Dokcer client for Windows 版本是 17.09。IDEA 和 VS Code 这些 IDE 我也试过，同样不能使用 SSH 协议来连接。所以这种方法虽然特别方便，但是目前还是比较有局限性的。</p>
+<p>要使用 SSH 协议来连接 Docker daemon，你可以使用 Linux 或者 WSL 安装新版的 docker-cli。</p>
+<p>服务端不需要任何配置，只需要在客户端执行命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -H ssh://ubuntu@192.168.43.220 version</span><br></pre></td></tr></table></figure>
+<p>注意，这边主机名只能使用 IP 地址，不能使用域名。</p>
+<p>这种方式是使用 SSH 密钥登录和认证的，如果你没有使用密钥来登录主机，可以现配置一个：</p>
+<ol type="1">
+<li><p>检查一下你的用户目录下的 <code>.ssh</code> 文件夹下面有没有 <code>id_rsa</code> 和 <code>id_rsa.pub</code> 文件。如果你在用 Git，可能已经创建过密钥了。</p>
+<p>没有的话就创建：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C "youremail@example.com"</span><br></pre></td></tr></table></figure></li>
+<li><p>把你的公钥添加到远程主机：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id ubuntu@192.168.43.220</span><br></pre></td></tr></table></figure>
+<p>Windows 没有这个命令的话就手动把 <code>id_rsa.pub</code> 里面的内容添加到远程主机用户的 <code>~/.ssh/authorized_keys</code> 里面。</p></li>
+</ol>
+<p>这就行了。同样可以把这个连接串设置到环境变量中，方便使用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export DOCKER_HOST=ssh://ubuntu@192.168.43.220</span><br></pre></td></tr></table></figure>
+<h2 id="客户端配置">客户端配置</h2>
+<h3 id="命令行">命令行</h3>
+<h4 id="windows">Windows</h4>
+<p>直接安装 Docker desktop 是可以的，安装完成之后就可以使用 docker 命令了。但是假如我们本地只想用客户端的功能，不想安装它那厚重的 Docker Engine，可以只下载几个二进制可执行文件。下面是下载地址:</p>
+<p>Docker CLI Windows：<a href="https://download.docker.com/win/static/stable/x86_64/" target="_blank" rel="noopener" class="uri">https://download.docker.com/win/static/stable/x86_64/</a></p>
+<p>Docker compose：<a href="https://github.com/docker/compose/releases" target="_blank" rel="noopener" class="uri">https://github.com/docker/compose/releases</a></p>
+<p>下载完成后，重命名成 <code>docker.exe</code> 和 <code>docker-compose.exe</code>，丢进设置过 <code>Path</code> 环境变量的文件夹里就可以了。</p>
+<h4 id="linux">Linux</h4>
+<p>Linux 客户端只需要安装 <code>docker-ce-cli</code>。这里推荐一下<a href="https://mirrors.tuna.tsinghua.edu.cn/help/docker-ce/" target="_blank" rel="noopener">清华 tuna 镜像源</a>，提供了 docker-ce 的镜像和安装教程。</p>
+<h3 id="intellij-idea">IntelliJ IDEA</h3>
+<p>IDEA 里面图形化的设置很方便。如果使用了加密的 TCP，要选定证书的文件夹，并且 URL 要写成 <code>https://docker.beanbang.cn:2376</code> 这样的以 https 开头的形式。</p>
+<figure>
+<img src="https://www.z4a.net/images/2020/08/31/IDEA-Docker.png" alt><figcaption>IDEA 添加 Docker 连接</figcaption>
+</figure>
+<h3 id="vs-code">VS Code</h3>
+<p>首先安装 Docker 插件，然后修改配置文件。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// settings.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"docker.host"</span>: <span class="string">"tcp://docker.beanbang.cn:2376"</span>,</span><br><span class="line">    <span class="attr">"docker.tlsVerify"</span>: <span class="string">"1"</span>,</span><br><span class="line">    <span class="attr">"docker.certPath"</span>: <span class="string">"C:\\Users\\GYM\\.docker"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="https://www.z4a.net/images/2020/08/31/vscode-docker.png" alt><figcaption>VS Code 配置连接 Docker</figcaption>
+</figure>
+<h2 id="试试看">试试看！</h2>
+<p>连接上远程 Docker 之后，我们就可以尝试远程部署了。这是一个例子，在 Windows 10 上用 Dokcer CLI 部署一个 Spring Boot 项目到远程服务器上。我使用的是 TLS 加密的 TCP，就是上面的提到的配置。</p>
+<p>环境变量：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ set | findstr DOCKER</span><br><span class="line">DOCKER_HOST&#x3D;tcp:&#x2F;&#x2F;docker.beanbang.cn:2376</span><br><span class="line">DOCKER_TLS_VERIFY&#x3D;1</span><br></pre></td></tr></table></figure>
+<p>在 Spring initializr 上面<a href="https://start.spring.io/#!type=maven-project&amp;language=java&amp;platformVersion=2.3.3.RELEASE&amp;packaging=jar&amp;jvmVersion=14&amp;groupId=cn.beanbang&amp;artifactId=rest-test&amp;name=rest-test&amp;description=Demo%20project%20for%20Spring%20Boot%20and%20Docker&amp;packageName=cn.beanbang.demo&amp;dependencies=web" target="_blank" rel="noopener">创建项目</a>并下载到本地。</p>
+<figure>
+<img src="https://www.z4a.net/images/2020/08/31/spring-initializr.png" alt><figcaption>使用 Spring initializr 来初始化项目</figcaption>
+</figure>
+<p>添加一个控制器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.beanbang.demo.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">(@RequestParam(defaultValue = <span class="string">"world"</span>)</span> String name) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> String.format(<span class="string">"Hello, %s!"</span>, name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行 <code>mvnw package</code> 命令打包。会在 <code>target</code> 目录下生成 <code>rest-test-0.0.1-SNAPSHOT.jar</code> 文件。</p>
+<p>在项目的目录下创建 <code>Dockerfile</code> 文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM openjdk:8-jre</span><br><span class="line">ADD target&#x2F;rest-test-0.0.1-SNAPSHOT.jar app.jar</span><br><span class="line">EXPOSE 8080</span><br><span class="line">ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;&#x2F;app.jar&quot;]</span><br></pre></td></tr></table></figure>
+<p>然后可以开始部署了。</p>
+<p>创建容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ docker build -t rest-test .</span><br><span class="line">Sending build context to Docker daemon  16.78MB</span><br><span class="line">Step 1&#x2F;4 : FROM openjdk:8-jre</span><br><span class="line"> ---&gt; 2e2653debbe9</span><br><span class="line">Step 2&#x2F;4 : ADD target&#x2F;rest-test-0.0.1-SNAPSHOT.jar app.jar</span><br><span class="line"> ---&gt; a80c846520e1</span><br><span class="line">Step 3&#x2F;4 : EXPOSE 8080</span><br><span class="line"> ---&gt; Running in 68400e62b5cd</span><br><span class="line">Removing intermediate container 68400e62b5cd</span><br><span class="line"> ---&gt; fb69206fbe08</span><br><span class="line">Step 4&#x2F;4 : ENTRYPOINT [&quot;java&quot;,&quot;-jar&quot;,&quot;&#x2F;app.jar&quot;]</span><br><span class="line"> ---&gt; Running in 3e03c7f8804e</span><br><span class="line">Removing intermediate container 3e03c7f8804e</span><br><span class="line"> ---&gt; df0e8cc51568</span><br><span class="line">Successfully built df0e8cc51568</span><br><span class="line">Successfully tagged rest-test:latest</span><br><span class="line">SECURITY WARNING: You are building a Docker image from Windows against a non-Windows Docker host. All files and directories added to build context will have &#39;-rwxr-xr-x&#39; permissions. It is recommended to double check and reset permissions for sensitive files and directories.</span><br></pre></td></tr></table></figure>
+<p>运行容器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker run --name rest-demo -p 8081:8080 -d rest-test</span><br><span class="line">dd164ec7f237ba8736f2253ab2b226a66700733ed85e52cacee52345ec28f71b</span><br></pre></td></tr></table></figure>
+<figure>
+<img src="https://www.z4a.net/images/2020/08/31/docker-remote-success.png" alt><figcaption>显示容器日志和测试接口</figcaption>
+</figure>
+<p>这样，一个简单的 Java Web 服务就搭建起来了。在执行 <code>docker build</code> 命令的时候，Docker 会把构建所需要的文件上传到服务端的 daemon，然后 daemon 负责创建镜像和后续的容器运行等流程。</p>
+<hr>
+<blockquote>
+<p>参见：</p>
+<ul>
+<li><a href="https://docs.docker.com/engine/security/https/" target="_blank" rel="noopener">Protect the Docker daemon socket | Docker Documentation</a></li>
+<li><a href="https://docs.docker.com/engine/reference/commandline/dockerd/#daemon-configuration-file" target="_blank" rel="noopener">dockerd | Docker Documentation</a></li>
+<li><a href="https://docs.docker.com/engine/install/linux-postinstall/#configure-where-the-docker-daemon-listens-for-connections" target="_blank" rel="noopener">Post-installation steps for Linux | Docker Documentation</a></li>
+<li><a href="https://medium.com/better-programming/docker-tips-access-the-docker-daemon-via-ssh-97cd6b44a53" target="_blank" rel="noopener">Docker Tips: Access the Docker Daemon via SSH | by Luc Juggery | Medium</a></li>
+</ul>
+</blockquote>
+
+        
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/virtualization/" rel="tag"># 虚拟化</a>
+              <a href="/tags/os/" rel="tag"># 系统</a>
+              <a href="/tags/linux/" rel="tag"># Linux</a>
+              <a href="/tags/windows/" rel="tag"># Windows</a>
+              <a href="/tags/idea/" rel="tag"># IDEA</a>
+              <a href="/tags/security/" rel="tag"># 安全</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/06/install-wildcard-certificate-using-lets-encrypt/" rel="prev" title="Let’s Encrypt 安装通配符证书">
+      <i class="fa fa-chevron-left"></i> Let’s Encrypt 安装通配符证书
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tldr"><span class="nav-text">TL;DR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker-的架构"><span class="nav-text">Docker 的架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接-docker-daemon"><span class="nav-text">连接 Docker daemon</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用无加密-tcp-连接"><span class="nav-text">使用无加密 TCP 连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-tls-加密的-tcp-连接"><span class="nav-text">使用 TLS 加密的 TCP 连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-ssh-连接"><span class="nav-text">使用 SSH 连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端配置"><span class="nav-text">客户端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行"><span class="nav-text">命令行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#windows"><span class="nav-text">Windows</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux"><span class="nav-text">Linux</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#intellij-idea"><span class="nav-text">IntelliJ IDEA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vs-code"><span class="nav-text">VS Code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#试试看"><span class="nav-text">试试看！</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lazyb0x"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Lazyb0x</p>
+  <div class="site-description" itemprop="description">干杯🍻！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/Lazyb0x" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Lazyb0x" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://michaelcodezhang.gitee.io/" title="https:&#x2F;&#x2F;michaelcodezhang.gitee.io&#x2F;" rel="noopener" target="_blank">MichaelZhang</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div style="width: 162px; height: 98px; overflow: hidden; margin: 0 auto">
+  <a href="https://info.flagcounter.com/8awM" target="_blank" rel="noopener">
+    <img style="display: block; margin: 0 auto -23px;" title="访问人数统计" src="https://s05.flagcounter.com/count2/8awM/bg_EEEEEE/txt_999999/border_EEEEEE/columns_2/maxflags_10/viewers_3/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0" />
+  </a>
+</div>
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备17023244号-1 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lazyb0x</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1276226846&web_id=1276226846"></script>
+  </div>
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: '53p6sFAYCBY1FfXE9nOa3byP-gzGzoHsz',
+      appKey: 'V6tCmUsramFiGoA0GbBETOLR',
+      placeholder: "(っ╹◡╹)ﾉ❀",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: '' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
