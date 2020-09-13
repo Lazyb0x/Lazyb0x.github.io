@@ -1154,12 +1154,12 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
       </categories>
       <tags>
         <tag>网络</tag>
+        <tag>远程桌面</tag>
         <tag>DDNS</tag>
         <tag>frp</tag>
         <tag>SSH</tag>
         <tag>内网穿透</tag>
         <tag>反向代理</tag>
-        <tag>远程桌面</tag>
       </tags>
   </entry>
   <entry>
@@ -1475,8 +1475,8 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
         <tag>系统</tag>
         <tag>Linux</tag>
         <tag>树莓派</tag>
-        <tag>远程桌面</tag>
         <tag>无线</tag>
+        <tag>远程桌面</tag>
       </tags>
   </entry>
   <entry>
