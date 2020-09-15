@@ -67,9 +67,9 @@
     <category term="日志" scheme="https://blog.beanbang.cn/categories/log/"/>
     
     
-    <category term="安全" scheme="https://blog.beanbang.cn/tags/security/"/>
-    
     <category term="Hexo" scheme="https://blog.beanbang.cn/tags/hexo/"/>
+    
+    <category term="安全" scheme="https://blog.beanbang.cn/tags/security/"/>
     
     <category term="Apache" scheme="https://blog.beanbang.cn/tags/apache/"/>
     
@@ -293,9 +293,9 @@
     
     <category term="网络" scheme="https://blog.beanbang.cn/tags/network/"/>
     
-    <category term="Windows" scheme="https://blog.beanbang.cn/tags/windows/"/>
-    
     <category term="KMS" scheme="https://blog.beanbang.cn/tags/kms/"/>
+    
+    <category term="Windows" scheme="https://blog.beanbang.cn/tags/windows/"/>
     
     <category term="树莓派" scheme="https://blog.beanbang.cn/tags/raspberry-pi/"/>
     
