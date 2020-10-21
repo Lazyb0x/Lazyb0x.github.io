@@ -65,8 +65,8 @@
 <meta property="article:tag" content="系统">
 <meta property="article:tag" content="Linux">
 <meta property="article:tag" content="树莓派">
-<meta property="article:tag" content="无线">
 <meta property="article:tag" content="远程桌面">
+<meta property="article:tag" content="无线">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.z4a.net/images/2018/07/25/17d420b0bcedbf975c2c8690e1182bdc.jpg">
 
@@ -155,7 +155,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">19</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -292,13 +292,13 @@
         <p>最近从淘宝买来了树莓派3B+，一个基于ARM架构的微型电脑。接下来就要开始折腾之旅了~</p>
 <a id="more"></a>
 <figure>
-<img src="https://www.z4a.net/images/2018/07/25/17d420b0bcedbf975c2c8690e1182bdc.jpg" alt><figcaption>树莓派3B+官方照片</figcaption>
+<img src="https://www.z4a.net/images/2018/07/25/17d420b0bcedbf975c2c8690e1182bdc.jpg" alt="树莓派3B+官方照片"><figcaption aria-hidden="true">树莓派3B+官方照片</figcaption>
 </figure>
 <h3 id="安装系统">安装系统</h3>
 <p>到树莓派的<a href="https://www.raspberrypi.org/downloads/raspbian/" target="_blank" rel="noopener">官网</a>下载系统<code>Raspbian</code>，这是树莓派官方基于<code>Debian</code>改编的系统。选择“Raspbian Stretch with desktop”，带桌面的系统。虽然我没有显示器，但是如果想要远程桌面登陆树莓派也是需要桌面程序的。“Lite”版不带桌面，体积会小很多。</p>
 <p>树莓派没有硬盘，它的的储存用的是SD卡。用<a href="https://www.sdcard.org/downloads/formatter_4/#download" target="_blank" rel="noopener">SDFormatter</a>格式化SD卡后，用<a href="https://sourceforge.net/projects/win32diskimager/" target="_blank" rel="noopener">Win32DiskImager</a>刷入镜像。等待大约10分钟后就刷入结束了。这时候把卡插入卡槽就可以启动系统了。</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/07/25/Win32DiskImager.png" alt><figcaption>记得不要点错按钮</figcaption>
+<img src="https://www.z4a.net/images/2018/07/25/Win32DiskImager.png" alt="记得不要点错按钮"><figcaption aria-hidden="true">记得不要点错按钮</figcaption>
 </figure>
 <p>但是不急。因为我们没有接入显示器，所以没有办法控制树莓派。需要获得树莓派的IP地址以通过<code>SSH</code>连接。</p>
 <h3 id="配置连接">配置连接</h3>
@@ -318,7 +318,7 @@
 <p>Raspbian的ssh默认登陆用户名：<code>pi</code>，密码：<code>raspberry</code>。</p>
 <p>成功！</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/07/25/raspberry_putty.png" alt><figcaption>putty登陆树莓派</figcaption>
+<img src="https://www.z4a.net/images/2018/07/25/raspberry_putty.png" alt="putty登陆树莓派"><figcaption aria-hidden="true">putty登陆树莓派</figcaption>
 </figure>
 <h3 id="换软件源">换软件源</h3>
 <p>Raspbian自带的源慢且不稳定，软件安装到80%下载不下来就是这个原因。换成镜像源速度会快很多。</p>
@@ -334,16 +334,16 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install tightvncserver</span><br><span class="line">sudo apt-get install xrdp</span><br><span class="line">sudo service xrdp restart</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">sudo ufw allow 3389        <span class="comment">#如果开着防火墙ufw，那么打开服务器上的远程桌面访问端口</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash">sudo service ufw restart</span></span><br></pre></td></tr></table></figure>
 <p>win+R输入mstsc打开远程桌面连接界面，输入树莓派IP地址进行连接。</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/07/25/mstsc.png" alt><figcaption>mstsc</figcaption>
+<img src="https://www.z4a.net/images/2018/07/25/mstsc.png" alt="mstsc"><figcaption aria-hidden="true">mstsc</figcaption>
 </figure>
 <p>输入用户名和密码，就可以进桌面了。</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/07/25/Rasp_desktop.png" alt><figcaption>树莓派的桌面</figcaption>
+<img src="https://www.z4a.net/images/2018/07/25/Rasp_desktop.png" alt="树莓派的桌面"><figcaption aria-hidden="true">树莓派的桌面</figcaption>
 </figure>
 <p>想不到，里面居然有MC，真是个好东西🤭。</p>
 <p>拍个照：</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/07/25/9b362cccb446f7d990e3cf8a09022e9a.png" alt><figcaption>树莓派照片</figcaption>
+<img src="https://www.z4a.net/images/2018/07/25/9b362cccb446f7d990e3cf8a09022e9a.png" alt="树莓派照片"><figcaption aria-hidden="true">树莓派照片</figcaption>
 </figure>
 <h3 id="关机">关机</h3>
 <p>下面的命令都可以让树莓派关机，不到万不得已不要用拔电源的方式来关机。</p>
@@ -370,8 +370,8 @@
               <a href="/tags/os/" rel="tag"># 系统</a>
               <a href="/tags/linux/" rel="tag"># Linux</a>
               <a href="/tags/raspberry-pi/" rel="tag"># 树莓派</a>
-              <a href="/tags/wireless/" rel="tag"># 无线</a>
               <a href="/tags/remote-desktop/" rel="tag"># 远程桌面</a>
+              <a href="/tags/wireless/" rel="tag"># 无线</a>
           </div>
 
         
@@ -463,7 +463,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

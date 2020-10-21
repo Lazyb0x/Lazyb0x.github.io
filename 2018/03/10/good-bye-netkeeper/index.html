@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">19</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -286,12 +286,12 @@
         <p>终于解决了 Netkeeper 占用后台和开热点的问题。</p>
 <a id="more"></a>
 <figure>
-<img src="https://www.z4a.net/images/2018/03/10/NK.png" alt><figcaption>Netkeeper登陆界面</figcaption>
+<img src="https://www.z4a.net/images/2018/03/10/NK.png" alt="Netkeeper登陆界面"><figcaption aria-hidden="true">Netkeeper登陆界面</figcaption>
 </figure>
 <p>假如你用的是联通提供的个人网，那你应该很熟悉这个叫<code>WO的校园</code>的软件了。它的下载地址在<a href="http://home.icampus.ren/" target="_blank" rel="noopener">这里</a>。这是联通用来拨号上网的客户端软件。</p>
 <p>购买了联通的个人网后（当时是被“强制”订的，奸商太坑），在客户端输入联通提供的用户名和密码，连通之后就可以上网了。曾几何时，我以为这是一个简单的拨号上网辅助软件。日子一天天过去，有一次我要用电脑开热点给手机用的时候，网络断开了，并弹出了这样的提示：发现共享软件。</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/03/10/NK3030f19b55dc2976.png" alt><figcaption>Netkeeper发现网络共享软件后的提示</figcaption>
+<img src="https://www.z4a.net/images/2018/03/10/NK3030f19b55dc2976.png" alt="Netkeeper发现网络共享软件后的提示"><figcaption aria-hidden="true">Netkeeper发现网络共享软件后的提示</figcaption>
 </figure>
 <p>这个时候，我才发现了这个软件的真正目的：限制网络共享。在程序的安装目录可以看到这个软件的真正名字叫<code>Netkeeper</code>。原来，联通给我们的上网密码并不是<code>PPPoE</code>协议的拨号上网密码。真正的拨号密码是用这个软件的算法算出来的。这就使得用户不得不使用这个软件来上网。拨号成功后，Netkeeper继续留在后台监控是否有网络共享软件，若发现如猎豹Wifi之类软件的进程名，就会断开网络。如果直接退出Netkeeper，网络也会断开。这样，黑心的运营商便达到了它的目的：</p>
 <ol type="1">
@@ -316,7 +316,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    system(<span class="string">"cmd /c killNetkeeper.bat&amp;exit"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>目的就是运行killNetkeeper.bat，编译成update.exe。没错，偷梁换柱！当netkeeper启动后，想要检查更新时，它不知道已经打开了结束自己的文件。</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/03/10/nk.gif" alt><figcaption>KN运行后自动退出</figcaption>
+<img src="https://www.z4a.net/images/2018/03/10/nk.gif" alt="KN运行后自动退出"><figcaption aria-hidden="true">KN运行后自动退出</figcaption>
 </figure>
 <p>从此以后，被限制网络的日子终于一去不复返了，也可以给自己和小伙伴开热点了。再见了，NetKeeper！</p>
 <h2 id="下载">下载</h2>
@@ -432,7 +432,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

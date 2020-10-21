@@ -59,11 +59,11 @@
 <meta property="article:published_time" content="2019-08-07T09:36:53.000Z">
 <meta property="article:modified_time" content="2020-01-13T09:53:12.922Z">
 <meta property="article:author" content="Lazyb0x">
+<meta property="article:tag" content="Windows">
 <meta property="article:tag" content="系统">
 <meta property="article:tag" content="Linux">
-<meta property="article:tag" content="网络">
-<meta property="article:tag" content="Windows">
 <meta property="article:tag" content="树莓派">
+<meta property="article:tag" content="网络">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.z4a.net/images/2019/08/07/wireshark-mdns.png">
 
@@ -152,7 +152,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">19</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -302,7 +302,7 @@
 <h2 id="偶然的发现">偶然的发现</h2>
 <p>在研究 IGMP 协议的时候，我用 Wireshark 对无线网卡抓取 IGMP 数据包，想看看有没有什么服务是在使用组播（Multicast）地址的。</p>
 <figure>
-<img src="https://www.z4a.net/images/2019/08/07/wireshark-mdns.png" alt><figcaption>Wireshark软件截图</figcaption>
+<img src="https://www.z4a.net/images/2019/08/07/wireshark-mdns.png" alt="Wireshark软件截图"><figcaption aria-hidden="true">Wireshark软件截图</figcaption>
 </figure>
 <p>之后我看到了局域网内的电脑基本上都会加入这几个组播地址：<code>224.0.0.251</code>，<code>224.0.0.252</code>，<code>239.255.255.250</code>。</p>
 <p>经过查找，这三个组播地址分别是协议 mDNS，LLMNR 和 SSDP 协议的。mDNS实现了类似 DNS 的功能，使得主机在局域网内能够加入和通信；LLMNR 的功能和 mDNS 类似；SSDP 是 UPnP 协议的一部分，也是用来实现设备和服务的发现的。</p>
@@ -327,7 +327,7 @@
 <p>Windows 系统的主机名在环境变量 <code>COMPUTERNAME</code> 查看，可以在系统设置中修改。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo %COMPUTERNAME%</span><br></pre></td></tr></table></figure>
 <figure>
-<img src="https://www.z4a.net/images/2019/08/07/computername.png" alt><figcaption>Windows更改主机名</figcaption>
+<img src="https://www.z4a.net/images/2019/08/07/computername.png" alt="Windows更改主机名"><figcaption aria-hidden="true">Windows更改主机名</figcaption>
 </figure>
 <p>Linux 系统主机名存在 <code>/etc/hostname</code> 中。使用 <code>hostnamectl</code> 可以查询和修改。<code>/etc/hosts</code> 里也有主机名的记录，也要一并修改。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">查询主机名</span></span><br><span class="line">hostname</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">临时更改，重启失效</span></span><br><span class="line">sudo hostname &lt;newhostname&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">hostnamectl只更改/etc/hostname，记得改/etc/hosts</span></span><br><span class="line">sudo hostnamectl set-hostname &lt;newhostname&gt;</span><br></pre></td></tr></table></figure>
@@ -343,7 +343,7 @@
 </ol>
 <p>Linux 一般是安装了 <code>avahi-daemon</code> 服务。使用指令 <code>systemctl status avahi-daemon.service</code> 来查看服务运行状态。</p>
 <figure>
-<img src="https://www.z4a.net/images/2019/08/07/avahi-daemon.png" alt><figcaption>avahi-daemon</figcaption>
+<img src="https://www.z4a.net/images/2019/08/07/avahi-daemon.png" alt="avahi-daemon"><figcaption aria-hidden="true">avahi-daemon</figcaption>
 </figure>
 <p>安卓系统似乎不支持，我的华为手机没有。</p>
 <p>还可以查询 UDP 5353 端口。</p>
@@ -372,11 +372,11 @@
 
       <footer class="post-footer">
           <div class="post-tags">
+              <a href="/tags/windows/" rel="tag"># Windows</a>
               <a href="/tags/os/" rel="tag"># 系统</a>
               <a href="/tags/linux/" rel="tag"># Linux</a>
-              <a href="/tags/network/" rel="tag"># 网络</a>
-              <a href="/tags/windows/" rel="tag"># Windows</a>
               <a href="/tags/raspberry-pi/" rel="tag"># 树莓派</a>
+              <a href="/tags/network/" rel="tag"># 网络</a>
           </div>
 
         
@@ -468,7 +468,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -153,7 +153,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">19</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -295,7 +295,7 @@
 <li>SSL是应用层和运输层之间的加密协议，相比于http的明文传输来的更加安全。SSL能够有效降低中间人攻击的风险。比如使用<code>Fiddler</code>软件抓取https包的时候就需要先向浏览器添加自己的<code>CA</code>证书，因为没有证书信任的话就无法获得加密的内容。</li>
 </ol>
 <figure>
-<img src="https://www.z4a.net/images/2018/10/24/SSL.png" alt><figcaption>SSL安全会话建立过程 | 《计算机网络》</figcaption>
+<img src="https://www.z4a.net/images/2018/10/24/SSL.png" alt="SSL安全会话建立过程 | 《计算机网络》"><figcaption aria-hidden="true">SSL安全会话建立过程 | 《计算机网络》</figcaption>
 </figure>
 <ol start="2" type="1">
 <li>全站https有利于提升网站在搜索引擎的收入率。在相同权重的情况下，搜索引擎会认为https站点的安全性更高而将网站排在前面。</li>
@@ -306,7 +306,7 @@
 <p>申请需要验证你的主机和域名，会要求在指定位置放置验证文件或者给域名添加一条解析记录。如果你的域名也是从腾讯云买的，它会给你自动添加。验证的速度很快，大约10分钟就能审核通过。</p>
 <p>如果你等了1小时还没通过就别等了，赶紧检查一下自己填的信息有没有错吧，不要像我一样把域名打错了然后傻等了一天T T。</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/10/08/1dce2ec27b1338b2dc60beded5cf874c.png" alt><figcaption>证书文件</figcaption>
+<img src="https://www.z4a.net/images/2018/10/08/1dce2ec27b1338b2dc60beded5cf874c.png" alt="证书文件"><figcaption aria-hidden="true">证书文件</figcaption>
 </figure>
 <p>审核通过后会颁发的证书可以下载到本地。打开后里面有为各种http服务器使用的证书和密钥文件。我用的是<code>Apache</code>，就把Apache文件夹下的3个文件上传到服务器上。</p>
 <h2 id="编辑apache配置">编辑Apache配置</h2>
@@ -317,7 +317,7 @@
 <h2 id="开启443端口">开启443端口</h2>
 <p>https协议使用的不是80端口而是443端口。如果有防火墙记得允许443端口的<code>TCP</code>数据包通过。</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/10/08/TCP443.png" alt><figcaption>在安全组中允许TCP443端口</figcaption>
+<img src="https://www.z4a.net/images/2018/10/08/TCP443.png" alt="在安全组中允许TCP443端口"><figcaption aria-hidden="true">在安全组中允许TCP443端口</figcaption>
 </figure>
 <h2 id="wordpress设置">Wordpress设置</h2>
 <p>wordpress目录下的<code>.htaccess</code>文件：</p>
@@ -331,7 +331,7 @@
 <h2 id="结束">结束</h2>
 <p>现在，打开网站 <a href="https://blog.beanbang.cn">https://blog.beanbang.cn</a> 就可以正常访问了。即使是不加https前缀也能自动跳转到https。由于中间环节多了一个验证加密的步骤，网站打开的时间会比以往更长一些。</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/11/04/https.png" alt><figcaption>网站https标志</figcaption>
+<img src="https://www.z4a.net/images/2018/11/04/https.png" alt="网站https标志"><figcaption aria-hidden="true">网站https标志</figcaption>
 </figure>
 <hr>
 <blockquote>
@@ -450,7 +450,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

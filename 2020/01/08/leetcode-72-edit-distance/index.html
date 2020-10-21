@@ -147,7 +147,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">19</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档<span class="badge">20</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -365,7 +365,7 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
 <h3 id="自底向上">自底向上</h3>
 <p>自底向上的方法采用的是这么一种思路：先求解规模小的问题，再求解规模大的问题。在求解一个问题的时候，它所依赖的子问题都已经被计算过了。这样的好处在于可以不用使用递归函数调用，也不需要检查子问题是否计算过。</p>
 <figure>
-<img src="/2020/01/08/leetcode-72-edit-distance/dp-table.svg" title="编辑距离表格" alt><figcaption>编辑距离表格</figcaption>
+<img src="/2020/01/08/leetcode-72-edit-distance/dp-table.svg" title="编辑距离表格" alt="编辑距离表格"><figcaption aria-hidden="true">编辑距离表格</figcaption>
 </figure>
 <p>这张表是 <code>horse -&gt; ros</code> 每个长度编辑距离的表格，和上面自顶向下代码中的 <code>dist</code> 数组存储的数据差不多，多了一行一列的边界值，也就是终止条件的情况。应该能够很直观地看到，表格中的每一个值（m[i, j]），所依赖三个子问题都在它的左边、上面和左上角。只要按照一定顺序计算，就能生成整张表。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(String word1, String word2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l1 = word1.length();</span><br><span class="line">        <span class="keyword">int</span> l2 = word2.length();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">int</span>[][] dist = <span class="keyword">new</span> <span class="keyword">int</span>[l1+<span class="number">1</span>][l2+<span class="number">1</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;=l1; i++)</span><br><span class="line">            dist[i][<span class="number">0</span>] = i;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;=l2; j++) &#123;</span><br><span class="line">            dist[<span class="number">0</span>][j] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=l1; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;=l2; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (word1.charAt(i-<span class="number">1</span>)==word2.charAt(j-<span class="number">1</span>)) &#123;</span><br><span class="line">                    dist[i][j] = dist[i-<span class="number">1</span>][j-<span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">int</span> add = dist[i][j-<span class="number">1</span>]+<span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">int</span> rem = dist[i-<span class="number">1</span>][j]+<span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">int</span> repl = dist[i-<span class="number">1</span>][j-<span class="number">1</span>]+<span class="number">1</span>;</span><br><span class="line">                    dist[i][j] = Math.min(repl, Math.min(rem, add));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> dist[l1][l2];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -374,7 +374,7 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
 <p>到上面为止，对于解答问题——得到单词间的最小距离，已经完成了。但是假如我们想要知道具体的每一步应该怎么编辑字符，该怎么做呢？我们可以对代码稍加修改，使每一个问题不仅保存最优解的值，还把相应的操作保存下来。</p>
 <p>另外定义一个二维数组 <code>act[][]</code> 来储存操作，用值 0~3 来表示跳过、插入、删除和替换的操作，在找到最短距离的同时顺便记录下对应的操作，就能得到一张操作表。</p>
 <figure>
-<img src="/2020/01/08/leetcode-72-edit-distance/dp-operation.svg" alt><figcaption>编辑操作表格</figcaption>
+<img src="/2020/01/08/leetcode-72-edit-distance/dp-operation.svg" alt="编辑操作表格"><figcaption aria-hidden="true">编辑操作表格</figcaption>
 </figure>
 <p>假如 <code>act[i][j]</code> 当前的值是 2，代表删除，那么就删除 word1[i] 的字符，然后往上移，寻找 <code>act[i-1][j]</code>，以此类推。</p>
 <p>代码：</p>
@@ -501,7 +501,7 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
