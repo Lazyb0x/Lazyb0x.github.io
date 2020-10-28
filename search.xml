@@ -25,13 +25,21 @@
 <li>在语法文件的规则上 右键 -&gt; Test Rule ... ，来实时测试语法树</li>
 <li>在语法文件里面 右键 -&gt; Generate ANTLR Recognizer 来生成代码</li>
 </ol>
+<h3 id="vs-code">VS Code</h3>
+<p>安装插件 <a href="https://marketplace.visualstudio.com/items?itemName=mike-lischke.vscode-antlr4" target="_blank" rel="noopener">ANTLR4 grammar syntax support</a>。</p>
 <h2 id="hello-world">Hello world</h2>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; Define a grammar called Hello</span><br><span class="line">grammar Hello;</span><br><span class="line">r  : &#39;hello&#39; ID ;         &#x2F;&#x2F; match keyword hello followed by an identifier</span><br><span class="line">ID : [a-z]+ ;             &#x2F;&#x2F; match lower-case identifiers</span><br><span class="line">WS : [ \t\r\n]+ -&gt; skip ; &#x2F;&#x2F; skip spaces, tabs, newlines</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">grun Hello r -gui</span><br><span class="line">grun Hello r -tokens</span><br><span class="line">grun Hello r -tree</span><br><span class="line">antlr4 -no-listener -visitor xxx.g4</span><br></pre></td></tr></table></figure>
 <p>退出：Windows 按下 <kbd>Ctrl</kbd> + <kbd>Z</kbd>，<kbd>Enter</kbd> 退出。</p>
 <h2 id="遍历语法树">遍历语法树</h2>
+<p>ANTLR 的监听器和访问器能够将语法和程序逻辑代码解耦，可以不需要在语法中内嵌动作。</p>
+<blockquote>
+<p>使用访问器和监听器机制，我们可以完成一切与语法相关的事情。一旦进入Java的领域，就没有什么ANTLR的相关内容值得学习了。我们需要谨记在心的是，语法及其对应的语法分析树，以及访问器或者监听器事件方法之间的关系。除此之外，剩下的仅仅是普通的代码。在对输入文本进行识别时，我们可以产生输出、收集信息（正如本例中我们所做的）、用某种方式验证输入文本，或者执行计算。</p>
+</blockquote>
 <h3 id="listener监听器">Listener（监听器）</h3>
 <p>类似于 XML 的 SAX 解析。监听器的方法会被 Antlr 提供的遍历器对象自动调用。</p>
+<p>可以用 ParseTreeProperty 来储存和获取变量。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ParseTreeProperty&lt;Integer&gt; values = <span class="keyword">new</span> ParseTreeProperty&lt;Integer&gt;();</span><br><span class="line">values.put(ctx, values.get(ctx.getChild(<span class="number">0</span>)));</span><br><span class="line">values.get(ctx.e(<span class="number">0</span>))</span><br></pre></td></tr></table></figure>
 <h3 id="visitor访问器">Visitor（访问器）</h3>
 <p>访问器方法中，需要显式地调用 visit() 方法来访问子节点，可以自己定义怎么访问子树。</p>
 <h3 id="代码生成">代码生成</h3>
@@ -107,7 +115,7 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">STRING : &#39;&quot;&#39; .*? &#39;&quot;&#39; ;</span><br></pre></td></tr></table></figure>
 <p><code>.</code> 匹配任意单个字符，<code>.*</code> 匹配零个或多个，<code>?</code> 标记表示使用非贪婪匹配子规则（nongreedy subrule）。</p>
 <p>转义字符：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">STRING ; &#39;&quot;&#39; (ESC|.)*? &#39;&quot;&#39; ;</span><br><span class="line">fragment</span><br><span class="line">ESC : &#39;\\&quot;&#39; | &#39;\\\\&#39; ; &#x2F;&#x2F; 转义 \&quot; 和 \\</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">STRING : &#39;&quot;&#39; (ESC|.)*? &#39;&quot;&#39; ;</span><br><span class="line">fragment</span><br><span class="line">ESC : &#39;\\&quot;&#39; | &#39;\\\\&#39; ; &#x2F;&#x2F; 转义 \&quot; 和 \\</span><br></pre></td></tr></table></figure>
 <h4 id="注释和空白字符">注释和空白字符</h4>
 <p>C 中的单行和多行注释：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LINE_COMINT : &#39;&#x2F;&#x2F;&#39; .*? &#39;\r&#39;? &#39;\n&#39; -&gt; skip ; &#x2F;&#x2F; 消费掉双斜杠后面的一切字符，直到遇到换行符</span><br></pre></td></tr></table></figure>
@@ -116,6 +124,27 @@
 <figure>
 <img src="/2020/10/21/antlr-v4-note/5-3-lexer-starter-kit.png" alt="一些基础的语法规则"><figcaption aria-hidden="true">一些基础的语法规则</figcaption>
 </figure>
+<h2 id="解析现成的语言">解析现成的语言</h2>
+<blockquote>
+<p>要想揭开一门语言的神秘面纱，我们需要分析不同来源的信息。语言的规模越大，我们需要的参考文档和各式各样的范例代码就越多。有时候，只有设法对语言现有的实现进行试探，才能发现边界情况。语言的参考文档通常并非一目了然。</p>
+</blockquote>
+<ul>
+<li>CSV</li>
+<li>JSON</li>
+<li>DOT</li>
+<li>Cymbol</li>
+</ul>
+<h2 id="语法和程序逻辑">语法和程序逻辑</h2>
+<h3 id="在事件方法中共享信息">在事件方法中共享信息</h3>
+<ol type="1">
+<li><p>使用访问器的方法来返回值</p>
+<p>继承 BasicVisitor 的时候指定泛型</p></li>
+<li><p>使用类的成员在事件方法之间共享数据</p>
+<p>比如在监听器的类中声明一个栈，每个子表达式的结果退入栈中，然后在更高层的节点中取出来。</p></li>
+<li><p>对语法分析树的结点进行标注</p>
+<p>可以直接将语句绑定在语法上，这样每一个节点都会有这个值：<code>e returns [int value] ...;</code> 。</p>
+<p>使用 <code>ParseTreeProperty</code> 的辅助类，本质上是 IdentityHashMap，用节点对象作为键。</p></li>
+</ol>
 ]]></content>
       <categories>
         <category>日志</category>
@@ -299,12 +328,12 @@
         <category>软件</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
+        <tag>虚拟化</tag>
         <tag>系统</tag>
         <tag>Linux</tag>
+        <tag>Windows</tag>
         <tag>IDEA</tag>
         <tag>安全</tag>
-        <tag>虚拟化</tag>
       </tags>
   </entry>
   <entry>
@@ -380,10 +409,10 @@
       </categories>
       <tags>
         <tag>安全</tag>
-        <tag>Hexo</tag>
         <tag>Apache</tag>
         <tag>HTTPS</tag>
         <tag>SSL</tag>
+        <tag>Hexo</tag>
       </tags>
   </entry>
   <entry>
@@ -920,11 +949,11 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
         <category>软件</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
         <tag>系统</tag>
         <tag>Linux</tag>
-        <tag>树莓派</tag>
         <tag>网络</tag>
+        <tag>Windows</tag>
+        <tag>树莓派</tag>
       </tags>
   </entry>
   <entry>
@@ -990,8 +1019,8 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
       </categories>
       <tags>
         <tag>Linux</tag>
-        <tag>树莓派</tag>
         <tag>网络</tag>
+        <tag>树莓派</tag>
         <tag>无线</tag>
       </tags>
   </entry>
@@ -1056,8 +1085,8 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
         <category>软件</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
         <tag>系统</tag>
+        <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
@@ -1135,11 +1164,11 @@ min(m[i, j-1] + 1,\ m[i-1, j] + 1,\ m[i-1, j-1] +1) &amp; w1[i] \neq w2[j]
         <category>软件</category>
       </categories>
       <tags>
-        <tag>Windows</tag>
         <tag>系统</tag>
+        <tag>网络</tag>
+        <tag>Windows</tag>
         <tag>KMS</tag>
         <tag>树莓派</tag>
-        <tag>网络</tag>
       </tags>
   </entry>
   <entry>
