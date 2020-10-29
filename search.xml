@@ -9,10 +9,20 @@
 <a id="more"></a>
 <blockquote>
 <p><a href="http://www.yinwang.org/blog-cn/2017/05/25/dsl" target="_blank" rel="noopener">DSL 的误区 | 王垠</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/20178871" target="_blank" rel="noopener">如何愉快地写个小parser - 知乎</a></p>
 <p><a href="https://github.com/antlr/antlr4/blob/master/doc/getting-started.md" target="_blank" rel="noopener">Getting Started with ANTLR v4 | GitHub</a></p>
 <p><a href="https://book.douban.com/subject/27082372/" target="_blank" rel="noopener">ANTLR 4权威指南 (豆瓣)</a></p>
 <p><a href="https://pragprog.com/titles/tpantlr2/the-definitive-antlr-4-reference/" target="_blank" rel="noopener">The Definitive ANTLR 4 Reference</a> 英文版和示例代码</p>
 </blockquote>
+<h2 id="是什么">是什么</h2>
+<p>ANTLR 是：</p>
+<ul>
+<li><p>语法分析器的生成器：可以根据一个程序设计语言的语法描述自动生成语法分析器。</p></li>
+<li><p>扫描器的生成器：可以根据一个语言的语法单元的正则表达式描述生成词法分析器。</p></li>
+<li><p>语法制导的翻译引擎：ANTLR 会生成语法树并生成相应的访问器或者监听器类来遍历语法树。</p></li>
+<li><p>使用 LL(*) 文法的解析器。</p></li>
+<li><p>包含很多现成的语法定义，解析主流的语言都可以开箱即用：<a href="https://github.com/antlr/grammars-v4" target="_blank" rel="noopener">antlr/grammars-v4 · GitHub</a>。</p></li>
+</ul>
 <h2 id="安装">安装</h2>
 <h3 id="命令行">命令行</h3>
 <p>https://www.antlr.org/download/</p>
@@ -39,7 +49,7 @@
 <h3 id="listener监听器">Listener（监听器）</h3>
 <p>类似于 XML 的 SAX 解析。监听器的方法会被 Antlr 提供的遍历器对象自动调用。</p>
 <p>可以用 ParseTreeProperty 来储存和获取变量。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ParseTreeProperty&lt;Integer&gt; values = <span class="keyword">new</span> ParseTreeProperty&lt;Integer&gt;();</span><br><span class="line">values.put(ctx, values.get(ctx.getChild(<span class="number">0</span>)));</span><br><span class="line">values.get(ctx.e(<span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ParseTreeProperty&lt;Integer&gt; values = <span class="keyword">new</span> ParseTreeProperty&lt;Integer&gt;();</span><br><span class="line">values.put(ctx, values.get(ctx.getChild(<span class="number">0</span>)));</span><br><span class="line">values.get(ctx.e(<span class="number">0</span>));</span><br></pre></td></tr></table></figure>
 <h3 id="visitor访问器">Visitor（访问器）</h3>
 <p>访问器方法中，需要显式地调用 visit() 方法来访问子节点，可以自己定义怎么访问子树。</p>
 <h3 id="代码生成">代码生成</h3>
