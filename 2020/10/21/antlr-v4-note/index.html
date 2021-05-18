@@ -282,10 +282,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <center>“语言的边界就是思想的边界。”</center>
-
+        <center>
+“语言的边界就是思想的边界。”
+</center>
 <a id="more"></a>
-
 <blockquote>
 <p><a href="http://www.yinwang.org/blog-cn/2017/05/25/dsl" target="_blank" rel="noopener">DSL 的误区 | 王垠</a></p>
 <p><a href="https://zhuanlan.zhihu.com/p/20178871" target="_blank" rel="noopener">如何愉快地写个小parser - 知乎</a></p>
@@ -293,119 +293,128 @@
 <p><a href="https://book.douban.com/subject/27082372/" target="_blank" rel="noopener">ANTLR 4权威指南 (豆瓣)</a></p>
 <p><a href="https://pragprog.com/titles/tpantlr2/the-definitive-antlr-4-reference/" target="_blank" rel="noopener">The Definitive ANTLR 4 Reference</a> 英文版和示例代码</p>
 </blockquote>
-<h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><p>ANTLR 是：</p>
+<h2 id="是什么">是什么</h2>
+<p>ANTLR 是：</p>
 <ul>
-<li><p>语法分析器的生成器：可以根据一个程序设计语言的语法描述自动生成语法分析器。</p>
-</li>
-<li><p>扫描器的生成器：可以根据一个语言的语法单元的正则表达式描述生成词法分析器。</p>
-</li>
-<li><p>语法制导的翻译引擎：ANTLR 会生成语法树并生成相应的访问器或者监听器类来遍历语法树。</p>
-</li>
-<li><p>使用 LL(*) 文法的解析器。</p>
-</li>
-<li><p>包含很多现成的语法定义，解析主流的语言都可以开箱即用：<a href="https://github.com/antlr/grammars-v4" target="_blank" rel="noopener">antlr/grammars-v4 · GitHub</a>。</p>
-</li>
+<li><p>语法分析器的生成器：可以根据一个程序设计语言的语法描述自动生成语法分析器。</p></li>
+<li><p>扫描器的生成器：可以根据一个语言的语法单元的正则表达式描述生成词法分析器。</p></li>
+<li><p>语法制导的翻译引擎：ANTLR 会生成语法树并生成相应的访问器或者监听器类来遍历语法树。</p></li>
+<li><p>使用 LL(*) 文法的解析器。</p></li>
+<li><p>包含很多现成的语法定义，解析主流的语言都可以开箱即用：<a href="https://github.com/antlr/grammars-v4" target="_blank" rel="noopener">antlr/grammars-v4 · GitHub</a>。</p></li>
 </ul>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h3><p><a href="https://www.antlr.org/download/" target="_blank" rel="noopener">https://www.antlr.org/download/</a></p>
+<h2 id="安装">安装</h2>
+<h3 id="命令行">命令行</h3>
+<p>https://www.antlr.org/download/</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CLASSPATH &#x3D;.;D:\javalib\*;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:: antlr4.bat</span><br><span class="line">@java -cp .;D:\javalib\antlr-4.8-complete.jar org.antlr.v4.Tool %*</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">::grun.bat</span><br><span class="line">@java -cp .;D:\javalib\antlr-4.8-complete.jar org.antlr.v4.gui.TestRig %*</span><br></pre></td></tr></table></figure>
-
-<h3 id="IDEA"><a href="#IDEA" class="headerlink" title="IDEA"></a>IDEA</h3><ol>
+<h3 id="idea">IDEA</h3>
+<ol type="1">
 <li>安装插件 <a href="https://plugins.jetbrains.com/plugin/7358-antlr-v4-grammar-plugin" target="_blank" rel="noopener">ANTLR v4 grammar plugin</a></li>
-<li>在语法文件的规则上 右键 -&gt; Test Rule … ，来实时测试语法树</li>
+<li>在语法文件的规则上 右键 -&gt; Test Rule ... ，来实时测试语法树</li>
 <li>在语法文件里面 右键 -&gt; Generate ANTLR Recognizer 来生成代码</li>
 </ol>
-<h3 id="VS-Code"><a href="#VS-Code" class="headerlink" title="VS Code"></a>VS Code</h3><p>安装插件 <a href="https://marketplace.visualstudio.com/items?itemName=mike-lischke.vscode-antlr4" target="_blank" rel="noopener">ANTLR4 grammar syntax support</a>。</p>
-<h2 id="Hello-world"><a href="#Hello-world" class="headerlink" title="Hello world"></a>Hello world</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Define a grammar called Hello</span><br><span class="line">grammar Hello;</span><br><span class="line">r  : &#39;hello&#39; ID ;         &#x2F;&#x2F; match keyword hello followed by an identifier</span><br><span class="line">ID : [a-z]+ ;             &#x2F;&#x2F; match lower-case identifiers</span><br><span class="line">WS : [ \t\r\n]+ -&gt; skip ; &#x2F;&#x2F; skip spaces, tabs, newlines</span><br></pre></td></tr></table></figure>
-
+<h3 id="vs-code">VS Code</h3>
+<p>安装插件 <a href="https://marketplace.visualstudio.com/items?itemName=mike-lischke.vscode-antlr4" target="_blank" rel="noopener">ANTLR4 grammar syntax support</a>。</p>
+<h2 id="hello-world">Hello world</h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Define a grammar called Hello</span><br><span class="line">grammar Hello;</span><br><span class="line">r  : &#39;hello&#39; ID ;         &#x2F;&#x2F; match keyword hello followed by an identifier</span><br><span class="line">ID : [a-z]+ ;             &#x2F;&#x2F; match lower-case identifiers</span><br><span class="line">WS : [ \t\r\n]+ -&gt; skip ; &#x2F;&#x2F; skip spaces, tabs, newlines</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grun Hello r -gui</span><br><span class="line">grun Hello r -tokens</span><br><span class="line">grun Hello r -tree</span><br><span class="line">antlr4 -no-listener -visitor xxx.g4</span><br></pre></td></tr></table></figure>
-
-<p>退出：Windows 按下  <kbd>Ctrl</kbd> + <kbd>Z</kbd>，<kbd>Enter</kbd> 退出。</p>
-<h2 id="遍历语法树"><a href="#遍历语法树" class="headerlink" title="遍历语法树"></a>遍历语法树</h2><p>ANTLR 的监听器和访问器能够将语法和程序逻辑代码解耦，可以不需要在语法中内嵌动作。</p>
+<p>退出：Windows 按下 <kbd>Ctrl</kbd> + <kbd>Z</kbd>，<kbd>Enter</kbd> 退出。</p>
+<h2 id="遍历语法树">遍历语法树</h2>
+<p>ANTLR 的监听器和访问器能够将语法和程序逻辑代码解耦，可以不需要在语法中内嵌动作。</p>
 <blockquote>
 <p>使用访问器和监听器机制，我们可以完成一切与语法相关的事情。一旦进入Java的领域，就没有什么ANTLR的相关内容值得学习了。我们需要谨记在心的是，语法及其对应的语法分析树，以及访问器或者监听器事件方法之间的关系。除此之外，剩下的仅仅是普通的代码。在对输入文本进行识别时，我们可以产生输出、收集信息（正如本例中我们所做的）、用某种方式验证输入文本，或者执行计算。</p>
 </blockquote>
-<h3 id="Listener（监听器）"><a href="#Listener（监听器）" class="headerlink" title="Listener（监听器）"></a>Listener（监听器）</h3><p>类似于 XML 的 SAX 解析。监听器的方法会被 Antlr 提供的遍历器对象自动调用。</p>
+<h3 id="listener监听器">Listener（监听器）</h3>
+<p>类似于 XML 的 SAX 解析。监听器的方法会被 Antlr 提供的遍历器对象自动调用。</p>
 <p>可以用 ParseTreeProperty 来储存和获取变量。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ParseTreeProperty&lt;Integer&gt; values = <span class="keyword">new</span> ParseTreeProperty&lt;Integer&gt;();</span><br><span class="line">values.put(ctx, values.get(ctx.getChild(<span class="number">0</span>)));</span><br><span class="line">values.get(ctx.e(<span class="number">0</span>));</span><br></pre></td></tr></table></figure>
-
-<h3 id="Visitor（访问器）"><a href="#Visitor（访问器）" class="headerlink" title="Visitor（访问器）"></a>Visitor（访问器）</h3><p>访问器方法中，需要显式地调用 visit() 方法来访问子节点，可以自己定义怎么访问子树。</p>
-<h3 id="代码生成"><a href="#代码生成" class="headerlink" title="代码生成"></a>代码生成</h3><ul>
+<h3 id="visitor访问器">Visitor（访问器）</h3>
+<p>访问器方法中，需要显式地调用 visit() 方法来访问子节点，可以自己定义怎么访问子树。</p>
+<h3 id="代码生成">代码生成</h3>
+<ul>
 <li>Parser.java</li>
 <li>Lexer.java</li>
 <li>.tokens</li>
 <li>Listener.java</li>
 </ul>
-<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><h3 id="语法导入"><a href="#语法导入" class="headerlink" title="语法导入"></a>语法导入</h3><p>使用 <code>import</code> 可以让语法文件模块化。</p>
-<h3 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stat:   expr NEWLINE                # printExpr</span><br><span class="line">    |   ID &#39;&#x3D;&#39; expr NEWLINE         # assign</span><br><span class="line">    |   NEWLINE                     # blank</span><br><span class="line">    ;</span><br></pre></td></tr></table></figure>
-
+<h2 id="入门">入门</h2>
+<h3 id="语法导入">语法导入</h3>
+<p>使用 <code>import</code> 可以让语法文件模块化。</p>
+<h3 id="标签">标签</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">stat:   expr NEWLINE                # printExpr</span><br><span class="line">    |   ID &#39;&#x3D;&#39; expr NEWLINE         # assign</span><br><span class="line">    |   NEWLINE                     # blank</span><br><span class="line">    ;</span><br></pre></td></tr></table></figure>
 <p>加了标签的备选分支，会生成相应的访问器方法。</p>
-<h3 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h3><p>语法中嵌入动作</p>
+<h3 id="语法分析">语法分析</h3>
+<p>语法中嵌入动作</p>
 <p>使用语义判定改变语法分析过程</p>
-<h3 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h3><p>孤岛语法。例子：解析xml</p>
+<h3 id="词法分析">词法分析</h3>
+<p>孤岛语法。例子：解析xml</p>
 <p>重写输入流。例子：java代码添加序列化标识符</p>
 <p>将词法送入不同通道。例子：忽略却保留注释和空白字符</p>
-<h2 id="开发"><a href="#开发" class="headerlink" title="开发"></a>开发</h2><h3 id="设计语法"><a href="#设计语法" class="headerlink" title="设计语法"></a>设计语法</h3><p>起始规则，词法符号，语法规范</p>
-<h3 id="常见的语言模式"><a href="#常见的语言模式" class="headerlink" title="常见的语言模式"></a>常见的语言模式</h3><ol>
+<h2 id="开发">开发</h2>
+<h3 id="设计语法">设计语法</h3>
+<p>起始规则，词法符号，语法规范</p>
+<h3 id="常见的语言模式">常见的语言模式</h3>
+<ol type="1">
 <li>序列（sequence）</li>
 <li>选择（choice）</li>
 <li>词法符号依赖（token dependency）</li>
 <li>嵌套结构（nested phrase）</li>
 </ol>
-<h4 id="序列模式"><a href="#序列模式" class="headerlink" title="序列模式"></a>序列模式</h4><p>比如一个协议语言POP，由关键字、整数和换行组成。</p>
+<h4 id="序列模式">序列模式</h4>
+<p>比如一个协议语言POP，由关键字、整数和换行组成。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">retr : &#39;RETR&#39; INT &#39;\n&#39;</span><br></pre></td></tr></table></figure>
-
 <p>任意长度序列可以用 <code>+</code> 字符。<code>(INT)+</code> 或者 <code>INT+</code>。</p>
 <p>可以为空，零个或多个用 <code>*</code>。</p>
 <p>零个或一个：<code>?</code>。</p>
-<h4 id="选择模式（多个备选分支）"><a href="#选择模式（多个备选分支）" class="headerlink" title="选择模式（多个备选分支）"></a>选择模式（多个备选分支）</h4><p>使用符号 <code>|</code> 作为“或者”来表达编程语言中的选择模式。备选分支（alternative）或者可生成的结果（productions）。</p>
+<h4 id="选择模式多个备选分支">选择模式（多个备选分支）</h4>
+<p>使用符号 <code>|</code> 作为“或者”来表达编程语言中的选择模式。备选分支（alternative）或者可生成的结果（productions）。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type : &#39;float&#39; | &#39;int&#39; | &#39;void&#39;</span><br></pre></td></tr></table></figure>
-
-<h4 id="词法符号依赖模式"><a href="#词法符号依赖模式" class="headerlink" title="词法符号依赖模式"></a>词法符号依赖模式</h4><p>依赖符号的语法，比如数组的括号。表达对符号的依赖的方法。</p>
+<h4 id="词法符号依赖模式">词法符号依赖模式</h4>
+<p>依赖符号的语法，比如数组的括号。表达对符号的依赖的方法。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector : &#39;[&#39; INT+ &#39;]&#39; ; &#x2F;&#x2F; [1], [1 2], [1 2 3], ...</span><br></pre></td></tr></table></figure>
-
-<h4 id="嵌套模式"><a href="#嵌套模式" class="headerlink" title="嵌套模式"></a>嵌套模式</h4><p>自己引用自己。如果一条规则定义中的伪代码引用了它自身，就需要一条递归规则（自引用规则）。</p>
+<h4 id="嵌套模式">嵌套模式</h4>
+<p>自己引用自己。如果一条规则定义中的伪代码引用了它自身，就需要一条递归规则（自引用规则）。</p>
 <p>直接递归和间接递归。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">expr : ID &#39;[&#39; expr &#39;]&#39;</span><br><span class="line">     | &#39;(&#39; expr &#39;)&#39;</span><br><span class="line">     | INT</span><br><span class="line">     ;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/21/antlr-v4-note/5-1-antlr-core-notation.png" alt="ANTLR核心标记"></p>
-<p><img src="/2020/10/21/antlr-v4-note/5-2-common-computer-patterns.png" alt="几种常见的计算机语言的模式"></p>
-<h3 id="左递归和优先级"><a href="#左递归和优先级" class="headerlink" title="左递归和优先级"></a>左递归和优先级</h3><p>经典的从左到右自顶向下的语法分析器无法处理左递归。算符优先级带来的问题。ANTLR解决的方式是，写在前面的语法拥有较高的优先级。如果遇到了从右向左结合的，需要使用 assoc 手工指定结合性：</p>
+<figure>
+<img src="/2020/10/21/antlr-v4-note/5-1-antlr-core-notation.png" alt="ANTLR核心标记"><figcaption aria-hidden="true">ANTLR核心标记</figcaption>
+</figure>
+<figure>
+<img src="/2020/10/21/antlr-v4-note/5-2-common-computer-patterns.png" alt="几种常见的计算机语言的模式"><figcaption aria-hidden="true">几种常见的计算机语言的模式</figcaption>
+</figure>
+<h3 id="左递归和优先级">左递归和优先级</h3>
+<p>经典的从左到右自顶向下的语法分析器无法处理左递归。算符优先级带来的问题。ANTLR解决的方式是，写在前面的语法拥有较高的优先级。如果遇到了从右向左结合的，需要使用 assoc 手工指定结合性：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">expr : &lt;assoc&#x3D;right&gt; expr &#39;^&#39; expr</span><br><span class="line">     | INT</span><br><span class="line">     ;</span><br></pre></td></tr></table></figure>
-
 <p>ANTLR 4 可以能够处理直接左递归，但是不能处理间接左递归。</p>
-<h3 id="识别词法"><a href="#识别词法" class="headerlink" title="识别词法"></a>识别词法</h3><h4 id="匹配标识符"><a href="#匹配标识符" class="headerlink" title="匹配标识符"></a>匹配标识符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ID : (&#39;a&#39;..&#39;z&#39;|&#39;A&#39;..&#39;Z&#39;)+ ; &#x2F;&#x2F;匹配1个或多个大小写字母</span><br></pre></td></tr></table></figure>
-
+<h3 id="识别词法">识别词法</h3>
+<h4 id="匹配标识符">匹配标识符</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ID : (&#39;a&#39;..&#39;z&#39;|&#39;A&#39;..&#39;Z&#39;)+ ; &#x2F;&#x2F;匹配1个或多个大小写字母</span><br></pre></td></tr></table></figure>
 <p>或者：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ID : [a-zA-z]+ ;</span><br></pre></td></tr></table></figure>
-
 <p>ID 规则可能和其他规则冲突，比如其他关键字 enum 或 for。所以要把 ID 规则放在所有关键字规则之后。</p>
-<h4 id="匹配数字"><a href="#匹配数字" class="headerlink" title="匹配数字"></a>匹配数字</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INT : &#39;0&#39;..&#39;9&#39;+ ;</span><br></pre></td></tr></table></figure>
-
+<h4 id="匹配数字">匹配数字</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INT : &#39;0&#39;..&#39;9&#39;+ ;</span><br></pre></td></tr></table></figure>
 <p>或者</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INT : [0-9]+ ;</span><br></pre></td></tr></table></figure>
-
 <p>浮点数：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FLOAT : DIGIT+ &#39;.&#39; DIGIT*  &#x2F;&#x2F; 1. 3.14</span><br><span class="line">      |        &#39;.&#39; DIGIT+  &#x2F;&#x2F; .1 .1415</span><br><span class="line">      ;</span><br><span class="line">fragment</span><br><span class="line">DIGIT : [0-9] ; &#x2F;&#x2F; 单个数字</span><br></pre></td></tr></table></figure>
-
 <p>将一条规则声明为 fragment 可以告诉ANTLR，该规则本身不是一个词法符号，它只会被其他的词法规则使用。</p>
-<h4 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STRING : &#39;&quot;&#39; .*? &#39;&quot;&#39; ;</span><br></pre></td></tr></table></figure>
-
+<h4 id="字符串">字符串</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STRING : &#39;&quot;&#39; .*? &#39;&quot;&#39; ;</span><br></pre></td></tr></table></figure>
 <p><code>.</code> 匹配任意单个字符，<code>.*</code> 匹配零个或多个，<code>?</code> 标记表示使用非贪婪匹配子规则（nongreedy subrule）。</p>
 <p>转义字符：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">STRING : &#39;&quot;&#39; (ESC|.)*? &#39;&quot;&#39; ;</span><br><span class="line">fragment</span><br><span class="line">ESC : &#39;\\&quot;&#39; | &#39;\\\\&#39; ; &#x2F;&#x2F; 转义 \&quot; 和 \\</span><br></pre></td></tr></table></figure>
-
-<h4 id="注释和空白字符"><a href="#注释和空白字符" class="headerlink" title="注释和空白字符"></a>注释和空白字符</h4><p>C 中的单行和多行注释：</p>
+<h4 id="注释和空白字符">注释和空白字符</h4>
+<p>C 中的单行和多行注释：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LINE_COMINT : &#39;&#x2F;&#x2F;&#39; .*? &#39;\r&#39;? &#39;\n&#39; -&gt; skip ; &#x2F;&#x2F; 消费掉双斜杠后面的一切字符，直到遇到换行符</span><br></pre></td></tr></table></figure>
-
 <p>空白字符：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WS : [ \t\r\n]+ -&gt; skip ;</span><br></pre></td></tr></table></figure>
-
-<p><img src="/2020/10/21/antlr-v4-note/5-3-lexer-starter-kit.png" alt="一些基础的语法规则"></p>
-<h2 id="解析现成的语言"><a href="#解析现成的语言" class="headerlink" title="解析现成的语言"></a>解析现成的语言</h2><blockquote>
+<figure>
+<img src="/2020/10/21/antlr-v4-note/5-3-lexer-starter-kit.png" alt="一些基础的语法规则"><figcaption aria-hidden="true">一些基础的语法规则</figcaption>
+</figure>
+<h2 id="解析现成的语言">解析现成的语言</h2>
+<blockquote>
 <p>要想揭开一门语言的神秘面纱，我们需要分析不同来源的信息。语言的规模越大，我们需要的参考文档和各式各样的范例代码就越多。有时候，只有设法对语言现有的实现进行试探，才能发现边界情况。语言的参考文档通常并非一目了然。</p>
 </blockquote>
 <ul>
@@ -414,19 +423,20 @@
 <li>DOT</li>
 <li>Cymbol</li>
 </ul>
-<h2 id="语法和程序逻辑"><a href="#语法和程序逻辑" class="headerlink" title="语法和程序逻辑"></a>语法和程序逻辑</h2><h3 id="在事件方法中共享信息"><a href="#在事件方法中共享信息" class="headerlink" title="在事件方法中共享信息"></a>在事件方法中共享信息</h3><ol>
+<h2 id="语法和程序逻辑">语法和程序逻辑</h2>
+<h3 id="在事件方法中共享信息">在事件方法中共享信息</h3>
+<ol type="1">
 <li><p>使用访问器的方法来返回值</p>
-<p>继承 BasicVisitor 的时候指定泛型</p>
-</li>
+<p>继承 BasicVisitor 的时候指定泛型</p></li>
 <li><p>使用类的成员在事件方法之间共享数据</p>
-<p>比如在监听器的类中声明一个栈，每个子表达式的结果退入栈中，然后在更高层的节点中取出来。</p>
-</li>
+<p>比如在监听器的类中声明一个栈，每个子表达式的结果退入栈中，然后在更高层的节点中取出来。</p></li>
 <li><p>对语法分析树的结点进行标注</p>
 <p>可以直接将语句绑定在语法上，这样每一个节点都会有这个值：<code>e returns [int value] ...;</code> 。</p>
-<p>使用 <code>ParseTreeProperty</code> 的辅助类，本质上是 IdentityHashMap，用节点对象作为键。</p>
-</li>
+<p>使用 <code>ParseTreeProperty</code> 的辅助类，本质上是 IdentityHashMap，用节点对象作为键。</p></li>
 </ol>
-<h2 id="高级特性"><a href="#高级特性" class="headerlink" title="高级特性"></a>高级特性</h2><h3 id="上下文相关的词法问题"><a href="#上下文相关的词法问题" class="headerlink" title="上下文相关的词法问题"></a>上下文相关的词法问题</h3><p>（12章第二节）</p>
+<h2 id="高级特性">高级特性</h2>
+<h3 id="上下文相关的词法问题">上下文相关的词法问题</h3>
+<p>（12章第二节）</p>
 <blockquote>
 <p>因为ANTLR自动生成的语法分析器经常在词法符号流中进行非常远的前瞻以作出语法分析决策。这意味着，远在语法分析器能够执行提供上下文信息的行为之前，词法分析器就需要将字符流处理为词法符号。</p>
 </blockquote>
@@ -515,7 +525,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#是什么"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行"><span class="nav-text">命令行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA"><span class="nav-text">IDEA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VS-Code"><span class="nav-text">VS Code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-world"><span class="nav-text">Hello world</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历语法树"><span class="nav-text">遍历语法树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Listener（监听器）"><span class="nav-text">Listener（监听器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Visitor（访问器）"><span class="nav-text">Visitor（访问器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码生成"><span class="nav-text">代码生成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#入门"><span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法导入"><span class="nav-text">语法导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签"><span class="nav-text">标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法分析"><span class="nav-text">语法分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词法分析"><span class="nav-text">词法分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发"><span class="nav-text">开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计语法"><span class="nav-text">设计语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的语言模式"><span class="nav-text">常见的语言模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#序列模式"><span class="nav-text">序列模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择模式（多个备选分支）"><span class="nav-text">选择模式（多个备选分支）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#词法符号依赖模式"><span class="nav-text">词法符号依赖模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#嵌套模式"><span class="nav-text">嵌套模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左递归和优先级"><span class="nav-text">左递归和优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#识别词法"><span class="nav-text">识别词法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#匹配标识符"><span class="nav-text">匹配标识符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#匹配数字"><span class="nav-text">匹配数字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串"><span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释和空白字符"><span class="nav-text">注释和空白字符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析现成的语言"><span class="nav-text">解析现成的语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法和程序逻辑"><span class="nav-text">语法和程序逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在事件方法中共享信息"><span class="nav-text">在事件方法中共享信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级特性"><span class="nav-text">高级特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上下文相关的词法问题"><span class="nav-text">上下文相关的词法问题</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#是什么"><span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行"><span class="nav-text">命令行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#idea"><span class="nav-text">IDEA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vs-code"><span class="nav-text">VS Code</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hello-world"><span class="nav-text">Hello world</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历语法树"><span class="nav-text">遍历语法树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#listener监听器"><span class="nav-text">Listener（监听器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#visitor访问器"><span class="nav-text">Visitor（访问器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码生成"><span class="nav-text">代码生成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#入门"><span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法导入"><span class="nav-text">语法导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标签"><span class="nav-text">标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法分析"><span class="nav-text">语法分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词法分析"><span class="nav-text">词法分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发"><span class="nav-text">开发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计语法"><span class="nav-text">设计语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的语言模式"><span class="nav-text">常见的语言模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#序列模式"><span class="nav-text">序列模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择模式多个备选分支"><span class="nav-text">选择模式（多个备选分支）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#词法符号依赖模式"><span class="nav-text">词法符号依赖模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#嵌套模式"><span class="nav-text">嵌套模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#左递归和优先级"><span class="nav-text">左递归和优先级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#识别词法"><span class="nav-text">识别词法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#匹配标识符"><span class="nav-text">匹配标识符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#匹配数字"><span class="nav-text">匹配数字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串"><span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注释和空白字符"><span class="nav-text">注释和空白字符</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析现成的语言"><span class="nav-text">解析现成的语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法和程序逻辑"><span class="nav-text">语法和程序逻辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在事件方法中共享信息"><span class="nav-text">在事件方法中共享信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级特性"><span class="nav-text">高级特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#上下文相关的词法问题"><span class="nav-text">上下文相关的词法问题</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
