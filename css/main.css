@@ -1184,7 +1184,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #171dff;
+  background: #29cd61;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2702,6 +2702,9 @@ ul.breadcrumb li + li:last-child {
 /* pandoc */
 figure figcaption {
   font-size: 0.8em;
+  text-align: center;
+}
+caption {
   text-align: center;
 }
 /* fancybox */
