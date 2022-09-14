@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>IDEA 生成类和方法注释 - 冰棒实验室</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="冰棒实验室"><meta name="msapplication-TileImage" content="/img/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="冰棒实验室"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="IDEA 可以自动生成 Javadoc 格式的注释。"><meta property="og:type" content="blog"><meta property="og:title" content="IDEA 生成类和方法注释"><meta property="og:url" content="https://blog.beanbang.cn/2020/02/03/idea-documenting-code/"><meta property="og:site_name" content="冰棒实验室"><meta property="og:description" content="IDEA 可以自动生成 Javadoc 格式的注释。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://www.z4a.net/images/2020/02/06/IDEA-comment-completion.gif"><meta property="og:image" content="https://www.z4a.net/images/2020/02/06/fix-doc-comment.gif"><meta property="og:image" content="https://www.z4a.net/images/2020/02/06/tags.gif"><meta property="og:image" content="https://www.z4a.net/images/2020/02/14/show-quick-doc.png"><meta property="og:image" content="https://www.z4a.net/images/2020/02/14/idea-setting-quick-doc.png"><meta property="article:published_time" content="2020-02-03T05:28:07.000Z"><meta property="article:modified_time" content="2022-09-10T10:15:27.883Z"><meta property="article:author" content="Lazyb0x"><meta property="article:tag" content="Java"><meta property="article:tag" content="IDEA"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://www.z4a.net/images/2020/02/06/IDEA-comment-completion.gif"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.beanbang.cn/2020/02/03/idea-documenting-code/"},"headline":"IDEA 生成类和方法注释","image":["https://www.z4a.net/images/2020/02/06/IDEA-comment-completion.gif","https://www.z4a.net/images/2020/02/06/fix-doc-comment.gif","https://www.z4a.net/images/2020/02/06/tags.gif","https://www.z4a.net/images/2020/02/14/show-quick-doc.png","https://www.z4a.net/images/2020/02/14/idea-setting-quick-doc.png"],"datePublished":"2020-02-03T05:28:07.000Z","dateModified":"2022-09-10T10:15:27.883Z","author":{"@type":"Person","name":"Lazyb0x"},"publisher":{"@type":"Organization","name":"冰棒实验室","logo":{"@type":"ImageObject","url":"https://blog.beanbang.cn/img/favicon.ico"}},"description":"IDEA 可以自动生成 Javadoc 格式的注释。"}</script><link rel="canonical" href="https://blog.beanbang.cn/2020/02/03/idea-documenting-code/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="冰棒实验室" type="application/atom+xml">
+</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">冰棒实验室</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-02-03T05:28:07.000Z" title="2020/2/3 13:28:07">2020-02-03</time>发表</span><span class="level-item"><time dateTime="2022-09-10T10:15:27.883Z" title="2022/9/10 18:15:27">2022-09-10</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/log/">日志</a></span><span class="level-item">5 分钟读完 (大约796个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">IDEA 生成类和方法注释</h1><div class="content"><p>IDEA 可以自动生成 Javadoc 格式的注释。</p>
+<span id="more"></span>
+<h2 id="快速补全注释">快速补全注释</h2>
+<p>IntelliJ IDEA 提供了自动补全文档格式注释的方法。只要在声明语句的前面打上 <code>/**</code> 然后按下回车，IDE 就会自动给你补全注释。对于方法的注释，产生的注释片段会包含所需要的标签（每个参数的 <code>@param</code> 标签、<code>@return</code>、<code>@throws</code>等等）。</p>
+<figure>
+<img src="https://www.z4a.net/images/2020/02/06/IDEA-comment-completion.gif" alt="IDEA 的文档注释补全" /><figcaption aria-hidden="true">IDEA 的文档注释补全</figcaption>
+</figure>
+<blockquote>
+<p>文档格式的注释也支持 JavaScript、Python、Ruby、和 PHP。</p>
+</blockquote>
+<h2 id="使用-fix-doc-comment-动作">使用 Fix doc comment 动作</h2>
+<ol type="1">
+<li><p>把光标放在一段类，方法，函数或者成员变量中，然后按下 <kbd>Ctrl+Shift+A</kbd>。</p></li>
+<li><p>打上 <code>fix doc comment</code> 然后按下回车。</p></li>
+</ol>
+<p>IDEA 就会自动给注释增加上缺失部分的标签。</p>
+<figure>
+<img src="https://www.z4a.net/images/2020/02/06/fix-doc-comment.gif" alt="fix doc comment 动作 | IDEA 帮助文档" /><figcaption aria-hidden="true">fix doc comment 动作 | IDEA 帮助文档</figcaption>
+</figure>
+<p>如果一个方法的特征改变了，IDEA会高亮出不匹配部分的标签，然后提出快速修改的建议。</p>
+<h2 id="标签的自动补全">标签的自动补全</h2>
+<p>对于文档注释的标签，IDEA 也提供了代码自动补全。在 <code>@</code> 标记的后面按下 <kbd>Ctrl+Space</kbd> ，然后就能够从弹出建议的列表里面选择需要的标签了。如果标签包含多个值（比如 <code>@param</code>），可以在建议的列表里面继续选择。</p>
+<figure>
+<img src="https://www.z4a.net/images/2020/02/06/tags.gif" alt="标签的补全 | IDEA 帮助文档" /><figcaption aria-hidden="true">标签的补全 | IDEA 帮助文档</figcaption>
+</figure>
+<p>但是 <kbd>Ctrl+Space</kbd> 在微软拼音输入法里面是切换中英文的快捷方式，造成冲突而且不能改变……你可以添加一个英语语言，然后按 <kbd>Win+Space</kbd>切换到英语键盘来编码。</p>
+<h2 id="有什么好处">有什么好处</h2>
+<p>你一定查过 <a target="_blank" rel="noopener" href="https://docs.oracle.com/en/java/javase/13/docs/api/index.html">Java 的 API 文档</a>。这份文档是怎么制作的呢？没错，用的就是 Javadoc 格式的注释。查看 JDK 的源码，你就能发现这种格式的注释。只要我们按照这种规范来编写注释，就能使用 javadoc 工具从代码生成 HTML 文档。</p>
+<p>（文档和代码的耦合性这么高，难道这就是 Java 一直没有中文文档的原因……）</p>
+<p>还有一个好处就是，IDEA 也会识别这种注释。将光标移动到类名或方法名上，按下 <kbd>Ctrl+Q</kbd>，就会弹出气泡提示：</p>
+<figure>
+<img src="https://www.z4a.net/images/2020/02/14/show-quick-doc.png" alt="IDEA 显示快速文档查看气泡" /><figcaption aria-hidden="true">IDEA 显示快速文档查看气泡</figcaption>
+</figure>
+<h2 id="自动气泡提示">自动气泡提示</h2>
+<p>如果要让鼠标移动到类名上自动弹出提示，可以这么做：</p>
+<p>File -&gt; Settings.. -&gt; Editor -&gt; General，找到项目 <em>Show quick documentation on mouse move</em>，勾选上就可以了。</p>
+<figure>
+<img src="https://www.z4a.net/images/2020/02/14/idea-setting-quick-doc.png" alt="设置自动显示气泡提示" /><figcaption aria-hidden="true">设置自动显示气泡提示</figcaption>
+</figure>
+<blockquote>
+<p>参考资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/idea/working-with-code-documentation.html">Documenting code - Help | IntelliJ IDEA</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jetbrains.com/help/idea/viewing-reference-information.html#inline-quick-documentation">Code reference information - Help | IntelliJ IDEA</a></li>
+<li><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/Javadoc">Javadoc - 维基百科，自由的百科全书</a></li>
+</ul>
+</blockquote>
+</div><div class="article-licensing box"><div class="licensing-title"><p>IDEA 生成类和方法注释</p><p><a href="https://blog.beanbang.cn/2020/02/03/idea-documenting-code/">https://blog.beanbang.cn/2020/02/03/idea-documenting-code/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Lazyb0x</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2020-02-03</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-09-10</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/java/">Java</a><a class="link-muted mr-2" rel="tag" href="/tags/idea/">IDEA</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2020/02/19/xml-syntax-note/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">XML 语法笔记</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2020/01/08/leetcode-72-edit-distance/"><span class="level-item">Leetcode 72：编辑距离 - 动态规划的解题思路</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="valine-thread"></div><script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/valine/1.4.16/Valine.min.js"></script><script>new Valine({
+            el: '#valine-thread',
+            appId: "53p6sFAYCBY1FfXE9nOa3byP-gzGzoHsz",
+            appKey: "V6tCmUsramFiGoA0GbBETOLR",
+            placeholder: "(っ╹◡╹)ﾉ❀",
+            avatar: "mm",
+            avatarForce: false,
+            meta: ["nick","mail","link"],
+            pageSize: 10,
+            lang: "zh-CN",
+            visitor: false,
+            highlight: true,
+            recordIP: false,
+            
+            
+            
+            enableQQ: false,
+            requiredFields: [],
+        });</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#快速补全注释"><span class="level-left"><span class="level-item">快速补全注释</span></span></a></li><li><a class="level is-mobile" href="#使用-fix-doc-comment-动作"><span class="level-left"><span class="level-item">使用 Fix doc comment 动作</span></span></a></li><li><a class="level is-mobile" href="#标签的自动补全"><span class="level-left"><span class="level-item">标签的自动补全</span></span></a></li><li><a class="level is-mobile" href="#有什么好处"><span class="level-left"><span class="level-item">有什么好处</span></span></a></li><li><a class="level is-mobile" href="#自动气泡提示"><span class="level-left"><span class="level-item">自动气泡提示</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/head.png" alt="Lazyb0x"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Lazyb0x</p><p class="is-size-6 is-block">玄之又玄，众妙之门</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">23</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">34</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/Lazyb0x"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/Lazyb0x"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Keybase" href="https://keybase.io/lazyb0x"><i class="fa fa-key"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://michaelcodezhang.gitee.io/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MichaelZhang</span></span><span class="level-right"><span class="level-item tag">michaelcodezhang.gitee.io</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a><p class="is-size-7"><span>&copy; 2022 Lazyb0x</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备17023244号-1 </a></p></div><div class="level-end"><div style="width: 162px; height: 98px; overflow: hidden; margin: 2em auto"><a target="_blank" rel="noopener" href="https://info.flagcounter.com/8awM"><img style="display: block; margin: 0 auto -23px;" title="访问人数统计" src="https://s05.flagcounter.com/count2/8awM/bg_FFFFFF/txt_4A4A4A/border_FFFFFF/columns_2/maxflags_10/viewers_3/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

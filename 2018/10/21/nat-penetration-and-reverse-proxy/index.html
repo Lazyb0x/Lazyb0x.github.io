@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>内网穿透和反向代理软件 - 冰棒实验室</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="冰棒实验室"><meta name="msapplication-TileImage" content="/img/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="冰棒实验室"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="内网穿透，又叫NAT穿透、端口映射、端口转发、反向代理、内网转外网&amp;#x2F;公网……"><meta property="og:type" content="blog"><meta property="og:title" content="内网穿透和反向代理软件"><meta property="og:url" content="https://blog.beanbang.cn/2018/10/21/nat-penetration-and-reverse-proxy/"><meta property="og:site_name" content="冰棒实验室"><meta property="og:description" content="内网穿透，又叫NAT穿透、端口映射、端口转发、反向代理、内网转外网&amp;#x2F;公网……"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://www.z4a.net/images/2018/10/21/reverse-proxy-02-1.jpg"><meta property="og:image" content="https://www.z4a.net/images/2018/10/23/ae5453e9e16d8ba4d070ce1ea4c0a43b.png"><meta property="og:image" content="https://www.z4a.net/images/2018/10/21/openssh-in-win10.png"><meta property="og:image" content="https://www.z4a.net/images/2018/10/21/frps-dashboard-2018-10-21.png"><meta property="og:image" content="https://www.z4a.net/images/2018/10/21/mstsc.png"><meta property="article:published_time" content="2018-10-21T15:45:20.000Z"><meta property="article:modified_time" content="2022-09-10T10:15:27.884Z"><meta property="article:author" content="Lazyb0x"><meta property="article:tag" content="网络"><meta property="article:tag" content="DDNS"><meta property="article:tag" content="frp"><meta property="article:tag" content="SSH"><meta property="article:tag" content="内网穿透"><meta property="article:tag" content="反向代理"><meta property="article:tag" content="远程桌面"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://www.z4a.net/images/2018/10/21/reverse-proxy-02-1.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.beanbang.cn/2018/10/21/nat-penetration-and-reverse-proxy/"},"headline":"内网穿透和反向代理软件","image":["https://www.z4a.net/images/2018/10/21/reverse-proxy-02-1.jpg","https://www.z4a.net/images/2018/10/23/ae5453e9e16d8ba4d070ce1ea4c0a43b.png","https://www.z4a.net/images/2018/10/21/openssh-in-win10.png","https://www.z4a.net/images/2018/10/21/frps-dashboard-2018-10-21.png","https://www.z4a.net/images/2018/10/21/mstsc.png"],"datePublished":"2018-10-21T15:45:20.000Z","dateModified":"2022-09-10T10:15:27.884Z","author":{"@type":"Person","name":"Lazyb0x"},"publisher":{"@type":"Organization","name":"冰棒实验室","logo":{"@type":"ImageObject","url":"https://blog.beanbang.cn/img/favicon.ico"}},"description":"内网穿透，又叫NAT穿透、端口映射、端口转发、反向代理、内网转外网&#x2F;公网……"}</script><link rel="canonical" href="https://blog.beanbang.cn/2018/10/21/nat-penetration-and-reverse-proxy/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="冰棒实验室" type="application/atom+xml">
+</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">冰棒实验室</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2018-10-21T15:45:20.000Z" title="2018/10/21 23:45:20">2018-10-21</time>发表</span><span class="level-item"><time dateTime="2022-09-10T10:15:27.884Z" title="2022/9/10 18:15:27">2022-09-10</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/software/">软件</a></span><span class="level-item">14 分钟读完 (大约2157个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">内网穿透和反向代理软件</h1><div class="content"><p>内网穿透，又叫NAT穿透、端口映射、端口转发、反向代理、内网转外网/公网……</p>
+<span id="more"></span>
+<h2 id="原理">原理</h2>
+<p>由于IPv4地址的缺乏，运营商们越来越少给我们提供公网IP，即使能够分配到公网IP，也是动态ip，在网络断开重新链接后IP地址就会改变。而我们使用交换机、路由器，使得我们处于“专用网”中，用<code>ipconfig</code>(Linux用<code>ifconfig</code>)查询本机IP会得到下面的几类局域网地址：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A类：10.0.0.0    到 10.255.255.255    (10.0.0.0/8)</span><br><span class="line">B类：172.16.0.0  到 172.31.255.255    (172.16.0.0/12)</span><br><span class="line">C类：192.168.0.0 到 192.168.255.255   (192.168.0.0/16)</span><br></pre></td></tr></table></figure>
+<p>校园网经常分配到上面的A类地址，运营商的宽带可能分配到172开头的地址；而家用路由器分配的是192.168开头的地址。然后我们通过网络地址转换协议 NAT 转换IP地址进行上网。</p>
+<figure>
+<img src="https://www.z4a.net/images/2018/10/21/reverse-proxy-02-1.jpg" alt="反向代理图解|Imperva" /><figcaption aria-hidden="true">反向代理图解|Imperva</figcaption>
+</figure>
+<p>所以，拥有一个公网IP就相当于处在各种网络的最外层，可以直接和其他主机进行通信。而处在NAT路由器内的主机的通信必须由专用网内的主机发起。因为如果是外部主机发起的通信的话，路由器不知道要将数据包转发给专用网中的哪一个主机。于是就有了反向代理的工作方式，把一台处于内网中的主机和一台拥有公网IP的主机的端口绑定，然后由公网主机将来自外部的请求转交给内网主机。这样，就实现了内网主机作为服务器的功能。</p>
+<h2 id="软件">软件</h2>
+<p>接下来推荐几个好用的内网穿透/反向代理软件：</p>
+<h3 id="ddns-动态域名解析端口映射">DDNS (动态域名解析+端口映射)</h3>
+<p>这个其实不算是软件吧，算是路由器应用…</p>
+<ul>
+<li>路由器/猫</li>
+<li>有动态公网IP</li>
+<li>管理员权限</li>
+</ul>
+<p>大多数的家庭宽带还是会分配公网IP地址的（除了一些二级运营商比如移动），只不过是临时的动态IP，断开重新拨号后IP地址就会改变。大部分路由器会提供动态域名解析的功能，虽然IP会经常变化，只要有一个域名指向这个IP地址就可以了。</p>
+<p>打开路由器的设置界面，通常有一个叫DDNS或类似域名动态解析的选项。在动态域名服务的提供商那里注册账号，选一个二级域名，然后在路由器里面填上用户名和密码。设置完<code>ping</code>一下你的二级域名比如xxx.wicp.net，如果返回的是你的路由器的IP地址，就说明设置成功了。</p>
+<figure>
+<img src="https://www.z4a.net/images/2018/10/23/ae5453e9e16d8ba4d070ce1ea4c0a43b.png" alt="路由器的端口映射设置" /><figcaption aria-hidden="true">路由器的端口映射设置</figcaption>
+</figure>
+<p>现在外部请求已经能够到达路由器了，接下来在路由器里设置端口映射(有的叫虚拟服务器)，将路由器的特定端口和局域网内的主机绑定，这样特定的服务就能够和局域网内特定的主机通信了。</p>
+<p>通过动态域名和端口映射的方法局限性很大。在家里，我们知道路由器的密码，有更改路由器设置的权限；在学校的校园网，宿舍的个人网呢？如果被分配在多层子网中，你需要一层一层地联络网络管理员给你开放端口，还不能保证他们一定会给你开……遇到这种情况我们还是另辟蹊径吧。</p>
+<h3 id="ssh--r">ssh -R</h3>
+<ul>
+<li>最最方便的方法</li>
+<li>无需额外软件</li>
+<li>跨平台</li>
+<li>需要VPS</li>
+</ul>
+<p>新版的Win10已经自带<code>OpenSSH</code>了，在<code>设置</code> -&gt; <code>应用</code> -&gt; <code>应用和功能</code> -&gt; <code>管理可选功能</code>中可以启用。</p>
+<figure>
+<img src="https://www.z4a.net/images/2018/10/21/openssh-in-win10.png" alt="win10开启OpenSSH" /><figcaption aria-hidden="true">win10开启OpenSSH</figcaption>
+</figure>
+<p>OpenSSH 提供了三种端口转发功能：正向代理（local），反向代理（remote），以及动态代理（dynamic）。在这里，我们用到的是它的反向代理功能。</p>
+<p>只需要一句命令即可开启端口转发：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -o ServerAliveInterval=60 -R 8888:127.0.0.1:3389 beanbang@121.29.54.117</span><br></pre></td></tr></table></figure>
+<p>执行命令，输入密码，进入终端就已经建立了从本机的3389端口到服务器的8888端口的链接。现在，你就可以在远程桌面中通过地址<code>121.29.54.117:8888</code>来连接你的主机了。其中<code>-o ServerAliveInterval=60</code>项是为了防止长时间无操作被关闭连接，每隔60秒向服务器发送信号。</p>
+<p>如果开启失败可能是服务器端没有启用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/ssh/sshd_config    <span class="comment">#添加一行  GatewayPorts  yes</span></span><br><span class="line">sudo service sshd restart</span><br></pre></td></tr></table></figure>
+<p>以及记得在防火墙中允许特定端口的通信。</p>
+<h3 id="frp">frp</h3>
+<ul>
+<li>安装方便</li>
+<li>跨平台</li>
+<li>功能强大</li>
+<li>需要VPS</li>
+</ul>
+<p>frp（fast reverse proxy） 是一个功能强大的开源反向代理软件。在GitHub上面有详细的<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/blob/master/README_zh.md">中文说明</a>。</p>
+<p>可以很轻松地配置简单的端口转发。只要<a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/releases">下载</a>对应架构的程序放到相应的操作系统上。公网IP的主机使用 frps 和 frps.ini，内网主机则使用 frpc 和 frpc.ini。</p>
+<p>解压：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf frp_0.21.0_linux_amd64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>编辑<code>frps.ini</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># frps.ini</span><br><span class="line">[common]</span><br><span class="line">bind_port = 7000</span><br><span class="line">dashboard_port = 7500</span><br><span class="line">dashboard_user = username</span><br><span class="line">dashboard_pwd = password</span><br><span class="line">log_file = ./frps.log</span><br><span class="line">log_level = info</span><br><span class="line">log_max_days = 3</span><br></pre></td></tr></table></figure>
+<p>启动 frps：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frps -c ./frps.ini</span><br></pre></td></tr></table></figure>
+<p>编辑<code>frpc.ini</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># frpc.ini</span><br><span class="line">[common]</span><br><span class="line">server_addr = 121.29.54.117</span><br><span class="line">server_port = 7000</span><br><span class="line"></span><br><span class="line">[rdp]</span><br><span class="line">type = tcp</span><br><span class="line">local_ip = 127.0.0.1</span><br><span class="line">local_port = 3389</span><br><span class="line">remote_port = 8888</span><br></pre></td></tr></table></figure>
+<p>启动 frpc：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frpc -c ./frpc.ini</span><br></pre></td></tr></table></figure>
+<p>服务端和客户端都启动后，就可以通过<code>121.29.54.117:8888</code>来连接远程主机了，还可以访问 http://121.29.54.117:7500 来打开frp的 Dashboard 界面，用网页的形式查看各种相关信息。</p>
+<figure>
+<img src="https://www.z4a.net/images/2018/10/21/frps-dashboard-2018-10-21.png" alt="frps的dashboard界面" /><figcaption aria-hidden="true">frps的dashboard界面</figcaption>
+</figure>
+<p>开发者细心地编译了多种操作系统架构的程序使得我们可以方便地下载和使用，比如树莓派就可以使用其 arm-64 版本来架设小型服务器。</p>
+<h3 id="路由侠等内网映射服务">路由侠等内网映射服务</h3>
+<ul>
+<li>Windows系统</li>
+<li>图形界面，操作简单</li>
+<li>服务型，额外付费</li>
+</ul>
+<p>路由侠适合那些没有自己的公网服务器，只需要临时连接，或者不想要自己折腾的人。类似的这种软件还有 花生壳、net123、蛤蟆吃（hamachi）等等。这些算是提供服务类型的软件了。只要安装上客户端，进行简单的配置就可以使用它们的服务了。</p>
+<p>不过没有免费的午餐，这些软件往往提供有限制的免费套餐，然后提供附加的服务进行收费。比如路由侠就限制1个月1G的流量，1Mb的带宽。提供给你一个二级域名和端口号，用这个域名和端口来访问服务。</p>
+<p>想当年和小伙伴玩Minecraft开服用的就是路由侠。在电脑上架上CraftBukkit服务器，然后开放地址开一起来开荒。后来买了vps，服务器就搬到vps上面去了。</p>
+<figure>
+<img src="https://www.z4a.net/images/2018/10/21/mstsc.png" alt="mstsc开启映射网络驱动器" /><figcaption aria-hidden="true">mstsc开启映射网络驱动器</figcaption>
+</figure>
+<p>其实，端口映射我用的最多的还是远程桌面。去机房上机的时候，打开 mstsc ，远程桌面连上自己的电脑。这样避免了机房电脑渣机运行缓慢，而且实验结束不用拿U盘拷走实验结果，文件也可以直接传回电脑去。特别的方便有木有？</p>
+<hr />
+<blockquote>
+<p>参考资料：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.incapsula.com/cdn-guide/glossary/reverse-proxy.html">What is a Reverse Proxy Server | Reverse vs. Forward Proxy | CDN Guide | Incapsula</a></li>
+<li><a target="_blank" rel="noopener" href="http://service.tp-link.com.cn/detail_article_2441.html">[云路由器] 如何映射服务器到外网 - TP-LINK 服务支持</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/phpdragon/p/5314650.html">使用 ssh -R 穿透局域网访问内部服务器主机，反向代理 无人值守化 - phpdragon - 博客园</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.in/archives/2119">内网穿透工具frp Windows客户端frpc安装及使用教程 | 直呼过瘾</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/fatedier/frp/blob/master/README_zh.md">frp-中文文档-GitHub</a></li>
+</ul>
+</blockquote>
+</div><div class="article-licensing box"><div class="licensing-title"><p>内网穿透和反向代理软件</p><p><a href="https://blog.beanbang.cn/2018/10/21/nat-penetration-and-reverse-proxy/">https://blog.beanbang.cn/2018/10/21/nat-penetration-and-reverse-proxy/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Lazyb0x</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2018-10-21</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-09-10</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/network/">网络</a><a class="link-muted mr-2" rel="tag" href="/tags/ddns/">DDNS</a><a class="link-muted mr-2" rel="tag" href="/tags/frp/">frp</a><a class="link-muted mr-2" rel="tag" href="/tags/ssh/">SSH</a><a class="link-muted mr-2" rel="tag" href="/tags/nat-penetration/">内网穿透</a><a class="link-muted mr-2" rel="tag" href="/tags/reverse-proxy/">反向代理</a><a class="link-muted mr-2" rel="tag" href="/tags/remote-desktop/">远程桌面</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2018/12/11/launch-mc-offline-with-multimc/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">MultiMC的离线模式启动</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2018/10/09/enable-ssl-https-for-website/"><span class="level-item">给站点开启SSL/HTTPS</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="valine-thread"></div><script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/valine/1.4.16/Valine.min.js"></script><script>new Valine({
+            el: '#valine-thread',
+            appId: "53p6sFAYCBY1FfXE9nOa3byP-gzGzoHsz",
+            appKey: "V6tCmUsramFiGoA0GbBETOLR",
+            placeholder: "(っ╹◡╹)ﾉ❀",
+            avatar: "mm",
+            avatarForce: false,
+            meta: ["nick","mail","link"],
+            pageSize: 10,
+            lang: "zh-CN",
+            visitor: false,
+            highlight: true,
+            recordIP: false,
+            
+            
+            
+            enableQQ: false,
+            requiredFields: [],
+        });</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#原理"><span class="level-left"><span class="level-item">原理</span></span></a></li><li><a class="level is-mobile" href="#软件"><span class="level-left"><span class="level-item">软件</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#ddns-动态域名解析端口映射"><span class="level-left"><span class="level-item">DDNS (动态域名解析+端口映射)</span></span></a></li><li><a class="level is-mobile" href="#ssh--r"><span class="level-left"><span class="level-item">ssh -R</span></span></a></li><li><a class="level is-mobile" href="#frp"><span class="level-left"><span class="level-item">frp</span></span></a></li><li><a class="level is-mobile" href="#路由侠等内网映射服务"><span class="level-left"><span class="level-item">路由侠等内网映射服务</span></span></a></li></ul></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/head.png" alt="Lazyb0x"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Lazyb0x</p><p class="is-size-6 is-block">玄之又玄，众妙之门</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">23</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">34</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/Lazyb0x"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/Lazyb0x"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Keybase" href="https://keybase.io/lazyb0x"><i class="fa fa-key"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://michaelcodezhang.gitee.io/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MichaelZhang</span></span><span class="level-right"><span class="level-item tag">michaelcodezhang.gitee.io</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a><p class="is-size-7"><span>&copy; 2022 Lazyb0x</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备17023244号-1 </a></p></div><div class="level-end"><div style="width: 162px; height: 98px; overflow: hidden; margin: 2em auto"><a target="_blank" rel="noopener" href="https://info.flagcounter.com/8awM"><img style="display: block; margin: 0 auto -23px;" title="访问人数统计" src="https://s05.flagcounter.com/count2/8awM/bg_FFFFFF/txt_4A4A4A/border_FFFFFF/columns_2/maxflags_10/viewers_3/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
