@@ -31,20 +31,31 @@
 </head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">冰棒实验室</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2020-10-21T02:46:13.000Z" title="2020/10/21 10:46:13">2020-10-21</time>发表</span><span class="level-item"><time dateTime="2022-09-10T10:45:01.074Z" title="2022/9/10 18:45:01">2022-09-10</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/log/">日志</a></span><span class="level-item">14 分钟读完 (大约2080个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">ANTLR 4 笔记</h1><div class="content"><p>“语言的边界就是思想的边界。”</p>
 <span id="more"></span>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="http://www.yinwang.org/blog-cn/2017/05/25/dsl">DSL 的误区 | 王垠</a></p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20178871">如何愉快地写个小parser - 知乎</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/antlr/antlr4/blob/master/doc/getting-started.md">Getting Started with ANTLR v4 | GitHub</a></p>
-<p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/27082372/">ANTLR 4权威指南 (豆瓣)</a></p>
-<p><a target="_blank" rel="noopener" href="https://pragprog.com/titles/tpantlr2/the-definitive-antlr-4-reference/">The Definitive ANTLR 4 Reference</a> 英文版和示例代码</p>
+<p><a target="_blank" rel="noopener" href="http://www.yinwang.org/blog-cn/2017/05/25/dsl">DSL 的误区 |
+王垠</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20178871">如何愉快地写个小parser -
+知乎</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://github.com/antlr/antlr4/blob/master/doc/getting-started.md">Getting
+Started with ANTLR v4 | GitHub</a></p>
+<p><a target="_blank" rel="noopener" href="https://book.douban.com/subject/27082372/">ANTLR 4权威指南
+(豆瓣)</a></p>
+<p><a
+target="_blank" rel="noopener" href="https://pragprog.com/titles/tpantlr2/the-definitive-antlr-4-reference/">The
+Definitive ANTLR 4 Reference</a> 英文版和示例代码</p>
 </blockquote>
 <h2 id="是什么">是什么</h2>
 <p>ANTLR 是：</p>
 <ul>
 <li><p>语法分析器的生成器：可以根据一个程序设计语言的语法描述自动生成语法分析器。</p></li>
 <li><p>扫描器的生成器：可以根据一个语言的语法单元的正则表达式描述生成词法分析器。</p></li>
-<li><p>语法制导的翻译引擎：ANTLR 会生成语法树并生成相应的访问器或者监听器类来遍历语法树。</p></li>
+<li><p>语法制导的翻译引擎：ANTLR
+会生成语法树并生成相应的访问器或者监听器类来遍历语法树。</p></li>
 <li><p>使用 LL(*) 文法的解析器。</p></li>
-<li><p>包含很多现成的语法定义，解析主流的语言都可以开箱即用：<a target="_blank" rel="noopener" href="https://github.com/antlr/grammars-v4">antlr/grammars-v4 · GitHub</a>。</p></li>
+<li><p>包含很多现成的语法定义，解析主流的语言都可以开箱即用：<a
+target="_blank" rel="noopener" href="https://github.com/antlr/grammars-v4">antlr/grammars-v4 ·
+GitHub</a>。</p></li>
 </ul>
 <h2 id="安装">安装</h2>
 <h3 id="命令行">命令行</h3>
@@ -54,27 +65,35 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">::grun.bat</span><br><span class="line">@java -cp .;D:\javalib\antlr-4.8-complete.jar org.antlr.v4.gui.TestRig %*</span><br></pre></td></tr></table></figure>
 <h3 id="idea">IDEA</h3>
 <ol type="1">
-<li>安装插件 <a target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7358-antlr-v4-grammar-plugin">ANTLR v4 grammar plugin</a></li>
+<li>安装插件 <a
+target="_blank" rel="noopener" href="https://plugins.jetbrains.com/plugin/7358-antlr-v4-grammar-plugin">ANTLR
+v4 grammar plugin</a></li>
 <li>在语法文件的规则上 右键 -&gt; Test Rule ... ，来实时测试语法树</li>
 <li>在语法文件里面 右键 -&gt; Generate ANTLR Recognizer 来生成代码</li>
 </ol>
 <h3 id="vs-code">VS Code</h3>
-<p>安装插件 <a target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=mike-lischke.vscode-antlr4">ANTLR4 grammar syntax support</a>。</p>
+<p>安装插件 <a
+target="_blank" rel="noopener" href="https://marketplace.visualstudio.com/items?itemName=mike-lischke.vscode-antlr4">ANTLR4
+grammar syntax support</a>。</p>
 <h2 id="hello-world">Hello world</h2>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// Define a grammar called Hello</span><br><span class="line">grammar Hello;</span><br><span class="line">r  : &#x27;hello&#x27; ID ;         // match keyword hello followed by an identifier</span><br><span class="line">ID : [a-z]+ ;             // match lower-case identifiers</span><br><span class="line">WS : [ \t\r\n]+ -&gt; skip ; // skip spaces, tabs, newlines</span><br></pre></td></tr></table></figure>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">grun Hello r -gui</span><br><span class="line">grun Hello r -tokens</span><br><span class="line">grun Hello r -tree</span><br><span class="line">antlr4 -no-listener -visitor xxx.g4</span><br></pre></td></tr></table></figure>
-<p>退出：Windows 按下 <kbd>Ctrl</kbd> + <kbd>Z</kbd>，<kbd>Enter</kbd> 退出。</p>
+<p>退出：Windows 按下 <kbd>Ctrl</kbd> + <kbd>Z</kbd>，<kbd>Enter</kbd>
+退出。</p>
 <h2 id="遍历语法树">遍历语法树</h2>
-<p>ANTLR 的监听器和访问器能够将语法和程序逻辑代码解耦，可以不需要在语法中内嵌动作。</p>
+<p>ANTLR
+的监听器和访问器能够将语法和程序逻辑代码解耦，可以不需要在语法中内嵌动作。</p>
 <blockquote>
 <p>使用访问器和监听器机制，我们可以完成一切与语法相关的事情。一旦进入Java的领域，就没有什么ANTLR的相关内容值得学习了。我们需要谨记在心的是，语法及其对应的语法分析树，以及访问器或者监听器事件方法之间的关系。除此之外，剩下的仅仅是普通的代码。在对输入文本进行识别时，我们可以产生输出、收集信息（正如本例中我们所做的）、用某种方式验证输入文本，或者执行计算。</p>
 </blockquote>
 <h3 id="listener监听器">Listener（监听器）</h3>
-<p>类似于 XML 的 SAX 解析。监听器的方法会被 Antlr 提供的遍历器对象自动调用。</p>
+<p>类似于 XML 的 SAX 解析。监听器的方法会被 Antlr
+提供的遍历器对象自动调用。</p>
 <p>可以用 ParseTreeProperty 来储存和获取变量。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ParseTreeProperty&lt;Integer&gt; values = <span class="keyword">new</span> <span class="title class_">ParseTreeProperty</span>&lt;Integer&gt;();</span><br><span class="line">values.put(ctx, values.get(ctx.getChild(<span class="number">0</span>)));</span><br><span class="line">values.get(ctx.e(<span class="number">0</span>));</span><br></pre></td></tr></table></figure>
 <h3 id="visitor访问器">Visitor（访问器）</h3>
-<p>访问器方法中，需要显式地调用 visit() 方法来访问子节点，可以自己定义怎么访问子树。</p>
+<p>访问器方法中，需要显式地调用 visit()
+方法来访问子节点，可以自己定义怎么访问子树。</p>
 <h3 id="代码生成">代码生成</h3>
 <ul>
 <li>Parser.java</li>
@@ -108,11 +127,13 @@
 <h4 id="序列模式">序列模式</h4>
 <p>比如一个协议语言POP，由关键字、整数和换行组成。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">retr : &#x27;RETR&#x27; INT &#x27;\n&#x27;</span><br></pre></td></tr></table></figure>
-<p>任意长度序列可以用 <code>+</code> 字符。<code>(INT)+</code> 或者 <code>INT+</code>。</p>
+<p>任意长度序列可以用 <code>+</code> 字符。<code>(INT)+</code> 或者
+<code>INT+</code>。</p>
 <p>可以为空，零个或多个用 <code>*</code>。</p>
 <p>零个或一个：<code>?</code>。</p>
 <h4 id="选择模式多个备选分支">选择模式（多个备选分支）</h4>
-<p>使用符号 <code>|</code> 作为“或者”来表达编程语言中的选择模式。备选分支（alternative）或者可生成的结果（productions）。</p>
+<p>使用符号 <code>|</code>
+作为“或者”来表达编程语言中的选择模式。备选分支（alternative）或者可生成的结果（productions）。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type : &#x27;float&#x27; | &#x27;int&#x27; | &#x27;void&#x27;</span><br></pre></td></tr></table></figure>
 <h4 id="词法符号依赖模式">词法符号依赖模式</h4>
 <p>依赖符号的语法，比如数组的括号。表达对符号的依赖的方法。</p>
@@ -124,7 +145,8 @@
 <img src="/2020/10/21/antlr-v4-note/5-1-antlr-core-notation.png" class="" alt="ANTLR核心标记">
 <img src="/2020/10/21/antlr-v4-note/5-2-common-computer-patterns.png" class="" alt="几种常见的计算机语言的模式">
 <h3 id="左递归和优先级">左递归和优先级</h3>
-<p>经典的从左到右自顶向下的语法分析器无法处理左递归。算符优先级带来的问题。ANTLR解决的方式是，写在前面的语法拥有较高的优先级。如果遇到了从右向左结合的，需要使用 assoc 手工指定结合性：</p>
+<p>经典的从左到右自顶向下的语法分析器无法处理左递归。算符优先级带来的问题。ANTLR解决的方式是，写在前面的语法拥有较高的优先级。如果遇到了从右向左结合的，需要使用
+assoc 手工指定结合性：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">expr : &lt;assoc=right&gt; expr &#x27;^&#x27; expr</span><br><span class="line">     | INT</span><br><span class="line">     ;</span><br></pre></td></tr></table></figure>
 <p>ANTLR 4 可以能够处理直接左递归，但是不能处理间接左递归。</p>
 <h3 id="识别词法">识别词法</h3>
@@ -132,17 +154,21 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ID : (&#x27;a&#x27;..&#x27;z&#x27;|&#x27;A&#x27;..&#x27;Z&#x27;)+ ; //匹配1个或多个大小写字母</span><br></pre></td></tr></table></figure>
 <p>或者：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ID : [a-zA-z]+ ;</span><br></pre></td></tr></table></figure>
-<p>ID 规则可能和其他规则冲突，比如其他关键字 enum 或 for。所以要把 ID 规则放在所有关键字规则之后。</p>
+<p>ID 规则可能和其他规则冲突，比如其他关键字 enum 或 for。所以要把 ID
+规则放在所有关键字规则之后。</p>
 <h4 id="匹配数字">匹配数字</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INT : &#x27;0&#x27;..&#x27;9&#x27;+ ;</span><br></pre></td></tr></table></figure>
 <p>或者</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INT : [0-9]+ ;</span><br></pre></td></tr></table></figure>
 <p>浮点数：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FLOAT : DIGIT+ &#x27;.&#x27; DIGIT*  // 1. 3.14</span><br><span class="line">      |        &#x27;.&#x27; DIGIT+  // .1 .1415</span><br><span class="line">      ;</span><br><span class="line">fragment</span><br><span class="line">DIGIT : [0-9] ; // 单个数字</span><br></pre></td></tr></table></figure>
-<p>将一条规则声明为 fragment 可以告诉ANTLR，该规则本身不是一个词法符号，它只会被其他的词法规则使用。</p>
+<p>将一条规则声明为 fragment
+可以告诉ANTLR，该规则本身不是一个词法符号，它只会被其他的词法规则使用。</p>
 <h4 id="字符串">字符串</h4>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">STRING : &#x27;&quot;&#x27; .*? &#x27;&quot;&#x27; ;</span><br></pre></td></tr></table></figure>
-<p><code>.</code> 匹配任意单个字符，<code>.*</code> 匹配零个或多个，<code>?</code> 标记表示使用非贪婪匹配子规则（nongreedy subrule）。</p>
+<p><code>.</code> 匹配任意单个字符，<code>.*</code>
+匹配零个或多个，<code>?</code> 标记表示使用非贪婪匹配子规则（nongreedy
+subrule）。</p>
 <p>转义字符：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">STRING : &#x27;&quot;&#x27; (ESC|.)*? &#x27;&quot;&#x27; ;</span><br><span class="line">fragment</span><br><span class="line">ESC : &#x27;\\&quot;&#x27; | &#x27;\\\\&#x27; ; // 转义 \&quot; 和 \\</span><br></pre></td></tr></table></figure>
 <h4 id="注释和空白字符">注释和空白字符</h4>
@@ -169,8 +195,10 @@
 <li><p>使用类的成员在事件方法之间共享数据</p>
 <p>比如在监听器的类中声明一个栈，每个子表达式的结果退入栈中，然后在更高层的节点中取出来。</p></li>
 <li><p>对语法分析树的结点进行标注</p>
-<p>可以直接将语句绑定在语法上，这样每一个节点都会有这个值：<code>e returns [int value] ...;</code> 。</p>
-<p>使用 <code>ParseTreeProperty</code> 的辅助类，本质上是 IdentityHashMap，用节点对象作为键。</p></li>
+<p>可以直接将语句绑定在语法上，这样每一个节点都会有这个值：<code>e returns [int value] ...;</code>
+。</p>
+<p>使用 <code>ParseTreeProperty</code> 的辅助类，本质上是
+IdentityHashMap，用节点对象作为键。</p></li>
 </ol>
 <h2 id="高级特性">高级特性</h2>
 <h3 id="上下文相关的词法问题">上下文相关的词法问题</h3>

@@ -4,14 +4,14 @@
 
     <url>
         <loc>https://blog.beanbang.cn/tags/linux/</loc>
-        <lastmod>2023-03-04T08:59:30.559Z</lastmod>
+        <lastmod>2023-05-23T16:01:20.809Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>https://blog.beanbang.cn/tags/os/</loc>
-        <lastmod>2023-03-04T08:59:30.559Z</lastmod>
+        <lastmod>2023-05-23T16:01:20.809Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -122,14 +122,14 @@
     </url>
 
     <url>
-        <loc>https://blog.beanbang.cn/tags/ubuntu/</loc>
+        <loc>https://blog.beanbang.cn/tags/wireless/</loc>
         <lastmod>2022-09-10T10:15:27.884Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://blog.beanbang.cn/tags/wireless/</loc>
+        <loc>https://blog.beanbang.cn/tags/ubuntu/</loc>
         <lastmod>2022-09-10T10:15:27.884Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -178,6 +178,13 @@
     </url>
 
     <url>
+        <loc>https://blog.beanbang.cn/tags/minecraft/</loc>
+        <lastmod>2022-09-10T10:15:27.884Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://blog.beanbang.cn/tags/ssl/</loc>
         <lastmod>2022-09-10T10:15:27.884Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -193,13 +200,6 @@
 
     <url>
         <loc>https://blog.beanbang.cn/tags/apache/</loc>
-        <lastmod>2022-09-10T10:15:27.884Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/minecraft/</loc>
         <lastmod>2022-09-10T10:15:27.884Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

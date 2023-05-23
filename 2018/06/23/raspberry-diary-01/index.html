@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>树莓派折腾日记 一：从拆包到点亮 - 冰棒实验室</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="冰棒实验室"><meta name="msapplication-TileImage" content="/img/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="冰棒实验室"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="最近从淘宝买来了树莓派3B+，一个基于ARM架构的微型电脑。接下来就要开始折腾之旅了~"><meta property="og:type" content="blog"><meta property="og:title" content="树莓派折腾日记 一：从拆包到点亮"><meta property="og:url" content="https://blog.beanbang.cn/2018/06/23/raspberry-diary-01/"><meta property="og:site_name" content="冰棒实验室"><meta property="og:description" content="最近从淘宝买来了树莓派3B+，一个基于ARM架构的微型电脑。接下来就要开始折腾之旅了~"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://www.z4a.net/images/2018/07/25/17d420b0bcedbf975c2c8690e1182bdc.jpg"><meta property="og:image" content="https://www.z4a.net/images/2018/07/25/Win32DiskImager.png"><meta property="og:image" content="https://www.z4a.net/images/2018/07/25/raspberry_putty.png"><meta property="og:image" content="https://www.z4a.net/images/2018/07/25/mstsc.png"><meta property="og:image" content="https://www.z4a.net/images/2018/07/25/Rasp_desktop.png"><meta property="og:image" content="https://www.z4a.net/images/2018/07/25/9b362cccb446f7d990e3cf8a09022e9a.png"><meta property="article:published_time" content="2018-06-23T05:01:11.000Z"><meta property="article:modified_time" content="2022-09-10T10:15:27.883Z"><meta property="article:author" content="Lazyb0x"><meta property="article:tag" content="系统"><meta property="article:tag" content="Linux"><meta property="article:tag" content="树莓派"><meta property="article:tag" content="远程桌面"><meta property="article:tag" content="无线"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://www.z4a.net/images/2018/07/25/17d420b0bcedbf975c2c8690e1182bdc.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.beanbang.cn/2018/06/23/raspberry-diary-01/"},"headline":"树莓派折腾日记 一：从拆包到点亮","image":["https://www.z4a.net/images/2018/07/25/17d420b0bcedbf975c2c8690e1182bdc.jpg","https://www.z4a.net/images/2018/07/25/Win32DiskImager.png","https://www.z4a.net/images/2018/07/25/raspberry_putty.png","https://www.z4a.net/images/2018/07/25/mstsc.png","https://www.z4a.net/images/2018/07/25/Rasp_desktop.png","https://www.z4a.net/images/2018/07/25/9b362cccb446f7d990e3cf8a09022e9a.png"],"datePublished":"2018-06-23T05:01:11.000Z","dateModified":"2022-09-10T10:15:27.883Z","author":{"@type":"Person","name":"Lazyb0x"},"publisher":{"@type":"Organization","name":"冰棒实验室","logo":{"@type":"ImageObject","url":"https://blog.beanbang.cn/img/favicon.ico"}},"description":"最近从淘宝买来了树莓派3B+，一个基于ARM架构的微型电脑。接下来就要开始折腾之旅了~"}</script><link rel="canonical" href="https://blog.beanbang.cn/2018/06/23/raspberry-diary-01/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><!--!--><!-- hexo injector head_end start --><script>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>树莓派折腾日记 一：从拆包到点亮 - 冰棒实验室</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="冰棒实验室"><meta name="msapplication-TileImage" content="/img/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="冰棒实验室"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="最近从淘宝买来了树莓派3B+，一个基于ARM架构的微型电脑。接下来就要开始折腾之旅了~"><meta property="og:type" content="blog"><meta property="og:title" content="树莓派折腾日记 一：从拆包到点亮"><meta property="og:url" content="https://blog.beanbang.cn/2018/06/23/raspberry-diary-01/"><meta property="og:site_name" content="冰棒实验室"><meta property="og:description" content="最近从淘宝买来了树莓派3B+，一个基于ARM架构的微型电脑。接下来就要开始折腾之旅了~"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://www.z4a.net/images/2018/07/25/Win32DiskImager.png"><meta property="og:image" content="https://www.z4a.net/images/2018/07/25/raspberry_putty.png"><meta property="og:image" content="https://www.z4a.net/images/2018/07/25/mstsc.png"><meta property="og:image" content="https://www.z4a.net/images/2018/07/25/Rasp_desktop.png"><meta property="article:published_time" content="2018-06-23T05:01:11.000Z"><meta property="article:modified_time" content="2022-09-10T10:15:27.883Z"><meta property="article:author" content="Lazyb0x"><meta property="article:tag" content="系统"><meta property="article:tag" content="Linux"><meta property="article:tag" content="树莓派"><meta property="article:tag" content="远程桌面"><meta property="article:tag" content="无线"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://www.z4a.net/images/2018/07/25/Win32DiskImager.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.beanbang.cn/2018/06/23/raspberry-diary-01/"},"headline":"树莓派折腾日记 一：从拆包到点亮","image":["https://www.z4a.net/images/2018/07/25/Win32DiskImager.png","https://www.z4a.net/images/2018/07/25/raspberry_putty.png","https://www.z4a.net/images/2018/07/25/mstsc.png","https://www.z4a.net/images/2018/07/25/Rasp_desktop.png"],"datePublished":"2018-06-23T05:01:11.000Z","dateModified":"2022-09-10T10:15:27.883Z","author":{"@type":"Person","name":"Lazyb0x"},"publisher":{"@type":"Organization","name":"冰棒实验室","logo":{"@type":"ImageObject","url":"https://blog.beanbang.cn/img/favicon.ico"}},"description":"最近从淘宝买来了树莓派3B+，一个基于ARM架构的微型电脑。接下来就要开始折腾之旅了~"}</script><link rel="canonical" href="https://blog.beanbang.cn/2018/06/23/raspberry-diary-01/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><!--!--><!-- hexo injector head_end start --><script>
   (function () {
       function switchTab() {
           if (!location.hash) {
@@ -31,13 +31,23 @@
 </head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">冰棒实验室</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2018-06-23T05:01:11.000Z" title="2018/6/23 13:01:11">2018-06-23</time>发表</span><span class="level-item"><time dateTime="2022-09-10T10:15:27.883Z" title="2022/9/10 18:15:27">2022-09-10</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/log/">日志</a></span><span class="level-item">10 分钟读完 (大约1545个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">树莓派折腾日记 一：从拆包到点亮</h1><div class="content"><p>最近从淘宝买来了树莓派3B+，一个基于ARM架构的微型电脑。接下来就要开始折腾之旅了~</p>
 <span id="more"></span>
 <figure>
-<img src="https://www.z4a.net/images/2018/07/25/17d420b0bcedbf975c2c8690e1182bdc.jpg" alt="树莓派3B+官方照片" /><figcaption aria-hidden="true">树莓派3B+官方照片</figcaption>
+<img
+src="https://www.z4a.net/images/2018/07/25/17d420b0bcedbf975c2c8690e1182bdc.jpg"
+alt="树莓派3B+官方照片" />
+<figcaption aria-hidden="true">树莓派3B+官方照片</figcaption>
 </figure>
 <h3 id="安装系统">安装系统</h3>
-<p>到树莓派的<a target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/raspbian/">官网</a>下载系统<code>Raspbian</code>，这是树莓派官方基于<code>Debian</code>改编的系统。选择“Raspbian Stretch with desktop”，带桌面的系统。虽然我没有显示器，但是如果想要远程桌面登陆树莓派也是需要桌面程序的。“Lite”版不带桌面，体积会小很多。</p>
-<p>树莓派没有硬盘，它的的储存用的是SD卡。用<a target="_blank" rel="noopener" href="https://www.sdcard.org/downloads/formatter_4/#download">SDFormatter</a>格式化SD卡后，用<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/win32diskimager/">Win32DiskImager</a>刷入镜像。等待大约10分钟后就刷入结束了。这时候把卡插入卡槽就可以启动系统了。</p>
+<p>到树莓派的<a
+target="_blank" rel="noopener" href="https://www.raspberrypi.org/downloads/raspbian/">官网</a>下载系统<code>Raspbian</code>，这是树莓派官方基于<code>Debian</code>改编的系统。选择“Raspbian
+Stretch with
+desktop”，带桌面的系统。虽然我没有显示器，但是如果想要远程桌面登陆树莓派也是需要桌面程序的。“Lite”版不带桌面，体积会小很多。</p>
+<p>树莓派没有硬盘，它的的储存用的是SD卡。用<a
+target="_blank" rel="noopener" href="https://www.sdcard.org/downloads/formatter_4/#download">SDFormatter</a>格式化SD卡后，用<a
+target="_blank" rel="noopener" href="https://sourceforge.net/projects/win32diskimager/">Win32DiskImager</a>刷入镜像。等待大约10分钟后就刷入结束了。这时候把卡插入卡槽就可以启动系统了。</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/07/25/Win32DiskImager.png" alt="记得不要点错按钮" /><figcaption aria-hidden="true">记得不要点错按钮</figcaption>
+<img src="https://www.z4a.net/images/2018/07/25/Win32DiskImager.png"
+alt="记得不要点错按钮" />
+<figcaption aria-hidden="true">记得不要点错按钮</figcaption>
 </figure>
 <p>但是不急。因为我们没有接入显示器，所以没有办法控制树莓派。需要获得树莓派的IP地址以通过<code>SSH</code>连接。</p>
 <h3 id="配置连接">配置连接</h3>
@@ -50,14 +60,18 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip=172.31.8.8 dwc_otg.lpm_enable=0 console=serial0,115200 console=tty1 root=PARTUUID=c8d656f3-02 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait quiet splash plymouth.ignore-serial-consoles</span><br></pre></td></tr></table></figure>
 <p>如果使用WiFi连接，可以在SD卡根目录下建立<code>wpa_supplicant.conf</code>文件。例子如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">country=CN</span><br><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line">update_config=1</span><br><span class="line"> </span><br><span class="line">network=&#123;</span><br><span class="line">ssid=&quot;WiFi-A&quot;</span><br><span class="line">psk=&quot;12345678&quot;</span><br><span class="line">key_mgmt=WPA-PSK</span><br><span class="line">priority=1</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">network=&#123;</span><br><span class="line">ssid=&quot;WiFi-B&quot;</span><br><span class="line">psk=&quot;12345678&quot;</span><br><span class="line">key_mgmt=WPA-PSK</span><br><span class="line">priority=2</span><br><span class="line">scan_ssid=1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line">ssid=&quot;你的无线网络名称（ssid）&quot;</span><br><span class="line">key_mgmt=NONE</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line">ssid=&quot;你的无线网络名称（ssid）&quot;</span><br><span class="line">key_mgmt=NONE</span><br><span class="line">wep_key0=&quot;你的wifi密码&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line">ssid=&quot;你的无线网络名称（ssid）&quot;</span><br><span class="line">key_mgmt=WPA-PSK</span><br><span class="line">psk=&quot;你的wifi密码&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>启动后，这个文件将会替换 /etc/wpa_supplicant/wpa_supplicant.conf ，树莓派便会连接相应的WiFi。priority 为优先级，优先级越高的WiFi会先连接。</p>
+<p>启动后，这个文件将会替换 /etc/wpa_supplicant/wpa_supplicant.conf
+，树莓派便会连接相应的WiFi。priority
+为优先级，优先级越高的WiFi会先连接。</p>
 <p>如果出现网络无法连接的情况，检查一下路由器是否能够联网。如果连接了多个网络（wifi+网线），树莓派可能会使用网线的网络，即使是在网线不能连接到互联网的情况下。这时候拔掉网线就可以让树莓派使用Wifi网络。</p>
 <h3 id="启动">启动</h3>
 <p>插入电源，红灯(PWR)亮，绿灯(ACT)闪烁。顺带一说，树莓派最好用专用的电源，即5V2.5A的电源。如果出现红灯灭或者闪烁的情况就说明供电不足了。红灯指示电源，绿灯指示SD卡的读写状况。第一次启动的时候记得多等一会，毕竟是小电脑，速度比较慢。千万不要在这个时候拔掉电源，等到SD卡绿灯闪烁停止了再操作。我前几次就是因为没有耐心拔掉了电源导致进不了SSH。使用<code>Putty</code>或者Win10自带的ssh连接。</p>
 <p>Raspbian的ssh默认登陆用户名：<code>pi</code>，密码：<code>raspberry</code>。</p>
 <p>成功！</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/07/25/raspberry_putty.png" alt="putty登陆树莓派" /><figcaption aria-hidden="true">putty登陆树莓派</figcaption>
+<img src="https://www.z4a.net/images/2018/07/25/raspberry_putty.png"
+alt="putty登陆树莓派" />
+<figcaption aria-hidden="true">putty登陆树莓派</figcaption>
 </figure>
 <h3 id="换软件源">换软件源</h3>
 <p>Raspbian自带的源慢且不稳定，软件安装到80%下载不下来就是这个原因。换成镜像源速度会快很多。</p>
@@ -69,20 +83,28 @@
 <p>改完更新：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
 <h3 id="远程桌面">远程桌面</h3>
-<p>安装<code>tightvncserver</code>和<code>xrdp</code>。教程上说一定要先安装 tightvncserver 再安装 xrdp 不然会出问题。</p>
+<p>安装<code>tightvncserver</code>和<code>xrdp</code>。教程上说一定要先安装
+tightvncserver 再安装 xrdp 不然会出问题。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install tightvncserver</span><br><span class="line">sudo apt-get install xrdp</span><br><span class="line">sudo service xrdp restart</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">sudo ufw allow 3389        <span class="comment">#如果开着防火墙ufw，那么打开服务器上的远程桌面访问端口</span></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">sudo service ufw restart</span></span><br></pre></td></tr></table></figure>
 <p>win+R输入mstsc打开远程桌面连接界面，输入树莓派IP地址进行连接。</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/07/25/mstsc.png" alt="mstsc" /><figcaption aria-hidden="true">mstsc</figcaption>
+<img src="https://www.z4a.net/images/2018/07/25/mstsc.png"
+alt="mstsc" />
+<figcaption aria-hidden="true">mstsc</figcaption>
 </figure>
 <p>输入用户名和密码，就可以进桌面了。</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/07/25/Rasp_desktop.png" alt="树莓派的桌面" /><figcaption aria-hidden="true">树莓派的桌面</figcaption>
+<img src="https://www.z4a.net/images/2018/07/25/Rasp_desktop.png"
+alt="树莓派的桌面" />
+<figcaption aria-hidden="true">树莓派的桌面</figcaption>
 </figure>
 <p>想不到，里面居然有MC，真是个好东西🤭。</p>
 <p>拍个照：</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/07/25/9b362cccb446f7d990e3cf8a09022e9a.png" alt="树莓派照片" /><figcaption aria-hidden="true">树莓派照片</figcaption>
+<img
+src="https://www.z4a.net/images/2018/07/25/9b362cccb446f7d990e3cf8a09022e9a.png"
+alt="树莓派照片" />
+<figcaption aria-hidden="true">树莓派照片</figcaption>
 </figure>
 <h3 id="关机">关机</h3>
 <p>下面的命令都可以让树莓派关机，不到万不得已不要用拔电源的方式来关机。</p>
@@ -90,10 +112,16 @@
 <blockquote>
 <p>参考资料：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="http://shumeipai.nxez.com/2017/09/13/raspberry-pi-network-configuration-before-boot.html">无屏幕和键盘配置树莓派WiFi和SSH | 树莓派实验室</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/github_38111866/article/details/76038665">没有显示器情况下，安装和使用树莓派</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/edgexie/p/6527992.html">windows远程桌面连接树莓派通过xrdp服务</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/wt881010/article/details/51824066">树莓派无法上网 – 钝钝的blog – CSDN博客</a></li>
+<li><a
+target="_blank" rel="noopener" href="http://shumeipai.nxez.com/2017/09/13/raspberry-pi-network-configuration-before-boot.html">无屏幕和键盘配置树莓派WiFi和SSH
+| 树莓派实验室</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/github_38111866/article/details/76038665">没有显示器情况下，安装和使用树莓派</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://www.cnblogs.com/edgexie/p/6527992.html">windows远程桌面连接树莓派通过xrdp服务</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://blog.csdn.net/wt881010/article/details/51824066">树莓派无法上网
+– 钝钝的blog – CSDN博客</a></li>
 </ul>
 </blockquote>
 </div><div class="article-licensing box"><div class="licensing-title"><p>树莓派折腾日记 一：从拆包到点亮</p><p><a href="https://blog.beanbang.cn/2018/06/23/raspberry-diary-01/">https://blog.beanbang.cn/2018/06/23/raspberry-diary-01/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Lazyb0x</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2018-06-23</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-09-10</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/os/">系统</a><a class="link-muted mr-2" rel="tag" href="/tags/linux/">Linux</a><a class="link-muted mr-2" rel="tag" href="/tags/raspberry-pi/">树莓派</a><a class="link-muted mr-2" rel="tag" href="/tags/remote-desktop/">远程桌面</a><a class="link-muted mr-2" rel="tag" href="/tags/wireless/">无线</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2018/08/17/n-things-to-do-after-installing-ubuntu-18-04/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">安装完 Ubuntu 18.04 要做的 n 件事</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2018/03/10/good-bye-netkeeper/"><span class="level-item">再见了，Netkeeper！</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="valine-thread"></div><script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/valine/1.4.16/Valine.min.js"></script><script>new Valine({
