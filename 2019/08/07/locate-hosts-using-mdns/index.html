@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>利用 mDNS 协议来定位局域网主机 - 冰棒实验室</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="冰棒实验室"><meta name="msapplication-TileImage" content="/img/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="冰棒实验室"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="再也不用费劲去找树莓派的 IP 地址了！你的操作系统自带了“网络发现”功能。"><meta property="og:type" content="blog"><meta property="og:title" content="利用 mDNS 协议来定位局域网主机"><meta property="og:url" content="https://blog.beanbang.cn/2019/08/07/locate-hosts-using-mdns/"><meta property="og:site_name" content="冰棒实验室"><meta property="og:description" content="再也不用费劲去找树莓派的 IP 地址了！你的操作系统自带了“网络发现”功能。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://www.z4a.net/images/2019/08/07/wireshark-mdns.png"><meta property="og:image" content="https://www.z4a.net/images/2019/08/07/computername.png"><meta property="og:image" content="https://www.z4a.net/images/2019/08/07/avahi-daemon.png"><meta property="article:published_time" content="2019-08-07T09:36:53.000Z"><meta property="article:modified_time" content="2022-09-10T10:15:27.884Z"><meta property="article:author" content="Lazyb0x"><meta property="article:tag" content="Windows"><meta property="article:tag" content="系统"><meta property="article:tag" content="Linux"><meta property="article:tag" content="树莓派"><meta property="article:tag" content="网络"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://www.z4a.net/images/2019/08/07/wireshark-mdns.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.beanbang.cn/2019/08/07/locate-hosts-using-mdns/"},"headline":"利用 mDNS 协议来定位局域网主机","image":["https://www.z4a.net/images/2019/08/07/wireshark-mdns.png","https://www.z4a.net/images/2019/08/07/computername.png","https://www.z4a.net/images/2019/08/07/avahi-daemon.png"],"datePublished":"2019-08-07T09:36:53.000Z","dateModified":"2022-09-10T10:15:27.884Z","author":{"@type":"Person","name":"Lazyb0x"},"publisher":{"@type":"Organization","name":"冰棒实验室","logo":{"@type":"ImageObject","url":"https://blog.beanbang.cn/img/favicon.ico"}},"description":"再也不用费劲去找树莓派的 IP 地址了！你的操作系统自带了“网络发现”功能。"}</script><link rel="canonical" href="https://blog.beanbang.cn/2019/08/07/locate-hosts-using-mdns/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><!--!--><!-- hexo injector head_end start --><script>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>利用 mDNS 协议来定位局域网主机 - 冰棒实验室</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="冰棒实验室"><meta name="msapplication-TileImage" content="/img/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="冰棒实验室"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="再也不用费劲去找树莓派的 IP 地址了！你的操作系统自带了“网络发现”功能。"><meta property="og:type" content="blog"><meta property="og:title" content="利用 mDNS 协议来定位局域网主机"><meta property="og:url" content="https://blog.beanbang.cn/2019/08/07/locate-hosts-using-mdns/"><meta property="og:site_name" content="冰棒实验室"><meta property="og:description" content="再也不用费劲去找树莓派的 IP 地址了！你的操作系统自带了“网络发现”功能。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://www.z4a.net/images/2019/08/07/wireshark-mdns.png"><meta property="og:image" content="https://www.z4a.net/images/2019/08/07/computername.png"><meta property="og:image" content="https://www.z4a.net/images/2019/08/07/avahi-daemon.png"><meta property="article:published_time" content="2019-08-07T09:36:53.000Z"><meta property="article:modified_time" content="2023-06-15T11:27:43.050Z"><meta property="article:author" content="Lazyb0x"><meta property="article:tag" content="Windows"><meta property="article:tag" content="系统"><meta property="article:tag" content="树莓派"><meta property="article:tag" content="网络"><meta property="article:tag" content="Linux"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://www.z4a.net/images/2019/08/07/wireshark-mdns.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.beanbang.cn/2019/08/07/locate-hosts-using-mdns/"},"headline":"利用 mDNS 协议来定位局域网主机","image":["https://www.z4a.net/images/2019/08/07/wireshark-mdns.png","https://www.z4a.net/images/2019/08/07/computername.png","https://www.z4a.net/images/2019/08/07/avahi-daemon.png"],"datePublished":"2019-08-07T09:36:53.000Z","dateModified":"2023-06-15T11:27:43.050Z","author":{"@type":"Person","name":"Lazyb0x"},"publisher":{"@type":"Organization","name":"冰棒实验室","logo":{"@type":"ImageObject","url":"https://blog.beanbang.cn/img/favicon.ico"}},"description":"再也不用费劲去找树莓派的 IP 地址了！你的操作系统自带了“网络发现”功能。"}</script><link rel="canonical" href="https://blog.beanbang.cn/2019/08/07/locate-hosts-using-mdns/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><!--!--><!-- hexo injector head_end start --><script>
   (function () {
       function switchTab() {
           if (!location.hash) {
@@ -28,130 +28,83 @@
       window.addEventListener('hashchange', switchTab, false);
   })();
   </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="冰棒实验室" type="application/atom+xml">
-</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">冰棒实验室</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2019-08-07T09:36:53.000Z" title="2019/8/7 17:36:53">2019-08-07</time>发表</span><span class="level-item"><time dateTime="2022-09-10T10:15:27.884Z" title="2022/9/10 18:15:27">2022-09-10</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/software/">软件</a></span><span class="level-item">11 分钟读完 (大约1672个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">利用 mDNS 协议来定位局域网主机</h1><div class="content"><p>再也不用费劲去找树莓派的 IP
-地址了！你的操作系统自带了“网络发现”功能。</p>
+</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">冰棒实验室</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2019-08-07T09:36:53.000Z" title="2019/8/7 17:36:53">2019-08-07</time>发表</span><span class="level-item"><time dateTime="2023-06-15T11:27:43.050Z" title="2023/6/15 19:27:43">2023-06-15</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/software/">软件</a></span><span class="level-item">11 分钟读完 (大约1672个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">利用 mDNS 协议来定位局域网主机</h1><div class="content"><p>再也不用费劲去找树莓派的 IP 地址了！你的操作系统自带了“网络发现”功能。</p>
 <span id="more"></span>
-<p>在一个平常的局域网（开启了 DHCP）下面，获得一台主机的 IP
-地址常常有这么几种方法：</p>
-<ol type="1">
+
+<p>在一个平常的局域网（开启了 DHCP）下面，获得一台主机的 IP 地址常常有这么几种方法：</p>
+<ol>
 <li>用 <code>arp -a</code> 命令查询 arp 缓存；</li>
-<li>在目标主机上查找本机的 IP 地址，使用例如 <code>ipconfig</code>
-命令；</li>
+<li>在目标主机上查找本机的 IP 地址，使用例如 <code>ipconfig</code> 命令；</li>
 <li>浏览器登录路由器的后台，从连接的主机列表中查找；</li>
 <li>给目标主机设置静态IP。</li>
 </ol>
-<p>曾几何时，我一直用上面的方法来连接我的树莓派。树莓派没接显示器，没办法在主机上操作，每次要么使用手机热点（设备管理里面能显示
-IP），要么直接改配置分配静态IP。这些方法都有局限性，网络环境一变化，又得配置半天。</p>
-<p>现在，一个新的方法出现了！（其实一直就有）只要知道你的设备的主机名，你就可以得到你的设备的
-IP 地址。例如，我的树莓派是 Raspbian 系统，它的默认主机名是
-<code>raspberrypi</code>，就可以通过域名 <code>raspberrypi.local</code>
-来连接，像这样：</p>
+<p>不久之前，我一直用上面的方法来连接我的树莓派。树莓派没接显示器，没办法在主机上操作，每次要么使用手机热点（设备管理里面能显示 IP），要么直接改配置分配静态IP。这些方法都有局限性，网络环境一变化，又得配置半天。</p>
+<p>现在，一个新的方法出现了！（其实一直就有）只要知道你的设备的主机名，你就可以得到你的设备的 IP 地址。例如，我的树莓派是 Raspbian 系统，它的默认主机名是 <code>raspberrypi</code>，就可以通过域名 <code>raspberrypi.local</code> 来连接，像这样：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh pi@raspberrypi.local</span><br></pre></td></tr></table></figure>
+
 <p>这就是 mDNS （Multicast DNS）协议给我们提供的便利。</p>
-<h2 id="偶然的发现">偶然的发现</h2>
-<p>在研究 IGMP 协议的时候，我用 Wireshark 对无线网卡抓取 IGMP
-数据包，想看看有没有什么服务是在使用组播（Multicast）地址的。</p>
-<figure>
-<img src="https://www.z4a.net/images/2019/08/07/wireshark-mdns.png"
-alt="Wireshark软件截图" />
-<figcaption aria-hidden="true">Wireshark软件截图</figcaption>
-</figure>
+<h2 id="偶然的发现"><a href="#偶然的发现" class="headerlink" title="偶然的发现"></a>偶然的发现</h2><p>在研究 IGMP 协议的时候，我用 Wireshark 对无线网卡抓取 IGMP 数据包，想看看有没有什么服务是在使用组播（Multicast）地址的。</p>
+<p><img src="https://www.z4a.net/images/2019/08/07/wireshark-mdns.png" alt="Wireshark软件截图"></p>
 <p>之后我看到了局域网内的电脑基本上都会加入这几个组播地址：<code>224.0.0.251</code>，<code>224.0.0.252</code>，<code>239.255.255.250</code>。</p>
-<p>经过查找，这三个组播地址分别是协议 mDNS，LLMNR 和 SSDP
-协议的。mDNS实现了类似 DNS
-的功能，使得主机在局域网内能够加入和通信；LLMNR 的功能和 mDNS 类似；SSDP
-是 UPnP 协议的一部分，也是用来实现设备和服务的发现的。</p>
+<p>经过查找，这三个组播地址分别是协议 mDNS，LLMNR 和 SSDP 协议的。mDNS实现了类似 DNS 的功能，使得主机在局域网内能够加入和通信；LLMNR 的功能和 mDNS 类似；SSDP 是 UPnP 协议的一部分，也是用来实现设备和服务的发现的。</p>
 <p>在一段 mDNS 报文中，我看到了这样的内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Multicast Domain Name System (response)</span><br><span class="line">    [Request In: 172]</span><br><span class="line">    [Time: 0.205589000 seconds]</span><br><span class="line">    Transaction ID: 0x0000</span><br><span class="line">    Flags: 0x8400 Standard query response, No error</span><br><span class="line">    Questions: 0</span><br><span class="line">    Answer RRs: 4</span><br><span class="line">    Authority RRs: 0</span><br><span class="line">    Additional RRs: 0</span><br><span class="line">    Answers</span><br><span class="line">        9.c.4.3.e.b.a.3.5.6.5.3.2.8.e.0.0.0.0.0.0.0.0.0.0.0.0.0.0.8.e.f.ip6.arpa: type PTR, class IN, cache flush, raspberrypi.local</span><br><span class="line">        raspberrypi.local: type A, class IN, cache flush, addr 192.168.10.108</span><br><span class="line">        108.10.168.192.in-addr.arpa: type PTR, class IN, cache flush, raspberrypi.local</span><br><span class="line">        raspberrypi.local: type AAAA, class IN, cache flush, addr fe80::e82:3565:3abe:34c9</span><br></pre></td></tr></table></figure>
-<p>来源是 <code>192.168.10.108</code>，目的是 <code>224.0.0.251</code>。
-返回的记录中有我的树莓派的 IPv4 和 IPv6 地址，以及一个相同的字段
-<code>raspberrypi.local</code>。</p>
-<p>难道说 <code>raspberrypi.local</code> 就是我树莓派的域名？我立马 ping
-了一下：</p>
+
+<p>来源是 <code>192.168.10.108</code>，目的是 <code>224.0.0.251</code>。 返回的记录中有我的树莓派的 IPv4 和 IPv6 地址，以及一个相同的字段 <code>raspberrypi.local</code>。</p>
+<p>难道说 <code>raspberrypi.local</code> 就是我树莓派的域名？我立马 ping 了一下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">PS C:\WINDOWS\system32&gt; ping raspberrypi.local</span><br><span class="line"></span><br><span class="line">正在 Ping raspberrypi.local [fe80::e82:3565:3abe:34c9%13] 具有 32 字节的数据:</span><br><span class="line">来自 fe80::e82:3565:3abe:34c9%13 的回复: 时间=5ms</span><br><span class="line">来自 fe80::e82:3565:3abe:34c9%13 的回复: 时间=2ms</span><br><span class="line">来自 fe80::e82:3565:3abe:34c9%13 的回复: 时间=4ms</span><br><span class="line">来自 fe80::e82:3565:3abe:34c9%13 的回复: 时间=5ms</span><br><span class="line"></span><br><span class="line">fe80::e82:3565:3abe:34c9%13 的 Ping 统计信息:</span><br><span class="line">    数据包: 已发送 = 4，已接收 = 4，丢失 = 0 (0% 丢失)，</span><br><span class="line">往返行程的估计时间(以毫秒为单位):</span><br><span class="line">    最短 = 2ms，最长 = 5ms，平均 = 4ms</span><br><span class="line">PS C:\WINDOWS\system32&gt; ping raspberrypi.local -4</span><br><span class="line"></span><br><span class="line">正在 Ping raspberrypi [192.168.10.109] 具有 32 字节的数据:</span><br><span class="line">来自 192.168.10.109 的回复: 字节=32 时间=2ms TTL=64</span><br><span class="line">来自 192.168.10.109 的回复: 字节=32 时间=1ms TTL=64</span><br><span class="line">来自 192.168.10.109 的回复: 字节=32 时间=2ms TTL=64</span><br><span class="line">来自 192.168.10.109 的回复: 字节=32 时间=3ms TTL=64</span><br><span class="line"></span><br><span class="line">192.168.10.109 的 Ping 统计信息:</span><br><span class="line">    数据包: 已发送 = 4，已接收 = 4，丢失 = 0 (0% 丢失)，</span><br><span class="line">往返行程的估计时间(以毫秒为单位):</span><br><span class="line">    最短 = 1ms，最长 = 3ms，平均 = 2ms</span><br></pre></td></tr></table></figure>
+
 <p>确实可以。我流下了激动的泪水：这么好的东西怎么没早发现呢！</p>
-<h2 id="mdns-查询过程">mDNS 查询过程</h2>
-<p>通过分析抓包数据，mDNS 协议在局域网内的 IP
-地址查询过程大致是这样的：</p>
+<h2 id="mDNS-查询过程"><a href="#mDNS-查询过程" class="headerlink" title="mDNS 查询过程"></a>mDNS 查询过程</h2><p>通过分析抓包数据，mDNS 协议在局域网内的 IP 地址查询过程大致是这样的：</p>
 <p>A：发起查询的主机</p>
 <p>B：被查询的主机</p>
-<ol type="1">
-<li>A，B 在加入网络时都会发 IGMP 报文加入组
-<code>224.0.0.251</code>；</li>
-<li>A 向组 <code>224.0.0.251</code> 发送 mDNS 组播报文查询 B
-的主机名，所有在组内的主机都会收到这个查询请求；</li>
-<li>B 向组 <code>224.0.0.251</code> 发送回应 mDNS
-报文，内容包括自己的主机名和 IP 地址；</li>
+<ol>
+<li>A，B 在加入网络时都会发 IGMP 报文加入组 <code>224.0.0.251</code>；</li>
+<li>A 向组 <code>224.0.0.251</code> 发送 mDNS 组播报文查询 B 的主机名，所有在组内的主机都会收到这个查询请求；</li>
+<li>B 向组 <code>224.0.0.251</code> 发送回应 mDNS 报文，内容包括自己的主机名和 IP 地址；</li>
 <li>A 得到 B 的 IP 地址。</li>
 </ol>
-<p>其中，mDNS 报文是包装在 UDP 组播报文中的，使用 <code>5353</code>
-端口。</p>
-<h2 id="主机名的查询和修改">主机名的查询和修改</h2>
-<p>Windows 系统的主机名在环境变量 <code>COMPUTERNAME</code>
-查看，可以在系统设置中修改。</p>
+<p>其中，mDNS 报文是包装在 UDP 组播报文中的，使用 <code>5353</code> 端口。</p>
+<h2 id="主机名的查询和修改"><a href="#主机名的查询和修改" class="headerlink" title="主机名的查询和修改"></a>主机名的查询和修改</h2><p>Windows 系统的主机名在环境变量 <code>COMPUTERNAME</code> 查看，可以在系统设置中修改。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo %COMPUTERNAME%</span><br></pre></td></tr></table></figure>
-<figure>
-<img src="https://www.z4a.net/images/2019/08/07/computername.png"
-alt="Windows更改主机名" />
-<figcaption aria-hidden="true">Windows更改主机名</figcaption>
-</figure>
-<p>Linux 系统主机名存在 <code>/etc/hostname</code> 中。使用
-<code>hostnamectl</code> 可以查询和修改。<code>/etc/hosts</code>
-里也有主机名的记录，也要一并修改。</p>
+
+<p><img src="https://www.z4a.net/images/2019/08/07/computername.png" alt="Windows更改主机名"></p>
+<p>Linux 系统主机名存在 <code>/etc/hostname</code> 中。使用 <code>hostnamectl</code> 可以查询和修改。<code>/etc/hosts</code> 里也有主机名的记录，也要一并修改。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">查询主机名</span></span><br><span class="line">hostname</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">临时更改，重启失效</span></span><br><span class="line">sudo hostname &lt;newhostname&gt;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">hostnamectl只更改/etc/hostname，记得改/etc/hosts</span></span><br><span class="line">sudo hostnamectl set-hostname &lt;newhostname&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="我的系统支持吗">我的系统支持吗</h2>
-<p>Windows 10 以后，系统就能够支持 mDNS 协议了。Windows 10
-以下的系统怎么办？你可以：</p>
-<ol type="1">
-<li><p>给 Windows 安装苹果公司的 <a
-target="_blank" rel="noopener" href="https://support.apple.com/kb/DL999">Bonjour</a>，只有 5 Mb
-大小，推荐。</p></li>
-<li><p>使用 NetBIOS 协议，这是微软的网络发现服务。Linux 系统上安装
-<code>samba</code>，它的 <code>nmbd</code> 服务使得能被 Windows
-主机发现。使用方法：</p>
+
+<h2 id="我的系统支持吗"><a href="#我的系统支持吗" class="headerlink" title="我的系统支持吗"></a>我的系统支持吗</h2><p>Windows 10 以后，系统就能够支持 mDNS 协议了。Windows 10 以下的系统怎么办？你可以：</p>
+<ol>
+<li><p>给 Windows 安装苹果公司的 <a target="_blank" rel="noopener" href="https://support.apple.com/kb/DL999">Bonjour</a>，只有 5 Mb 大小，推荐。</p>
+</li>
+<li><p>使用 NetBIOS 协议，这是微软的网络发现服务。Linux 系统上安装 <code>samba</code>，它的 <code>nmbd</code> 服务使得能被 Windows 主机发现。使用方法：</p>
 <ul>
-<li>Windows上：主机名即为域名。主机名是 raspberrypi，直接
-<code>ping raspberrypi</code>。</li>
-<li>Linux上：默认不解析 NetBIOS 主机名，使用
-<code>nmblookup 主机名</code> 来得到 Windows 主机 IP。如果要实现解析
-NetBIOS 主机名，需要修改配置文件，没折腾了，看这篇文章 -&gt; <a
-target="_blank" rel="noopener" href="https://shazi.info/%E5%9C%A8-linux-%E8%A7%A3%E6%9E%90-netbios-%E5%90%8D%E7%A8%B1/">在
-Linux 解析 Netbios 名稱</a>。</li>
-</ul></li>
+<li>Windows上：主机名即为域名。主机名是 raspberrypi，直接 <code>ping raspberrypi </code>。</li>
+<li>Linux上：默认不解析 NetBIOS 主机名，使用 <code>nmblookup 主机名</code> 来得到 Windows 主机 IP。如果要实现解析 NetBIOS 主机名，需要修改配置文件，没折腾了，看这篇文章 -&gt; <a target="_blank" rel="noopener" href="https://shazi.info/%E5%9C%A8-linux-%E8%A7%A3%E6%9E%90-netbios-%E5%90%8D%E7%A8%B1/">在 Linux 解析 Netbios 名稱</a>。</li>
+</ul>
+</li>
 </ol>
-<p>Linux 一般是安装了 <code>avahi-daemon</code> 服务。使用指令
-<code>systemctl status avahi-daemon.service</code>
-来查看服务运行状态。</p>
-<figure>
-<img src="https://www.z4a.net/images/2019/08/07/avahi-daemon.png"
-alt="avahi-daemon" />
-<figcaption aria-hidden="true">avahi-daemon</figcaption>
-</figure>
+<p>Linux 一般是安装了 <code>avahi-daemon</code> 服务。使用指令 <code>systemctl status avahi-daemon.service</code> 来查看服务运行状态。</p>
+<p><img src="https://www.z4a.net/images/2019/08/07/avahi-daemon.png" alt="avahi-daemon"></p>
 <p>安卓系统似乎不支持，我的华为手机没有。</p>
 <p>还可以查询 UDP 5353 端口。</p>
 <p>Windows：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -ano | findstr 5353</span><br></pre></td></tr></table></figure>
+
 <p>Linux：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo netstat -nap | grep 5353</span><br></pre></td></tr></table></figure>
+
 <p>其实最简单的就是 ping 一下 主机名.local 看看有没有就知道了。</p>
 <blockquote>
 <p>参见：</p>
 <ul>
-<li><a
-target="_blank" rel="noopener" href="https://blog.csdn.net/u013991521/article/details/80522269">3种方法更改Linux系统的主机名(hostname)
-- ZhangYaohui专栏 - CSDN博客</a></li>
-<li><a target="_blank" rel="noopener" href="https://linux.cn/article-10043-1.html">技术|使用 mDNS
-在局域网中轻松发现系统</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.eiman.tv/blog/posts/lannames/">LLMNR, Multicast
-DNS and names on your LAN</a></li>
-<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Multicast_DNS">Multicast DNS
-- Wikipedia</a></li>
-<li><a
-target="_blank" rel="noopener" href="https://stackoverflow.com/questions/23624525/standard-mdns-service-on-windows">Standard
-mDNS service on Windows - Stack Overflow</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u013991521/article/details/80522269">3种方法更改Linux系统的主机名(hostname) - ZhangYaohui专栏 - CSDN博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://linux.cn/article-10043-1.html">技术|使用 mDNS 在局域网中轻松发现系统</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.eiman.tv/blog/posts/lannames/">LLMNR, Multicast DNS and names on your LAN</a></li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Multicast_DNS">Multicast DNS - Wikipedia</a></li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/23624525/standard-mdns-service-on-windows">Standard mDNS service on Windows - Stack Overflow</a></li>
 </ul>
 </blockquote>
-</div><div class="article-licensing box"><div class="licensing-title"><p>利用 mDNS 协议来定位局域网主机</p><p><a href="https://blog.beanbang.cn/2019/08/07/locate-hosts-using-mdns/">https://blog.beanbang.cn/2019/08/07/locate-hosts-using-mdns/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Lazyb0x</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2019-08-07</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-09-10</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/windows/">Windows</a><a class="link-muted mr-2" rel="tag" href="/tags/os/">系统</a><a class="link-muted mr-2" rel="tag" href="/tags/linux/">Linux</a><a class="link-muted mr-2" rel="tag" href="/tags/raspberry-pi/">树莓派</a><a class="link-muted mr-2" rel="tag" href="/tags/network/">网络</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2019/12/28/hexo-configuration/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Hexo 安装配置笔记</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2019/05/17/raspberry-diary-02-network-configure/"><span class="level-item">树莓派折腾日记 二：网络相关配置</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="valine-thread"></div><script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/valine/1.4.16/Valine.min.js"></script><script>new Valine({
+</div><div class="article-licensing box"><div class="licensing-title"><p>利用 mDNS 协议来定位局域网主机</p><p><a href="https://blog.beanbang.cn/2019/08/07/locate-hosts-using-mdns/">https://blog.beanbang.cn/2019/08/07/locate-hosts-using-mdns/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Lazyb0x</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2019-08-07</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-06-15</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/windows/">Windows</a><a class="link-muted mr-2" rel="tag" href="/tags/os/">系统</a><a class="link-muted mr-2" rel="tag" href="/tags/raspberry-pi/">树莓派</a><a class="link-muted mr-2" rel="tag" href="/tags/network/">网络</a><a class="link-muted mr-2" rel="tag" href="/tags/linux/">Linux</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2019/12/28/hexo-configuration/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Hexo 安装配置笔记</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2019/05/17/raspberry-diary-02-network-configure/"><span class="level-item">树莓派折腾日记 二：网络相关配置</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="valine-thread"></div><script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/valine/1.4.16/Valine.min.js"></script><script>new Valine({
             el: '#valine-thread',
             appId: "53p6sFAYCBY1FfXE9nOa3byP-gzGzoHsz",
             appKey: "V6tCmUsramFiGoA0GbBETOLR",
@@ -169,7 +122,7 @@ mDNS service on Windows - Stack Overflow</a></li>
             
             enableQQ: false,
             requiredFields: [],
-        });</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#偶然的发现"><span class="level-left"><span class="level-item">偶然的发现</span></span></a></li><li><a class="level is-mobile" href="#mdns-查询过程"><span class="level-left"><span class="level-item">mDNS 查询过程</span></span></a></li><li><a class="level is-mobile" href="#主机名的查询和修改"><span class="level-left"><span class="level-item">主机名的查询和修改</span></span></a></li><li><a class="level is-mobile" href="#我的系统支持吗"><span class="level-left"><span class="level-item">我的系统支持吗</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/head.png" alt="Lazyb0x"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Lazyb0x</p><p class="is-size-6 is-block">玄之又玄，众妙之门</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">24</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">34</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/Lazyb0x"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/Lazyb0x"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Keybase" href="https://keybase.io/lazyb0x"><i class="fa fa-key"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://michaelcodezhang.gitee.io/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MichaelZhang</span></span><span class="level-right"><span class="level-item tag">michaelcodezhang.gitee.io</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a><p class="is-size-7"><span>&copy; 2023 Lazyb0x</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备17023244号-1 </a></p></div><div class="level-end"><div style="width: 162px; height: 98px; overflow: hidden; margin: 2em auto"><a target="_blank" rel="noopener" href="https://info.flagcounter.com/8awM"><img style="display: block; margin: 0 auto -23px;" title="访问人数统计" src="https://s05.flagcounter.com/count2/8awM/bg_FFFFFF/txt_4A4A4A/border_FFFFFF/columns_2/maxflags_10/viewers_3/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+        });</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#偶然的发现"><span class="level-left"><span class="level-item">偶然的发现</span></span></a></li><li><a class="level is-mobile" href="#mDNS-查询过程"><span class="level-left"><span class="level-item">mDNS 查询过程</span></span></a></li><li><a class="level is-mobile" href="#主机名的查询和修改"><span class="level-left"><span class="level-item">主机名的查询和修改</span></span></a></li><li><a class="level is-mobile" href="#我的系统支持吗"><span class="level-left"><span class="level-item">我的系统支持吗</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/head.png" alt="Lazyb0x"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Lazyb0x</p><p class="is-size-6 is-block">玄之又玄，众妙之门</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">24</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">34</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/Lazyb0x"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/Lazyb0x"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Keybase" href="https://keybase.io/lazyb0x"><i class="fa fa-key"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://michaelcodezhang.gitee.io/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MichaelZhang</span></span><span class="level-right"><span class="level-item tag">michaelcodezhang.gitee.io</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a><p class="is-size-7"><span>&copy; 2023 Lazyb0x</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备17023244号-1 </a></p></div><div class="level-end"><div style="width: 162px; height: 98px; overflow: hidden; margin: 2em auto"><a target="_blank" rel="noopener" href="https://info.flagcounter.com/8awM"><img style="display: block; margin: 0 auto -23px;" title="访问人数统计" src="https://s05.flagcounter.com/count2/8awM/bg_FFFFFF/txt_4A4A4A/border_FFFFFF/columns_2/maxflags_10/viewers_3/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
             article: {
                 highlight: {
                     clipboard: true,

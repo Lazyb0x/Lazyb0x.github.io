@@ -31,12 +31,9 @@
 </head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">冰棒实验室</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2018-09-23T12:53:09.000Z" title="2018/9/23 20:53:09">2018-09-23</time>发表</span><span class="level-item"><time dateTime="2022-09-10T10:15:27.883Z" title="2022/9/10 18:15:27">2022-09-10</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/mc/">MC</a></span><span class="level-item">8 分钟读完 (大约1141个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Minecraft的文件结构</h1><div class="content"><p>打开玩了半年的MC的<code>.minecraft</code>文件夹，你可能会看到这样的场景：</p>
 <span id="more"></span>
 <figure>
-<img src="https://www.z4a.net/images/2018/09/23/003.MC.png"
-alt="MC文件夹内的一大堆文件" />
-<figcaption aria-hidden="true">MC文件夹内的一大堆文件</figcaption>
+<img src="https://www.z4a.net/images/2018/09/23/003.MC.png" alt="MC文件夹内的一大堆文件" /><figcaption aria-hidden="true">MC文件夹内的一大堆文件</figcaption>
 </figure>
-<p>这些文件和文件夹到底是从启动器来的，从模组来的，还是游戏本身自己就有的呢？有些文件可以从命名上就判断来源，比如“litemod”，有些却不能。于是我从纯净版的Minecraft
-1.12.2文件开始，重新再安装一次<code>Optifine</code>、<code>Forge</code>、<code>LiteLoader</code>以及各种MOD，看看这些文件是从哪里产生的。</p>
+<p>这些文件和文件夹到底是从启动器来的，从模组来的，还是游戏本身自己就有的呢？有些文件可以从命名上就判断来源，比如“litemod”，有些却不能。于是我从纯净版的Minecraft 1.12.2文件开始，重新再安装一次<code>Optifine</code>、<code>Forge</code>、<code>LiteLoader</code>以及各种MOD，看看这些文件是从哪里产生的。</p>
 <h2 id="游戏基础文件">游戏基础文件</h2>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2018/09/23  14:06    &lt;DIR&gt;          .</span><br><span class="line">2018/09/23  14:06    &lt;DIR&gt;          ..</span><br><span class="line">2018/09/23  13:51    &lt;DIR&gt;          assets</span><br><span class="line">2018/09/23  14:06    &lt;DIR&gt;          libraries</span><br><span class="line">2018/09/23  14:05    &lt;DIR&gt;          versions</span><br></pre></td></tr></table></figure>
 <p>这是一个原版完整的Minecraft游戏的所有文件。只要有<code>assets</code>、<code>libraries</code>、<code>versions</code>三个文件夹内的文件，游戏就可以运行。</p>
@@ -64,9 +61,7 @@ alt="MC文件夹内的一大堆文件" />
 <li><h3 id="hotbar.nbt">hotbar.nbt</h3>
 <p>创造模式的快捷工具栏保存的数据。1.12版本新有的功能。按<code>C</code>+<code>1</code>保存底下那条工具栏到第一条去（注意是<code>C</code>不要按成<code>Ctrl</code>），<code>X</code>+<code>1</code>切换。</p>
 <figure>
-<img src="https://www.z4a.net/images/2018/09/23/003.mc1.12.png"
-alt="MC创造模式工具栏" />
-<figcaption aria-hidden="true">MC创造模式工具栏</figcaption>
+<img src="https://www.z4a.net/images/2018/09/23/003.mc1.12.png" alt="MC创造模式工具栏" /><figcaption aria-hidden="true">MC创造模式工具栏</figcaption>
 </figure></li>
 <li><h3 id="usercache.json">usercache.json</h3>
 <p>储存玩家的<code>ID</code>和<code>UUID</code>。</p></li>
@@ -112,9 +107,7 @@ alt="MC创造模式工具栏" />
 <h2 id="其他">其他</h2>
 <p>把这些主要的排除了，剩下的基本上就是mod产生的文件了。基本上能够从名字上判断出来。比如CustomSkinLoader就是CustomSkinLoader的，那些waypoints之类的图片是VoxelMap的。</p>
 <hr />
-<p>写完之后百度了一下，这个也不错： <a
-target="_blank" rel="noopener" href="https://tieba.baidu.com/p/2736921553?red_tag=0959340927">[教程]Minecraft
-文件夹目录索引及各部分作用【minecraft吧】_百度贴吧</a></p>
+<p>写完之后百度了一下，这个也不错： <a target="_blank" rel="noopener" href="https://tieba.baidu.com/p/2736921553?red_tag=0959340927">[教程]Minecraft 文件夹目录索引及各部分作用【minecraft吧】_百度贴吧</a></p>
 </div><div class="article-licensing box"><div class="licensing-title"><p>Minecraft的文件结构</p><p><a href="https://blog.beanbang.cn/2018/09/23/file-structure-of-minecraft/">https://blog.beanbang.cn/2018/09/23/file-structure-of-minecraft/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Lazyb0x</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2018-09-23</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-09-10</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/minecraft/">Minecraft</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2018/10/09/enable-ssl-https-for-website/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">给站点开启SSL/HTTPS</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2018/08/17/n-things-to-do-after-installing-ubuntu-18-04/"><span class="level-item">安装完 Ubuntu 18.04 要做的 n 件事</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="valine-thread"></div><script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/valine/1.4.16/Valine.min.js"></script><script>new Valine({
             el: '#valine-thread',
             appId: "53p6sFAYCBY1FfXE9nOa3byP-gzGzoHsz",
