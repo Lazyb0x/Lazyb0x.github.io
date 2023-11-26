@@ -30,22 +30,39 @@
   </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="冰棒实验室" type="application/atom+xml">
 </head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">冰棒实验室</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2019-02-25T05:05:12.000Z" title="2019/2/25 13:05:12">2019-02-25</time>发表</span><span class="level-item"><time dateTime="2022-09-10T10:15:27.884Z" title="2022/9/10 18:15:27">2022-09-10</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/software/">软件</a></span><span class="level-item">6 分钟读完 (大约831个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">1809坑：多余显示器，桌面变卡</h1><div class="content"><p>谨慎启用 Hyper-v ！，小心自动更新！</p>
 <span id="more"></span>
-
-<p>在安装完 Windows 10 的 1809 版本之后，我的电脑两次出现了这样的情况：桌面变得非常卡，大概只有20帧的样子，在显示设置中出现了多个没有用的显示器，而我的笔记本并没有接上任何外接屏幕。</p>
-<p><img src="https://www.z4a.net/images/2019/02/25/005.hyper-v..png" alt="开启Hyper-v后出现多个多余显示器 | 微软社区"></p>
-<p>在百度之后确认了，多个显示器是因为我启用了 Hyper-v 功能而多出来的，这可能是 win 10 的一个 Bug 。而整个桌面的窗口变卡的原因有些不确定，因为在启用 Hyper-v 之后还经历了一次 windows 更新。</p>
+<p>在安装完 Windows 10 的 1809
+版本之后，我的电脑两次出现了这样的情况：桌面变得非常卡，大概只有20帧的样子，在显示设置中出现了多个没有用的显示器，而我的笔记本并没有接上任何外接屏幕。</p>
+<figure>
+<img src="https://www.z4a.net/images/2019/02/25/005.hyper-v..png"
+alt="开启Hyper-v后出现多个多余显示器 | 微软社区" />
+<figcaption aria-hidden="true">开启Hyper-v后出现多个多余显示器 |
+微软社区</figcaption>
+</figure>
+<p>在百度之后确认了，多个显示器是因为我启用了 Hyper-v
+功能而多出来的，这可能是 win 10 的一个 Bug
+。而整个桌面的窗口变卡的原因有些不确定，因为在启用 Hyper-v
+之后还经历了一次 windows 更新。</p>
 <p>我尝试过在设备管理器中禁用多余的显示器，使用系统保护回到上一个还原点都没有效果，百度谷歌到的情况相同的问题也都没有解决。真是万不得已，最终只好备份所有文件重置了。也不知道是什么原因导致的这个问题，可能和特定型号的硬件有关吧。难受！</p>
 <p>所以，试用新版本的系统的时候一定要谨慎了，特别是在生产力机器上，一些奇怪的问题可能导致难以挽回的后果。</p>
-<h2 id="一些马后炮措施"><a href="#一些马后炮措施" class="headerlink" title="一些马后炮措施"></a>一些马后炮措施</h2><p>启用系统还原。在 控制面板\系统和安全\系统 -&gt; 高级系统设置(系统属性) -&gt; 系统保护 中启用系统还原，每当进行重大操作的时候先建立一个还原点，在系统更新的时候也会自动创建还原点。出现问题的时候可以回退回去，需要的时间大约是20分钟。</p>
-<p>关闭自动更新驱动。在 系统属性 -&gt; 硬件 -&gt; 设备安装设置 中，“是否要自动下载适合你设备的制造商应用和自定义图标”选项，选择“否”来避免系统自动搜索、安装、更新驱动。最新版本的驱动程序不一定是最好的，特别是显卡驱动。</p>
-<p>重置。最后的最后，如果一切都无法挽回了，Windows 10 有重置的功能，在 设置 -&gt; 更新和安全 -&gt; 恢复  中可以重置系统。这个选项会重置整台电脑，恢复出厂设置，相当于自己重装系统，但是保留了驱动程序，省得再安装一次，相比手动重装节省时间。恢复一次可能需要半个小时。</p>
-<hr>
-<p>5月5日后记：现在升级到了 1903，打开沙盒模式或启用 Hyper-v 的时候仍然会有多个屏幕，不过关闭功能之后重启两次就可以恢复了。</p>
+<h2 id="一些马后炮措施">一些马后炮措施</h2>
+<p>启用系统还原。在 控制面板-&gt; 高级系统设置(系统属性) -&gt; 系统保护
+中启用系统还原，每当进行重大操作的时候先建立一个还原点，在系统更新的时候也会自动创建还原点。出现问题的时候可以回退回去，需要的时间大约是20分钟。</p>
+<p>关闭自动更新驱动。在 系统属性 -&gt; 硬件 -&gt; 设备安装设置
+中，“是否要自动下载适合你设备的制造商应用和自定义图标”选项，选择“否”来避免系统自动搜索、安装、更新驱动。最新版本的驱动程序不一定是最好的，特别是显卡驱动。</p>
+<p>重置。最后的最后，如果一切都无法挽回了，Windows 10 有重置的功能，在
+设置 -&gt; 更新和安全 -&gt; 恢复
+中可以重置系统。这个选项会重置整台电脑，恢复出厂设置，相当于自己重装系统，但是保留了驱动程序，省得再安装一次，相比手动重装节省时间。恢复一次可能需要半个小时。</p>
+<hr />
+<p>5月5日后记：现在升级到了 1903，打开沙盒模式或启用 Hyper-v
+的时候仍然会有多个屏幕，不过关闭功能之后重启两次就可以恢复了。</p>
 <blockquote>
 <p>参见：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://answers.microsoft.com/zh-hans/windows/forum/all/win10%E5%BC%80%E5%90%AFhyper/da75ba12-9a5a-43b3-b0dd-14ee98da23c6">win10开启Hyper-v后，多出四个非即插即用型监视器 - Microsoft Community</a></li>
-<li><a target="_blank" rel="noopener" href="http://www.w10zj.com/Win10xy/Win10New_7359.html">win10 1709故障：开启 Hyper-v 后会出现多余的监视器 -W10之家</a></li>
+<li><a
+target="_blank" rel="noopener" href="https://answers.microsoft.com/zh-hans/windows/forum/all/win10%E5%BC%80%E5%90%AFhyper/da75ba12-9a5a-43b3-b0dd-14ee98da23c6">win10开启Hyper-v后，多出四个非即插即用型监视器
+- Microsoft Community</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.w10zj.com/Win10xy/Win10New_7359.html">win10
+1709故障：开启 Hyper-v 后会出现多余的监视器 -W10之家</a></li>
 </ul>
 </blockquote>
 </div><div class="article-licensing box"><div class="licensing-title"><p>1809坑：多余显示器，桌面变卡</p><p><a href="https://blog.beanbang.cn/2019/02/25/1809-hyper-v-bug/">https://blog.beanbang.cn/2019/02/25/1809-hyper-v-bug/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Lazyb0x</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2019-02-25</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-09-10</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/windows/">Windows</a><a class="link-muted mr-2" rel="tag" href="/tags/os/">系统</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2019/05/05/leetcode-11-two-pointer-approach/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Leetcode 11：盛最多水的容器 双指针法的证明</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2019/01/31/kms-server-vlmcsd/"><span class="level-item">KMS 服务器 vlmcsd 的安装和激活</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="valine-thread"></div><script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/valine/1.4.16/Valine.min.js"></script><script>new Valine({
