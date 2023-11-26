@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>PVE 安装 OpenWrt 作为旁路由 - 冰棒实验室</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="冰棒实验室"><meta name="msapplication-TileImage" content="/img/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="冰棒实验室"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="双11入手了一台 J4125 的小主机作为软路由，在上面安装了虚拟化系统 Proxmox VE。这是安装 OpenWrt 的记录。"><meta property="og:type" content="blog"><meta property="og:title" content="PVE 安装 OpenWrt 作为旁路由"><meta property="og:url" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/"><meta property="og:site_name" content="冰棒实验室"><meta property="og:description" content="双11入手了一台 J4125 的小主机作为软路由，在上面安装了虚拟化系统 Proxmox VE。这是安装 OpenWrt 的记录。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/bios-setting-uefi.png"><meta property="og:image" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/vm-overview.png"><meta property="og:image" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/add-imported-disk.png"><meta property="og:image" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/disk-resize.png"><meta property="og:image" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/boot-order.png"><meta property="og:image" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/gparted-warning.png"><meta property="og:image" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/gparted-resize-disk.png"><meta property="og:image" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/openwrt-df.png"><meta property="og:image" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/openwrt-network-not-configured.png"><meta property="og:image" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/openwrt-network-restart.png"><meta property="og:image" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/disable-dhcp.png"><meta property="og:image" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/client-ip-config.png"><meta property="article:published_time" content="2023-11-26T12:33:15.000Z"><meta property="article:modified_time" content="2023-11-26T12:51:58.235Z"><meta property="article:author" content="Lazyb0x"><meta property="article:tag" content="系统"><meta property="article:tag" content="Linux"><meta property="article:tag" content="虚拟化"><meta property="article:tag" content="网络"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/bios-setting-uefi.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/"},"headline":"PVE 安装 OpenWrt 作为旁路由","image":["https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/bios-setting-uefi.png","https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/vm-overview.png","https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/add-imported-disk.png","https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/disk-resize.png","https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/boot-order.png","https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/gparted-warning.png","https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/gparted-resize-disk.png","https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/openwrt-df.png","https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/openwrt-network-not-configured.png","https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/openwrt-network-restart.png","https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/disable-dhcp.png","https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/client-ip-config.png"],"datePublished":"2023-11-26T12:33:15.000Z","dateModified":"2023-11-26T12:51:58.235Z","author":{"@type":"Person","name":"Lazyb0x"},"publisher":{"@type":"Organization","name":"冰棒实验室","logo":{"@type":"ImageObject","url":"https://blog.beanbang.cn/img/favicon.ico"}},"description":"双11入手了一台 J4125 的小主机作为软路由，在上面安装了虚拟化系统 Proxmox VE。这是安装 OpenWrt 的记录。"}</script><link rel="canonical" href="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css"><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="冰棒实验室" type="application/atom+xml">
+</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">冰棒实验室</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2023-11-26T12:33:15.000Z" title="2023/11/26 20:33:15">2023-11-26</time>发表</span><span class="level-item"><time dateTime="2023-11-26T12:51:58.235Z" title="2023/11/26 20:51:58">2023-11-26</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/software/">软件</a></span><span class="level-item">13 分钟读完 (大约1893个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">PVE 安装 OpenWrt 作为旁路由</h1><div class="content"><p>双11入手了一台 J4125 的小主机作为软路由，在上面安装了虚拟化系统 Proxmox VE。这是安装 OpenWrt 的记录。</p>
+<span id="more"></span>
+
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>为什么选择 All-in-One 这样的方案？知乎上面有很多 AIO 的劝退贴[^1]，主要的观点例如：部署稳定的AIO需要比较高的技术门槛，并且一旦出现故障会影响家庭网路，数据安全很难保证云云，这些对于小白来说确实是不小的问题。然而，作为一个相关领域的从业人员，并且有玩过 VPS 和虚拟机经验的我来说，装装系统，改改配置文件啥的已经是轻车熟路了（<del>bushi</del>）</p>
+<p>我的主要需求一个是软路由，一个是离线下载和在局域网共享电影，还有就是想试一试 <a target="_blank" rel="noopener" href="https://www.home-assistant.io/">Home Assistant</a> 这个系统，据说可以统一所有的智能家居设备。这些都是需要长期运行的服务，如果用台式机做这些事情也是可以的，但是用电量就比较大了。工控小主机的低功耗就很适合这种场景，J4125 CPU 最大功率是 10W，整机待机的功率也很少超过 10 瓦，特别省电。至于安全问题，影音娱乐啥的算不上重要数据，路由的话使用旁路网关的方式就可以避免一出问题全屋上不了网的情况了。</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><ol>
+<li>安装好的 PVE 系统</li>
+<li>OpenWrt 系统镜像。为了扩容方便，选择使用 Ext4 分区的 <code>generic-ext4-combined-efi.img.gz</code> 文件。<a target="_blank" rel="noopener" href="https://downloads.openwrt.org/releases/23.05.2/targets/x86/64/">下载页面</a>，在 root 首页找最新版本</li>
+<li>GParted Live CD 镜像，用来修改系统分区大小。<a target="_blank" rel="noopener" href="https://gparted.org/download.php">下载页面</a></li>
+</ol>
+<h2 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h2><p>Openwrt 需要的资源并不多，可以根据自己需要划分内存和 CPU。选择的镜像是 efi 的，所以 BIOS 要选择 UEFI 的，不需要勾选添加 EFI 磁盘。在磁盘页面也不需要添加磁盘，稍后会从镜像导入。</p>
+<img src="/2023/11/26/pve-install-openwrt-as-secondary-router/bios-setting-uefi.png" class="" alt="BIOS 选择支持 UEFI 的">
+
+<p>由于是旁路由，网络设置使用默认的桥接就好了。</p>
+<img src="/2023/11/26/pve-install-openwrt-as-secondary-router/vm-overview.png" class="" alt="创建完成的虚拟机信息">
+
+<p>登录 PVE，下载镜像文件，并解压：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /var/lib/vz/template/iso</span><br><span class="line"></span><br><span class="line">wget https://downloads.openwrt.org/releases/23.05.2/targets/x86/64/openwrt-23.05.2-x86-64-generic-ext4-combined-efi.img.gz</span><br><span class="line"></span><br><span class="line">gunzip openwrt-23.05.2-x86-64-generic-ext4-combined-efi.img.gz</span><br></pre></td></tr></table></figure>
+
+<p>将磁盘镜像文件导入到刚刚创建的虚拟机：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># qm disk import &lt;vmid&gt; &lt;source&gt; &lt;storage&gt; [OPTIONS]</span></span><br><span class="line">qm disk import 103 openwrt-23.05.2-x86-64-generic-ext4-combined-efi.img local-lvm</span><br></pre></td></tr></table></figure>
+
+<p>然后回到 PVE 管理网页，选中新的磁盘编辑，添加。</p>
+<img src="/2023/11/26/pve-install-openwrt-as-secondary-router/add-imported-disk.png" class="" alt="编辑使用刚刚导入的磁盘">
+
+<p>现在可以开机进入系统了。但是不急，默认磁盘的剩余空间很小，放不了很多东西。为了以后考虑，还要给磁盘扩容。</p>
+<h2 id="磁盘扩容"><a href="#磁盘扩容" class="headerlink" title="磁盘扩容"></a>磁盘扩容</h2><p>磁盘操作 &gt; 调整磁盘大小，扩大虚拟磁盘的大小。</p>
+<img src="/2023/11/26/pve-install-openwrt-as-secondary-router/disk-resize.png" class="" alt="调整虚拟磁盘大小">
+
+<p>接下来是调整分区大小。这一步是可以用命令做的，我偷了一点懒，懒得学分区操作的命令，用了图形化分区工具 GParted，操作起来比较简单。</p>
+<p>先在 PVE 的 ISO 镜像储存界面上传 GParted 镜像，然后给 OpenWrt 的虚拟机的 CD&#x2F;DVD 添加上。在 选项 &gt; 引导顺序 中调整到光盘最高。</p>
+<img src="/2023/11/26/pve-install-openwrt-as-secondary-router/boot-order.png" class="" alt="修改启动顺序">
+
+<p>进入系统之后，操作很方便了。根据提示修复错误，然后右键 rootfs 分区调整大小，拖动箭头，把剩余空间拉满就可以了。最后点击打勾保存关机。</p>
+<img src="/2023/11/26/pve-install-openwrt-as-secondary-router/gparted-warning.png" class="" alt="因为扩容，GParted 警告分区表和磁盘空间不符">
+
+<img src="/2023/11/26/pve-install-openwrt-as-secondary-router/gparted-resize-disk.png" class="" alt="GParted 调整分区大小界面">
+
+<p>移除光盘，调整启动顺序，重新启动，就能够进入系统了。</p>
+<img src="/2023/11/26/pve-install-openwrt-as-secondary-router/openwrt-df.png" class="" alt="df -h">
+
+<p>可以看到根分区的大小已经是合适的了。</p>
+<h2 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h2><p>用 <code>ip addr</code> 查看 IP 地址，发现不对，无法连接。去修改配置文件。</p>
+<img src="/2023/11/26/pve-install-openwrt-as-secondary-router/openwrt-network-not-configured.png" class="" alt="没有正确获取 IP 地址">
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/config/network</span><br></pre></td></tr></table></figure>
+
+<p>把 <code>lan</code> 的配置改成自己网络的 IP 地址。我这里用 DHCP 自动获得 IP 地址，并且加上了 IPv6 的配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">config interface &#x27;lan&#x27;</span><br><span class="line">        option device &#x27;br-lan&#x27;</span><br><span class="line">        option proto &#x27;dhcp&#x27;</span><br><span class="line">        #option proto &#x27;static&#x27;</span><br><span class="line">        #option ipaddr &#x27;192.168.1.1&#x27;</span><br><span class="line">        #option netmask &#x27;255.255.255.0&#x27;</span><br><span class="line">        #option ip6assign &#x27;60&#x27;</span><br><span class="line"></span><br><span class="line">config interface &#x27;lan6&#x27;</span><br><span class="line">        option device &#x27;br-lan&#x27;</span><br><span class="line">        option proto &#x27;dhcpv6&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>修改完成后重启网络：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service network restart</span><br></pre></td></tr></table></figure>
+
+<img src="/2023/11/26/pve-install-openwrt-as-secondary-router/openwrt-network-restart.png" class="" alt="重启网络之后">
+
+<p>现在已经正确获取了 IP 地址，可以用 SSH 连接或者浏览器访问管理页面了。</p>
+<p>一些基础配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 软件源换成清华镜像源</span></span><br><span class="line">sed -i <span class="string">&#x27;s_downloads.openwrt.org_mirrors.tuna.tsinghua.edu.cn/openwrt_&#x27;</span> /etc/opkg/distfeeds.conf</span><br><span class="line"><span class="comment"># 更新软件包索引</span></span><br><span class="line">opkg update</span><br><span class="line"><span class="comment"># 中文包</span></span><br><span class="line">opkg install luci-i18n-base-zh-cn</span><br><span class="line"><span class="comment"># mDNS 支持，安装后可以用 http://openwrt.local 打开管理页面</span></span><br><span class="line">opkg install avahi-daemon-service-http</span><br></pre></td></tr></table></figure>
+
+<p>在 OpenWrt 网页管理页面，网络 &gt; 接口 里面，把 DHCP 相关的设置关掉，因为旁路由不需要提供 DHCP 服务。</p>
+<img src="/2023/11/26/pve-install-openwrt-as-secondary-router/disable-dhcp.png" class="" alt="关闭 DHCP 相关服务">
+
+<h2 id="终端配置"><a href="#终端配置" class="headerlink" title="终端配置"></a>终端配置</h2><p>有两种办法，一种是在设备上手动设置网关为软路由的IP地址，另一种是在主路由上面把 DHCP 默认网关设置为软路由的 IP。为了稳定，我用手动配置的办法。主路由有两个 WiFi 信号，一个 2.4G 的一个 5G 的，把 2.4G 的设置成手动 IP 和软路由的网关，5G 的那个保持默认，这样切换起来也还算方便。</p>
+<img src="/2023/11/26/pve-install-openwrt-as-secondary-router/client-ip-config.png" class="" alt="在网络设置里面把网关和 DNS 设置为软路由的 IP 地址">
+
+<p>配置完成之后进行简单的 traceroute 验证：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">C:\&gt;tracert -4 blog.beanbang.cn</span><br><span class="line"></span><br><span class="line">通过最多 30 个跃点跟踪</span><br><span class="line">到 pybkxhsa.slt-dk.sched.tdnsv8.com [120.226.2.7] 的路由:</span><br><span class="line"></span><br><span class="line">  1     8 ms     3 ms     3 ms  192.168.31.246</span><br><span class="line">  2    19 ms     4 ms     4 ms  192.168.31.1</span><br><span class="line">  3    10 ms     6 ms     4 ms  192.168.1.1</span><br><span class="line">  4     6 ms     5 ms     5 ms  100.86.64.1</span><br><span class="line">  5     *        *        *     请求超时。</span><br><span class="line">  6     *        *        *     请求超时。</span><br><span class="line">  7    36 ms     *        *     221.183.44.38</span><br><span class="line">  8    33 ms    36 ms    33 ms  221.183.91.202</span><br><span class="line">  9    55 ms     *        *     183.214.150.214</span><br><span class="line"> 10     *       33 ms     *     36.158.200.206</span><br><span class="line"> 11     *        *        *     请求超时。</span><br><span class="line"> 12     *        *        *     请求超时。</span><br><span class="line"> 13    42 ms   134 ms    35 ms  120.226.2.7</span><br><span class="line"></span><br><span class="line">跟踪完成。</span><br></pre></td></tr></table></figure>
+
+<p>可以看到第一跳、第二跳、第三跳分别是软路由、我的硬路由和光猫，然后是联通的网络，最后到达目标。</p>
+<blockquote>
+<p> 参见：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://sspai.com/post/68511">Openwrt 作为旁路网关（不是旁路由、单臂路由）的终极设置方法，破解迷思 - 少数派 (sspai.com)</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/u012374381/article/details/130650909">超详细,多图 PVE 安装 OpenWRT 教程(个人记录)_pve安装openwrt_优雅码农的博客-CSDN博客</a></li>
+</ul>
+</blockquote>
+<p>[^1]: <a target="_blank" rel="noopener" href="https://www.zhihu.com/question/496124999">什么样的 NAS 方案（All In One）比较好？ - 知乎</a></p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>PVE 安装 OpenWrt 作为旁路由</p><p><a href="https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/">https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Lazyb0x</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2023-11-26</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-11-26</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/os/">系统</a><a class="link-muted mr-2" rel="tag" href="/tags/linux/">Linux</a><a class="link-muted mr-2" rel="tag" href="/tags/virtualization/">虚拟化</a><a class="link-muted mr-2" rel="tag" href="/tags/network/">网络</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2023/01/01/backup-and-migrate-linux/"><span class="level-item">备份和迁移 Linux 系统</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="valine-thread"></div><script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/valine/1.4.16/Valine.min.js"></script><script>new Valine({
+            el: '#valine-thread',
+            appId: "53p6sFAYCBY1FfXE9nOa3byP-gzGzoHsz",
+            appKey: "V6tCmUsramFiGoA0GbBETOLR",
+            placeholder: "(っ╹◡╹)ﾉ❀",
+            avatar: "mm",
+            avatarForce: false,
+            meta: ["nick","mail","link"],
+            pageSize: 10,
+            lang: "zh-CN",
+            visitor: false,
+            highlight: true,
+            recordIP: false,
+            
+            
+            
+            enableQQ: false,
+            requiredFields: [],
+        });</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#题外话"><span class="level-left"><span class="level-item">题外话</span></span></a></li><li><a class="level is-mobile" href="#准备"><span class="level-left"><span class="level-item">准备</span></span></a></li><li><a class="level is-mobile" href="#创建虚拟机"><span class="level-left"><span class="level-item">创建虚拟机</span></span></a></li><li><a class="level is-mobile" href="#磁盘扩容"><span class="level-left"><span class="level-item">磁盘扩容</span></span></a></li><li><a class="level is-mobile" href="#网络配置"><span class="level-left"><span class="level-item">网络配置</span></span></a></li><li><a class="level is-mobile" href="#终端配置"><span class="level-left"><span class="level-item">终端配置</span></span></a></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/head.png" alt="Lazyb0x"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Lazyb0x</p><p class="is-size-6 is-block">玄之又玄，众妙之门</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">25</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">34</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/Lazyb0x"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com/Lazyb0x"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Keybase" href="https://keybase.io/lazyb0x"><i class="fa fa-key"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://michaelcodezhang.gitee.io/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MichaelZhang</span></span><span class="level-right"><span class="level-item tag">michaelcodezhang.gitee.io</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a><p class="is-size-7"><span>&copy; 2023 Lazyb0x</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">冰棒之旅 <a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备17023244号-1 </a></p></div><div class="level-end"><div style="width: 162px; height: 98px; overflow: hidden; margin: 2em auto"><a target="_blank" rel="noopener" href="https://info.flagcounter.com/8awM"><img style="display: block; margin: 0 auto -23px;" title="访问人数统计" src="https://s05.flagcounter.com/count2/8awM/bg_FFFFFF/txt_4A4A4A/border_FFFFFF/columns_2/maxflags_10/viewers_3/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a></div></div></div></div></footer><script src="https://cdnjs.loli.net/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script><script src="https://cdnjs.loli.net/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdnjs.loli.net/ajax/libs/lightgallery/1.10.0/js/lightgallery.min.js" defer></script><script src="https://cdnjs.loli.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdnjs.loli.net/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
