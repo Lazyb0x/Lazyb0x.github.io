@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://blog.beanbang.cn/2024/06/27/lvm-and-pve-storage-structure/</loc>
+        <lastmod>2024-06-27T07:35:34.539Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://blog.beanbang.cn/2023/11/26/pve-install-openwrt-as-secondary-router/</loc>
         <lastmod>2023-12-09T09:14:36.064Z</lastmod>
         <changefreq>weekly</changefreq>
