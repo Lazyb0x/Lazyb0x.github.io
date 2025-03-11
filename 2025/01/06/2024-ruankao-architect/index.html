@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>2024下半年系统架构设计师软考经验分享 - 冰棒实验室</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="冰棒实验室"><meta name="msapplication-TileImage" content="/img/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="冰棒实验室"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="“从世界之外，我们取得否定世界的力量。”1  ——戴因斯雷布"><meta property="og:type" content="blog"><meta property="og:title" content="2024下半年系统架构设计师软考经验分享"><meta property="og:url" content="https://blog.beanbang.cn/2025/01/06/2024-ruankao-architect/"><meta property="og:site_name" content="冰棒实验室"><meta property="og:description" content="“从世界之外，我们取得否定世界的力量。”1  ——戴因斯雷布"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.beanbang.cn/2025/01/06/2024-ruankao-architect/exam-results.png"><meta property="og:image" content="https://blog.beanbang.cn/2025/01/06/2024-ruankao-architect/dont-let-me-go-meme.jpg"><meta property="article:published_time" content="2025-01-06T12:33:15.000Z"><meta property="article:modified_time" content="2025-03-11T15:34:43.419Z"><meta property="article:author" content="Lazyb0x"><meta property="article:tag" content="系统"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://blog.beanbang.cn/2025/01/06/2024-ruankao-architect/exam-results.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.beanbang.cn/2025/01/06/2024-ruankao-architect/"},"headline":"2024下半年系统架构设计师软考经验分享","image":["https://blog.beanbang.cn/2025/01/06/2024-ruankao-architect/exam-results.png","https://blog.beanbang.cn/2025/01/06/2024-ruankao-architect/dont-let-me-go-meme.jpg"],"datePublished":"2025-01-06T12:33:15.000Z","dateModified":"2025-03-11T15:34:43.419Z","author":{"@type":"Person","name":"Lazyb0x"},"publisher":{"@type":"Organization","name":"冰棒实验室","logo":{"@type":"ImageObject","url":"https://blog.beanbang.cn/img/favicon.ico"}},"description":"“从世界之外，我们取得否定世界的力量。”1\r \r ——戴因斯雷布"}</script><link rel="canonical" href="https://blog.beanbang.cn/2025/01/06/2024-ruankao-architect/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://unpkg.com/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://unpkg.com/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://unpkg.com/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="冰棒实验室" type="application/atom+xml">
+</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">冰棒实验室</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2025-01-06T12:33:15.000Z" title="2025/1/6 20:33:15">2025-01-06</time>发表</span><span class="level-item"><time dateTime="2025-03-11T15:34:43.419Z" title="2025/3/11 23:34:43">2025-03-11</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/software/">软件</a></span><span class="level-item">25 分钟读完 (大约3694个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">2024下半年系统架构设计师软考经验分享</h1><div class="content"><p>“从世界之外，我们取得否定世界的力量。”<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p style="text-align: right;">
+——戴因斯雷布
+</p>
+<span id="more"></span>
+<p>有关软考方面的信息，各个平台上能够找到的有效信息少之又少。某搜索引擎上基本全是辅导机构的广告；在知乎上，一搜软考
+99.9%
+都是卖课的，前面侃侃而谈，讲到后面就图穷匕见开始介绍自己的独家教程……取得软考架构师的资格证书需要付出多少准备？也许我的备考经历能作为一个参考。</p>
+<h2 id="我的情况">我的情况</h2>
+<p>末流 985 本科，工作 4
+年，在一家面向政府的软件公司，是基层程序员，做的是 Java Web
+后端开发。</p>
+<p>经历了 2 次考试，分别是 23 年和 24 年。23
+年因为加班没有复习好，案例题差了 5 分；今年 11
+月份考过了，也是低分飘过：</p>
+<img src="/2025/01/06/2024-ruankao-architect/exam-results.png" class="" alt="考试成绩">
+<p>十分惊险，甚至都有点怀疑是被评卷老师捞起来的！虽然分数尴尬，这个结果可有一定的统计学意义，能代表一种通过软考要求的最低限度知识复习所需要付出的人类劳动（</p>
+<h2 id="为什么考软考">为什么考软考</h2>
+<p>这个考试可能在找工作方面没什么帮助，但是政策上会有不少优惠：</p>
+<ol type="1">
+<li>软考可以扣税，有 3600 元的扣税额度<a href="#fn2"
+class="footnote-ref" id="fnref2"
+role="doc-noteref"><sup>2</sup></a>。</li>
+<li>有软考高级证书属于 E
+类人才，一些城市会有人才补贴。比如在福州市，可以得到 50 万元的买房补贴<a
+href="#fn3" class="footnote-ref" id="fnref3"
+role="doc-noteref"><sup>3</sup></a><a href="#fn4" class="footnote-ref"
+id="fnref4" role="doc-noteref"><sup>4</sup></a>。</li>
+<li>软件公司去竞标项目需要会用到相应的资格证书，所以会给奖励鼓励员工考取证书。</li>
+</ol>
+<p>在我司公布的给予奖励的证书列表里面，“系统架构设计师”这个证书的常用性和稀缺性是属于最高一档的，奖金也很可观，这也是我考这个证最主要的目的。</p>
+<p>另外也有自我实现<del>(装逼)</del>的需求，名叫“架构师”的资格证书，听起来就非常的有噱头，说不定能在职场上提供一些帮助，毕竟证明自己的方式除了努力干活加班之外，还有另一种是通过外部的有说服力的，比如证书这样的东西，说不定会来得轻松一点。</p>
+<p><img width="180" src="/2025/01/06/2024-ruankao-architect/dont-let-me-go-meme.jpg" /></p>
+<p>至于通过这个考试来学习技术的想法，开始备考之后就打消这个念头了。和大学课程一样，太过于学术了，对工业界的实践没有很大的帮助。</p>
+<h2 id="考试的介绍">考试的介绍</h2>
+<p>软考是工信部和人社部组织的一项考试，全称叫中国计算机技术与软件专业技术资格(水平)考试。考试分为初级、中级和高级，分别有不同的科目可以考，考过之后就会获得对应的资格。系统架构设计师是其中的一个高级考试。在
+23 年之前是笔试，从 23
+年开始改为机考。更早时候高级的考试是一年一考，每年 11 月考试；从 24
+年开始改为每年两次考试，分别是 5 月和 11 月。</p>
+<p>报名时间大概是考试时间提前 3 个月。11 月初考试，8
+月中旬会开放报名和缴费。24 年报名费涨价了，高级的考试以往的价格是 210
+元，今年是 270 元。沉没成本变高了，不过据说别的资格考试报名费更贵，比如
+PMP 要 3000 多。</p>
+<p>考试的地点一般设在学校机房里面。比如福建 24
+年在福州、厦门和泉州有考场，都是学院。初级和中级只考选择题和案例题，考试的时间就半天，上午的考试中午就能回去；高级的多了论文，需要考一天。24
+年以前的考试是上午选择题，下午案例题和论文，案例和论文是在同一场的，如果做完了案例题可以提前开始写论文。但是现在是选择题和案例合在一起在上午考，论文放在下午，这样写论文的时间就是只有
+2 小时，一点也不会多了，时间会更加紧张。</p>
+<p>考前两周会出一个模拟练习程序，让你熟悉答题软件，时间很短要注意一下，我考前
+1 周上去已经看不了了。</p>
+<p>考完之后一个月左右的时间会出成绩，每个科目的总分是 75 分，及格成绩是
+45 分，需要每科都满 45 分才算通过。</p>
+<p>出成绩之后的一个月左右会邮寄纸质证书，到付的，要自己出邮费……</p>
+<p>每年的报名、考试等时间在软考官网<a href="#fn5" class="footnote-ref"
+id="fnref5"
+role="doc-noteref"><sup>5</sup></a>上都有公布，要经常关注公告防止错过重要的消息。</p>
+<h2 id="教材">教材</h2>
+<p>用到的材料：</p>
+<ul>
+<li>《系统架构设计师教程》，很厚的一本教材</li>
+<li>《系统架构设计师2016至2020试题分析与解答》，5年的历年考题和答案解析</li>
+<li>《系统架构设计师考试32小时通关》，教辅，
+按章节列出教程中的知识点，每章的后面有几题模拟题</li>
+<li>“软考达人” 刷题小程序，有比较全的题库，免费</li>
+<li>JavaGuide 面试题集<a href="#fn6" class="footnote-ref" id="fnref6"
+role="doc-noteref"><sup>6</sup></a>，除了 Java
+的内容外还有很多计算机基础、系统设计的知识点</li>
+</ul>
+<p>因为我考了两次，所以复习的时间不太好估计，两次加起来大概3个月吧。第一个月主要是把厚厚的教程过一遍，每过完一章再过一下《32小时》里面的知识点和题目。从第二个月还没过完的话就工作日继续看书，周末做历年考题。最后一个月在小程序题库上面随机刷题，然后刷一刷大厂面试题和最新技术，这种有可能在案例分析和论文中出现；最后有时间的话模拟考试写一篇论文，没有的话准备几个题材用来套题。</p>
+<table>
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 35%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr>
+<th>教材</th>
+<th>完成情况</th>
+<th>评价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统架构设计师教程</td>
+<td>至少看过一遍</td>
+<td>百分之八九十的考题都来自书里</td>
+</tr>
+<tr>
+<td>历年考题试题分析与解答</td>
+<td>做完 5 年的所有选择和案例题，除了嵌入式的内容</td>
+<td>官方原题和解析非常有用，一定要刷</td>
+</tr>
+<tr>
+<td>32小时通关教辅</td>
+<td>做完</td>
+<td>除了题纲之外，还补充了知识产权、应用数学和论文写作的部分，这部分很好</td>
+</tr>
+<tr>
+<td>软考达人题库</td>
+<td>刷题数 332，正确率 58%</td>
+<td>多刷，我刷太少了。里面除了原题之外还有搜集来的模拟题，命题水平比较参差不齐。主要刷原题就好了，模拟题不用太在意</td>
+</tr>
+<tr>
+<td>JavaGuide 面试题集</td>
+<td>主要看了中间件、数据库和分布式的部分</td>
+<td>百分之一二十的考题来自大厂面试题（</td>
+</tr>
+</tbody>
+</table>
+<h2 id="题目">题目</h2>
+<p>各种教程应该都说得很多了，这里就主要吐槽一下吧。</p>
+<h3 id="选择题">选择题</h3>
+<p>涉及到技术性的内容都还好，比如网络协议、操作系统、数据库等等。这些内容因为在大学专业学过，所以难度相当于期末考试，只要有经过系统学习，甚至不专门复习软考都可以答得上来，这部分是相对容易的。其他一些比较有条理的章节比如架构风格、设计模式等考题会固定一些，基本是让你根据题目的描述识别出使用什么风格或者设计模式，这种也比较简单。</p>
+<p>计算题就比较难了，基本上要做过类似的原题才能做得出来。这次的考题中居然还出现了”1到1000的数字中出现了多少个包含1个‘5’的数字“这种奇葩题目，跟系统设计完全无关，真是让人难评。</p>
+<p>最难的还是那种从来没见过的题目，遇到没复习过的内容只能瞎猜了。正常的题目大概可以推断出来自哪个考点的，但它有时候就喜欢从《教程》里的犄角旮旯里面拿出来一句原话然后挖空给你答。刷到这种题，看着几厘米厚的书，无力感扑面而来，也许只能靠强大的记忆力，还有题海战术了。</p>
+<p>当然也有考到自己领域专业的时候，比如有一题是 Linux 的 DNS
+服务器地址储存在哪里（<code>/etc/resolv.conf</code>）让我会心一笑，因为日常操作
+Linux
+和折腾过软路由所以没什么难度，但是对于没有从事过相关工作的人可能就答不出来了。</p>
+<h3 id="案例分析">案例分析</h3>
+<p>第一题必做题永远是架构评估，唯一可以预测的题目，所以现在也是越考越难了，建议把《教程》里面架构评估那一章从头到尾一字不漏地好好看下。</p>
+<p>剩下的4个题目，我一般会选 Web 项目和中间件的来做，自己是做 Web
+开发所以会比较熟悉。中间件很多，但是适合拿来做考题的就不多了，所以非常容易押题。能拿来考的技术一定会符合下面几点：</p>
+<ol type="1">
+<li><p>足够“高级”，具有一定的使用难度。如果一个框架的作用只是用语法糖减轻开发者的编程负担，那么它再好用也不会被作为考题。比如工具包
+Guava，ORM 框架 Mybatis、Hibernate
+等，这些好用的“干粗活”框架必不可能考。</p></li>
+<li><p>编程语言无关。如果一个中间件只适合某种语言来调用，拿来考就会偏袒这个技术栈的人，对于其他领域的考生们就会非常不公平。比如分布式协调服务
+Zookeeper 基本就只有 Javaer 在用，不可能拿来做考题；相比之下 Etcd
+被考的可能性反而高多了。</p></li>
+<li><p>不能太旧，也不能太新。太旧的话就不会考中间件了，而是考书里的内容；太新出的技术可能还没经过大规模验证，也不适合考。比如向量数据库就不太适合，但是最近越来越火，并且有广泛使用的趋势，将来就有可能考了。</p></li>
+</ol>
+<p>综上，能完美符合这几点的中间件就不多啦，所以 Redis
+年年考，今年也考。Redis
+和缓存相关的内容要多看，其他的非关系型数据也要看，比如 ElasticSearch 和
+MongoDB 等等。</p>
+<h3 id="论文">论文</h3>
+<p>论文还是有点看运气的，如果 4
+个主题都是自己不熟悉的就凉了。它一般会出两题偏学术 /
+课本上的技术，两题时下技术热点。进两年也是越考越难了：湖仓一体、云上自动化运维，如果你没接触过根本摸不着头脑；学术的题目也不再出《教程》里面的了，比如模型驱动开发，我只在做本科毕设查资料的时候有看到过。</p>
+<p>今年的论文选题居然出现了两个了解过的题目：分布式事务和
+SOA。分布式事务我在考前特地看了一下，本来想的是会作为案例分析题来考的，出一道简答题，毕竟出来这么久了从没考过。万万没想到居然出成了论文题，这下好了，背了
+200 字要写出 3000 字来。SOA
+我的判断是不会考的，因为以前考了太多次，并且技术没人用了，没想到这次又出来。两个题目很纠结，最后豁出去选了分布式事务，然后把论文写成了
+Seata 软文……</p>
+<p>两次考试的论文都及格了，给我的感觉就是，把论文的内容分为理论和实践两个部分的话，只要有一个部分讲得完整，然后完篇了差不多就能及格。如果想不起来论题涉及到的知识点，那理论部分就水一点，顾左右而言他，然后讲自己项目分析的多一点；如果只是听说过没有用过，那就大谈技术选型，分析一下各种技术的优劣，然后实现细节一笔带过。</p>
+<p>这次去考试，一个教室到场的考生只来了 1/3 左右。据说软考高级 1/10
+的通过率，换算一下如果你报名并且来到考场了，那么通过的概率就变成
+30%。所以按照到场人数算的话，软考高级没有想象中的那么难。</p>
+<p>以上就是我24年下半年软考备考经历的分享，最后祝各位考生顺利通过考试，取得满意的成绩！</p>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1At4y1q7UQ?t=204">“提瓦特五年计划”</a><a
+href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a
+target="_blank" rel="noopener" href="https://www.gov.cn/zhengce/content/2018-12/22/content_5351181.htm">国务院关于印发个人所得税专项附加扣除暂行办法的通知</a><a
+href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a
+target="_blank" rel="noopener" href="https://www.fuzhou.gov.cn/nrrh/fzsrlzyhshbzj/202309/t20230926_4686573.htm">福州市人才住房保障资格申报</a><a
+href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p><a
+target="_blank" rel="noopener" href="http://www.fuzhou.gov.cn/zfxxgkzl/szfbmjxsqxxgk/szfbmxxgk/fzsrmzfbgt/zfxxgkml/xzfggzhgfxwj_2570/202304/t20230403_4579007.htm">福州市人民政府办公厅关于印发“好年华聚福州”人才住房保障办法实施细则的通知</a>
+限制其实还是挺多的，比如地区限制和要落户<a href="#fnref4"
+class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p><a
+target="_blank" rel="noopener" href="https://www.ruankao.org.cn/">中国计算机技术职业资格网</a><a
+href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p><a target="_blank" rel="noopener" href="https://javaguide.cn/">JavaGuide</a> | <a
+target="_blank" rel="noopener" href="https://github.com/Snailclimb/JavaGuide">GitHub</a><a
+href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+</div><div class="article-licensing box"><div class="licensing-title"><p>2024下半年系统架构设计师软考经验分享</p><p><a href="https://blog.beanbang.cn/2025/01/06/2024-ruankao-architect/">https://blog.beanbang.cn/2025/01/06/2024-ruankao-architect/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Lazyb0x</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2025-01-06</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2025-03-11</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/os/">系统</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2024/06/27/lvm-and-pve-storage-structure/"><span class="level-item">LVM 以及 PVE 的存储结构</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div class="content" id="valine-thread"></div><script src="//cdn.jsdelivr.net/npm/leancloud-storage@3/dist/av-min.js"></script><script src="https://unpkg.com/valine@1.4.16/dist/Valine.min.js"></script><script>new Valine({
+            el: '#valine-thread',
+            appId: "53p6sFAYCBY1FfXE9nOa3byP-gzGzoHsz",
+            appKey: "V6tCmUsramFiGoA0GbBETOLR",
+            placeholder: "(っ╹◡╹)ﾉ❀",
+            avatar: "mm",
+            avatarForce: false,
+            meta: ["nick","mail","link"],
+            pageSize: 10,
+            lang: "zh-CN",
+            visitor: false,
+            highlight: true,
+            recordIP: false,
+            
+            
+            
+            enableQQ: false,
+            requiredFields: [],
+        });</script></div></div></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#我的情况"><span class="level-left"><span class="level-item">我的情况</span></span></a></li><li><a class="level is-mobile" href="#为什么考软考"><span class="level-left"><span class="level-item">为什么考软考</span></span></a></li><li><a class="level is-mobile" href="#考试的介绍"><span class="level-left"><span class="level-item">考试的介绍</span></span></a></li><li><a class="level is-mobile" href="#教材"><span class="level-left"><span class="level-item">教材</span></span></a></li><li><a class="level is-mobile" href="#题目"><span class="level-left"><span class="level-item">题目</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#选择题"><span class="level-left"><span class="level-item">选择题</span></span></a></li><li><a class="level is-mobile" href="#案例分析"><span class="level-left"><span class="level-item">案例分析</span></span></a></li><li><a class="level is-mobile" href="#论文"><span class="level-left"><span class="level-item">论文</span></span></a></li></ul></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/head.png" alt="Lazyb0x"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Lazyb0x</p><p class="is-size-6 is-block">玄之又玄，众妙之门</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">27</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">34</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/Lazyb0x"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Keybase" href="https://keybase.io/lazyb0x"><i class="fa fa-key"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://michaelcodezhang.gitee.io/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MichaelZhang</span></span><span class="level-right"><span class="level-item tag">michaelcodezhang.gitee.io</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a><p class="is-size-7"><span>&copy; 2025 Lazyb0x</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">冰棒之旅 <a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备17023244号-1 </a></p></div><div class="level-end"><div style="width: 162px; height: 98px; overflow: hidden; margin: 2em auto"><a target="_blank" rel="noopener" href="https://info.flagcounter.com/8awM"><img style="display: block; margin: 0 auto -23px;" title="访问人数统计" src="https://s05.flagcounter.com/count2/8awM/bg_FFFFFF/txt_4A4A4A/border_FFFFFF/columns_2/maxflags_10/viewers_3/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a></div></div></div></div></footer><script src="https://unpkg.com/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://unpkg.com/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://unpkg.com/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://unpkg.com/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://unpkg.com/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://unpkg.com/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
