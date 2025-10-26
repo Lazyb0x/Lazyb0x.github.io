@@ -87,13 +87,6 @@
     </url>
 
     <url>
-        <loc>https://blog.beanbang.cn/tags/remote-desktop/</loc>
-        <lastmod>2025-09-14T05:55:25.284Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://blog.beanbang.cn/tags/reverse-proxy/</loc>
         <lastmod>2025-09-14T05:55:25.284Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -123,6 +116,13 @@
 
     <url>
         <loc>https://blog.beanbang.cn/tags/ddns/</loc>
+        <lastmod>2025-09-14T05:55:25.284Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/remote-desktop/</loc>
         <lastmod>2025-09-14T05:55:25.284Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
