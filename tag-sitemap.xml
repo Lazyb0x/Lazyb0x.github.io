@@ -3,6 +3,97 @@
 
 
     <url>
+        <loc>https://blog.beanbang.cn/tags/java/</loc>
+        <lastmod>2025-10-28T09:20:04.150Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/idea/</loc>
+        <lastmod>2025-10-28T09:20:04.150Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/windows/</loc>
+        <lastmod>2025-10-28T09:14:59.943Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/os/</loc>
+        <lastmod>2025-10-28T09:14:59.943Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/raspberry-pi/</loc>
+        <lastmod>2025-10-28T09:14:59.943Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/linux/</loc>
+        <lastmod>2025-10-28T09:14:59.943Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/network/</loc>
+        <lastmod>2025-10-28T09:14:59.943Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/reverse-proxy/</loc>
+        <lastmod>2025-10-27T09:45:33.362Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/nat-penetration/</loc>
+        <lastmod>2025-10-27T09:45:33.362Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/ssh/</loc>
+        <lastmod>2025-10-27T09:45:33.362Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/frp/</loc>
+        <lastmod>2025-10-27T09:45:33.362Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/ddns/</loc>
+        <lastmod>2025-10-27T09:45:33.362Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/remote-desktop/</loc>
+        <lastmod>2025-10-27T09:45:33.362Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://blog.beanbang.cn/tags/ai/</loc>
         <lastmod>2025-10-27T01:37:27.104Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -24,36 +115,8 @@
     </url>
 
     <url>
-        <loc>https://blog.beanbang.cn/tags/java/</loc>
-        <lastmod>2025-09-14T06:07:11.287Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/idea/</loc>
-        <lastmod>2025-09-14T06:04:54.456Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://blog.beanbang.cn/tags/algorithm/</loc>
         <lastmod>2025-09-14T06:00:40.032Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/windows/</loc>
-        <lastmod>2025-09-14T05:59:08.854Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/os/</loc>
-        <lastmod>2025-09-14T05:59:08.854Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -66,64 +129,8 @@
     </url>
 
     <url>
-        <loc>https://blog.beanbang.cn/tags/raspberry-pi/</loc>
-        <lastmod>2025-09-14T05:58:13.594Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/network/</loc>
-        <lastmod>2025-09-14T05:58:13.594Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://blog.beanbang.cn/tags/minecraft/</loc>
         <lastmod>2025-09-14T05:56:32.712Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/reverse-proxy/</loc>
-        <lastmod>2025-09-14T05:55:25.284Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/nat-penetration/</loc>
-        <lastmod>2025-09-14T05:55:25.284Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/ssh/</loc>
-        <lastmod>2025-09-14T05:55:25.284Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/frp/</loc>
-        <lastmod>2025-09-14T05:55:25.284Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/ddns/</loc>
-        <lastmod>2025-09-14T05:55:25.284Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/remote-desktop/</loc>
-        <lastmod>2025-09-14T05:55:25.284Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -172,13 +179,6 @@
 
     <url>
         <loc>https://blog.beanbang.cn/tags/ubuntu/</loc>
-        <lastmod>2025-09-14T05:47:00.140Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/linux/</loc>
         <lastmod>2025-09-14T05:47:00.140Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>

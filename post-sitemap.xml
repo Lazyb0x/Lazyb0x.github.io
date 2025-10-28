@@ -9,6 +9,30 @@
 
 
     <url>
+        <loc>https://blog.beanbang.cn/2020/02/03/idea-documenting-code/</loc>
+        <lastmod>2025-10-28T09:20:04.150Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/2019/08/07/locate-hosts-using-mdns/</loc>
+        <lastmod>2025-10-28T09:14:59.943Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/2018/10/21/nat-penetration-and-reverse-proxy/</loc>
+        <lastmod>2025-10-27T09:45:33.362Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://blog.beanbang.cn/2025/10/25/ai-and-learning/</loc>
         <lastmod>2025-10-27T01:37:27.104Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -27,14 +51,6 @@
     <url>
         <loc>https://blog.beanbang.cn/2020/02/19/xml-syntax-note/</loc>
         <lastmod>2025-09-14T06:06:48.488Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/2020/02/03/idea-documenting-code/</loc>
-        <lastmod>2025-09-14T06:04:54.456Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -67,14 +83,6 @@
     <url>
         <loc>https://blog.beanbang.cn/2018/12/11/launch-mc-offline-with-multimc/</loc>
         <lastmod>2025-09-14T05:56:32.712Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/2018/10/21/nat-penetration-and-reverse-proxy/</loc>
-        <lastmod>2025-09-14T05:55:25.284Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -195,14 +203,6 @@
     <url>
         <loc>https://blog.beanbang.cn/2020/04/06/install-wildcard-certificate-using-lets-encrypt/</loc>
         <lastmod>2025-06-14T09:30:33.664Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/2019/08/07/locate-hosts-using-mdns/</loc>
-        <lastmod>2023-06-15T11:27:43.050Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
