@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://blog.beanbang.cn/2025/01/06/2024-ruankao-architect/</loc>
+        <lastmod>2025-11-01T16:11:19.004Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://blog.beanbang.cn/2020/02/03/idea-documenting-code/</loc>
         <lastmod>2025-10-28T09:20:04.150Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -139,14 +147,6 @@
     <url>
         <loc>https://blog.beanbang.cn/2024/06/27/lvm-and-pve-storage-structure/</loc>
         <lastmod>2025-09-14T05:25:46.878Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/2025/01/06/2024-ruankao-architect/</loc>
-        <lastmod>2025-09-14T05:18:33.274Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
