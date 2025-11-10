@@ -3,6 +3,27 @@
 
 
     <url>
+        <loc>https://blog.beanbang.cn/tags/ai/</loc>
+        <lastmod>2025-11-10T14:31:05.099Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/translation/</loc>
+        <lastmod>2025-11-10T14:31:05.099Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/llm/</loc>
+        <lastmod>2025-11-10T14:31:05.099Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://blog.beanbang.cn/tags/os/</loc>
         <lastmod>2025-11-07T15:08:34.329Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -89,27 +110,6 @@
     <url>
         <loc>https://blog.beanbang.cn/tags/remote-desktop/</loc>
         <lastmod>2025-10-27T09:45:33.362Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/ai/</loc>
-        <lastmod>2025-10-27T01:37:27.104Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/translation/</loc>
-        <lastmod>2025-10-27T01:37:27.104Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/llm/</loc>
-        <lastmod>2025-10-27T01:37:27.104Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
