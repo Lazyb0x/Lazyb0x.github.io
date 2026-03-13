@@ -3,14 +3,21 @@
 
 
     <url>
-        <loc>https://blog.beanbang.cn/tags/ai/</loc>
-        <lastmod>2025-12-30T11:43:53.130Z</lastmod>
+        <loc>https://blog.beanbang.cn/tags/llm/</loc>
+        <lastmod>2026-03-13T07:26:31.332Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>https://blog.beanbang.cn/tags/llm/</loc>
+        <loc>https://blog.beanbang.cn/tags/network/</loc>
+        <lastmod>2026-03-13T07:26:31.332Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/ai/</loc>
         <lastmod>2025-12-30T11:43:53.130Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -52,13 +59,6 @@
     </url>
 
     <url>
-        <loc>https://blog.beanbang.cn/tags/windows/</loc>
-        <lastmod>2025-10-28T09:14:59.943Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>https://blog.beanbang.cn/tags/raspberry-pi/</loc>
         <lastmod>2025-10-28T09:14:59.943Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -66,8 +66,15 @@
     </url>
 
     <url>
-        <loc>https://blog.beanbang.cn/tags/network/</loc>
+        <loc>https://blog.beanbang.cn/tags/windows/</loc>
         <lastmod>2025-10-28T09:14:59.943Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://blog.beanbang.cn/tags/remote-desktop/</loc>
+        <lastmod>2025-10-27T09:45:33.362Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
@@ -102,13 +109,6 @@
 
     <url>
         <loc>https://blog.beanbang.cn/tags/ddns/</loc>
-        <lastmod>2025-10-27T09:45:33.362Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://blog.beanbang.cn/tags/remote-desktop/</loc>
         <lastmod>2025-10-27T09:45:33.362Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
