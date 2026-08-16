@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>使用 OpenClaw 和 DeepSeek 遇到的定时任务问题 - 冰棒实验室</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="冰棒实验室"><meta name="msapplication-TileImage" content="/img/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="冰棒实验室"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="OpenClaw 的定时任务很好用。但是几个月以来，总会时不时地遇到定时任务的 AI 接口请求超时的情况，出现类似的报错信息："><meta property="og:type" content="blog"><meta property="og:title" content="使用 OpenClaw 和 DeepSeek 遇到的定时任务问题"><meta property="og:url" content="https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/"><meta property="og:site_name" content="冰棒实验室"><meta property="og:description" content="OpenClaw 的定时任务很好用。但是几个月以来，总会时不时地遇到定时任务的 AI 接口请求超时的情况，出现类似的报错信息："><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/request-result.png"><meta property="og:image" content="https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/uptime-kuma.png"><meta property="og:image" content="https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/response_time.svg"><meta property="og:image" content="https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/deepseek-meme.webp"><meta property="og:image" content="https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/new-api-replace.png"><meta property="article:published_time" content="2026-08-16T08:00:00.000Z"><meta property="article:modified_time" content="2026-08-16T08:49:15.851Z"><meta property="article:author" content="Lazyb0x"><meta property="article:tag" content="网络"><meta property="article:tag" content="LLM"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/request-result.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/"},"headline":"使用 OpenClaw 和 DeepSeek 遇到的定时任务问题","image":["https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/request-result.png","https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/uptime-kuma.png","https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/deepseek-meme.webp","https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/new-api-replace.png"],"datePublished":"2026-08-16T08:00:00.000Z","dateModified":"2026-08-16T08:49:15.851Z","author":{"@type":"Person","name":"Lazyb0x"},"publisher":{"@type":"Organization","name":"冰棒实验室","logo":{"@type":"ImageObject","url":"https://blog.beanbang.cn/img/favicon.ico"}},"description":"OpenClaw 的定时任务很好用。但是几个月以来，总会时不时地遇到定时任务的\r AI 接口请求超时的情况，出现类似的报错信息："}</script><link rel="canonical" href="https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/"><link rel="icon" href="/img/favicon.ico"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/atom.xml" title="冰棒实验室" type="application/atom+xml">
+</head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">冰棒实验室</a><a class="navbar-item" href="/archives">归档</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/about">关于</a></div><div class="navbar-end"><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2026-08-16T08:00:00.000Z" title="2026/8/16 16:00:00">2026-08-16</time>发表</span><span class="level-item"><time dateTime="2026-08-16T08:49:15.851Z" title="2026/8/16 16:49:15">2026-08-16</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/software/">软件</a></span><span class="level-item">9 分钟读完 (大约1331个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">使用 OpenClaw 和 DeepSeek 遇到的定时任务问题</h1><div class="content"><p>OpenClaw 的定时任务很好用。但是几个月以来，总会时不时地遇到定时任务的
+AI 接口请求超时的情况，出现类似的报错信息：</p>
+<span id="more"></span>
+<blockquote>
+<p>⚠️ Cron job "会员日折扣提醒" failed: The model did not produce a
+response before the model idle timeout. Please try again, or increase
+<code>models.providers.&lt;id&gt;.timeoutSeconds</code> for slow local
+or self-hosted providers. If <code>agents.defaults.timeoutSeconds</code>
+or a run-specific timeout is lower, raise that ceiling too; provider
+timeouts cannot extend the whole agent run.</p>
+</blockquote>
+<p>或者：</p>
+<blockquote>
+<p>⚠️ Cron job "会员日折扣提醒" failed: FailoverError: The provider
+returned an HTML error page instead of an API response. This usually
+means a CDN or gateway (e.g. Cloudflare) blocked the request. Retry in a
+moment or check provider status.</p>
+</blockquote>
+<p>以前是偶尔出现，最近几乎每天都会报错，然后聊天框堆满了这样的错误信息。但是普通聊天的响应又是正常的，只有定时任务才会有问题。这里面一定有什么蹊跷，需要研究一下。</p>
+<h2 id="排查问题">排查问题</h2>
+<p>借助之前搭的<a
+href="https://blog.beanbang.cn/2026/03/12/mitm-llm-prompt-sniffing/">抓包服务</a>，我抓到了普通聊天和
+cron
+触发的任务请求，发现除了用户提示词不一样之外，系统提示词和工具列表等等参数都是完全一致的。定时任务的用户提示词片段大概是这样：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;role&quot;</span><span class="punctuation">:</span> <span class="string">&quot;user&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span> <span class="string">&quot;[cron:585e6293-23fb-4b48-af9c-40f29107d497 工作日打卡工时提醒] 你的唯一任务是检查今天是否为中国的工作日，如果是则发送提醒用户记得打卡和填工时。...&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>提示词内只要包含这小部分内容，发送出去的请求就没有响应。继续把这个请求内容缩短进行测试，发现只要<strong>提示词开头包含
+<code>[cron:</code> 的请求就会响应非常慢</strong>。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;model&quot;</span><span class="punctuation">:</span> <span class="string">&quot;deepseek-v4-flash&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;messages&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;role&quot;</span><span class="punctuation">:</span> <span class="string">&quot;user&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;content&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="punctuation">&#123;</span></span><br><span class="line">                    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;text&quot;</span><span class="punctuation">,</span></span><br><span class="line">                    <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;[cron:&quot;</span></span><br><span class="line">                <span class="punctuation">&#125;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;stream&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;thinking&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;disabled&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;max_tokens&quot;</span><span class="punctuation">:</span> <span class="number">100</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，连接建立得很快，但是 SSE
+返回的只有用于保持连接的空内容，直到很长时间之后才开始返回推理内容。最长会等待
+10 分钟，超过这个时间连接就<a
+target="_blank" rel="noopener" href="https://api-docs.deepseek.com/zh-cn/quick_start/rate_limit/#%E8%AF%B7%E6%B1%82%E4%BF%9D%E6%B4%BB%E6%9C%BA%E5%88%B6">直接关闭了</a>。</p>
+<img src="/2026/08/16/openclaw-deepseek-cron-issue/request-result.png" class="" alt="将近 1 分钟才收到响应">
+<p>为了继续验证猜想，我创建了一个 Uptime Kuma 监控项，发送给 DeepSeek
+API，内容就是上面那段请求。每隔 1 分钟发送一次，超时时间是 48
+秒，监控了大约 1 天的时间。</p>
+<img src="/2026/08/16/openclaw-deepseek-cron-issue/uptime-kuma.png" class="" alt="Uptime Kuma 监控页面">
+<p>Uptime Kuma 的预览图表比较小，我把它的数据提取出来，用 Python
+重新画了一遍，另外还有一个把方括号替换成直角引号的对照组。</p>
+<img src="/2026/08/16/openclaw-deepseek-cron-issue/response_time.svg" class="" alt="24 小时 DS 异常请求监控">
+<p>8 月 12 日晚 DeepSeek V4 Pro 发布了，所以 13
+日的异常可能不太好说。不过总体的情况也可以说是惨不忍睹，每到整点和整半点几乎都不能访问。这里测试的模型是
+V4-Flash-0731，前两个月我用的是 V4-Pro
+预览版，也是报错很多。总之，我们大概可以得出结论：</p>
+<ol type="1">
+<li>OpenClaw 的用户还是很多的，而且大家都喜欢把定时任务设置在整点</li>
+<li>DeepSeek
+采用了某种缓存算法，对大量相同前缀的请求有特殊的处理方式，结果反而是适得其反了</li>
+</ol>
+<p><img src="/2026/08/16/openclaw-deepseek-cron-issue/deepseek-meme.webp" style="zoom:35%;" alt="这是优质模型的回应？" title="这是优质模型的回应？"/></p>
+<h2 id="解决办法">解决办法</h2>
+<h3 id="避开整点时间">避开整点时间</h3>
+<p>这是最简单的办法，比如以前是 10 点整的提醒，就提前个几秒几分钟，例如
+9 点 59 分。毕竟用 AI
+做定时任务的，对执行时间的要求都不会很严格。事实也确实如此，把定时任务都提前几分钟后，基本上就没有报错出现了。</p>
+<h3 id="使用别的模型">使用别的模型</h3>
+<p>换用别家提供商的模型。或者，OpenClaw 也支持单独<a
+target="_blank" rel="noopener" href="https://docs.openclaw.ai/automation/cron-jobs#agent-turn-options">给任务配置模型</a>，只需要在创建任务的时候和
+AI 说清楚就可以了。</p>
+<h3 id="替换请求内容">替换请求内容</h3>
+<p>如果不想改定时任务时间，又还想继续用 DeepSeek
+系列模型的话，可以通过自己安装的中转代理修改请求内容，把出现的
+<code>[cron:</code> 字符串替换掉。我使用的 New API 有<a
+target="_blank" rel="noopener" href="https://www.newapi.ai/zh/docs/guide/feature-guide/admin/channel#14-replace---%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9B%BF%E6%8D%A2">字符串替换</a>功能，正好可以做这个事情。</p>
+<img src="/2026/08/16/openclaw-deepseek-cron-issue/new-api-replace.png" class="" alt="New API 的参数覆盖功能">
+<p>在「渠道管理」的「参数覆盖」选项里面，可以直接粘贴这段代码来应用配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;operations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;mode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;replace&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;OpenClaw 定时任务关键字无响应修复&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;messages.1.content&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;from&quot;</span><span class="punctuation">:</span> <span class="string">&quot;[cron:&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;to&quot;</span><span class="punctuation">:</span> <span class="string">&quot;「cron:&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;conditions&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;path&quot;</span><span class="punctuation">:</span> <span class="string">&quot;messages.1.content&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;mode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;contains&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;value&quot;</span><span class="punctuation">:</span> <span class="string">&quot;[cron:&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;logic&quot;</span><span class="punctuation">:</span> <span class="string">&quot;OR&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+</div><div class="article-licensing box"><div class="licensing-title"><p>使用 OpenClaw 和 DeepSeek 遇到的定时任务问题</p><p><a href="https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/">https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Lazyb0x</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2026-08-16</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2026-08-16</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/network/">网络</a><a class="link-muted mr-2" rel="tag" href="/tags/llm/">LLM</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2026/03/12/mitm-llm-prompt-sniffing/"><span class="level-item">利用 MITM 获取 LLM 应用的提示词</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><!--!--><div class="column column-right is-4-tablet is-4-desktop is-4-widescreen  order-3 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#排查问题"><span class="level-left"><span class="level-item">排查问题</span></span></a></li><li><a class="level is-mobile" href="#解决办法"><span class="level-left"><span class="level-item">解决办法</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#避开整点时间"><span class="level-left"><span class="level-item">避开整点时间</span></span></a></li><li><a class="level is-mobile" href="#使用别的模型"><span class="level-left"><span class="level-item">使用别的模型</span></span></a></li><li><a class="level is-mobile" href="#替换请求内容"><span class="level-left"><span class="level-item">替换请求内容</span></span></a></li></ul></li></ul></div></div><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/head.png" alt="Lazyb0x"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Lazyb0x</p><p class="is-size-6 is-block">玄之又玄，众妙之门</p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">30</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">3</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">37</p></a></div></div></nav><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/Lazyb0x"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Keybase" href="https://keybase.io/lazyb0x"><i class="fa fa-key"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">链接</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://michaelcodezhang.gitee.io/" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">MichaelZhang</span></span><span class="level-right"><span class="level-item tag">michaelcodezhang.gitee.io</span></span></a></li></ul></div></div></div></div></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/favicon.ico" alt="冰棒实验室" height="28"></a><p class="is-size-7"><span>&copy; 2026 Lazyb0x</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">冰棒之旅 <a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">闽ICP备17023244号-1 </a></p></div><div class="level-end"><div style="width: 162px; height: 98px; overflow: hidden; margin: 2em auto"><a target="_blank" rel="noopener" href="https://info.flagcounter.com/8awM"><img style="display: block; margin: 0 auto -23px;" title="访问人数统计" src="https://s05.flagcounter.com/count2/8awM/bg_FFFFFF/txt_4A4A4A/border_FFFFFF/columns_2/maxflags_10/viewers_3/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

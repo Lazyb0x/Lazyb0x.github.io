@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>https://blog.beanbang.cn/2026/08/16/openclaw-deepseek-cron-issue/</loc>
+        <lastmod>2026-08-16T08:49:15.851Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://blog.beanbang.cn/2026/03/12/mitm-llm-prompt-sniffing/</loc>
         <lastmod>2026-03-22T08:07:01.215Z</lastmod>
         <changefreq>weekly</changefreq>
